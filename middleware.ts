@@ -1,7 +1,5 @@
-import { getToken } from "next-auth/jwt";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-const secret = process.env.NEXTAUTH_SECRET;
-const isProductionMode = process.env.NODE_ENV === "production";
 
 export const config = {
   matcher: [
@@ -18,7 +16,9 @@ export const config = {
 
 export default async function middleware(req: NextRequest) {
   const url = req.nextUrl;
-
+  const jwtCookie = cookies().get("jwt");
+  const token = jwtCookie?.value;
+  console.log("token", token);
   // Get hostname of request (e.g. demo.vercel.pub, demo.localhost:3000)
   const hostname = req.headers
     .get("host")!
@@ -29,19 +29,14 @@ export default async function middleware(req: NextRequest) {
 
   // rewrites for app pages
   if (hostname == `${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
-    const session = await getToken({
-      req,
-      secret,
-      cookieName: `${
-        isProductionMode ? "__Secure-" : ""
-      }next-auth.session-token`,
-    });
-console.log('session', session)
-    if (!session && path !== "/login") {
+    // Allow access to /login and /register if unauthenticated
+    if (!token && path !== "/login" && path !== "/register") {
       return NextResponse.redirect(new URL("/login", req.url));
-    } else if (session && path == "/login") {
+    } else if (token && (path === "/login" || path === "/register")) {
       return NextResponse.redirect(new URL("/", req.url));
     }
+
+    // If authenticated or visiting /register or /login, proceed as normal
     return NextResponse.rewrite(
       new URL(`/app${path === "/" ? "" : path}`, req.url)
     );
@@ -56,6 +51,7 @@ console.log('session', session)
       new URL(`/home${path === "/" ? "" : path}`, req.url)
     );
   }
-  // rewrite everything else to `/[domain]/[path] dynamic route
+
+  // rewrite everything else to `/[domain]/[path]` dynamic route
   return NextResponse.rewrite(new URL(`/${hostname}${path}`, req.url));
 }
