@@ -3,55 +3,100 @@
 import TextField from "@/components/text-field/text-field";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
-import { Moon, Sun } from "lucide-react";
+import { signUp } from "@/lib/api/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useTheme } from "next-themes";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+const ThemeModeButton = dynamic(
+  () => import("@/components/theme-mode-button/theme-mode-button"),
+  { ssr: false }
+);
+
+const schema = z.object({
+  email: z
+    .string()
+    .email({ message: "Invalid email address" })
+    .min(1, { message: "Email is required" }),
+  password: z.string().min(1, { message: "Password is required" }),
+});
+
+type IFormInput = {
+  name: string;
+  email: string;
+  password: string;
+};
 
 const RegisterPage = () => {
   const { setTheme, theme } = useTheme();
+  const { register, handleSubmit } = useForm<IFormInput>({
+    resolver: zodResolver(schema),
+  });
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    setLoading(true);
+    try {
+      await signUp(data);
+    } catch (error: any) {
+      console.log("error", error);
+      toast.error(error.message);
+    }
+    setLoading(false);
+  };
+
   const handleChangeMode = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <Button
-        variant={`link`}
-        onClick={handleChangeMode}
-        className="fixed top-5 right-5"
-      >
-        {theme === "dark" ? <Sun /> : <Moon />}
-      </Button>
+      <ThemeModeButton className="fixed top-5 right-5" />
 
-      <div className="max-w-[500px] overflow-hidden bg-muted rounded-md w-full mx-auto flex-col gap-4 flex p-10">
-        <Typography
-          variant={"h2"}
-          className="p-10 pb-5 -mx-10 -mt-10 mb-10 bg-primary text-white"
-        >
-          Register
-        </Typography>
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+        <div className="max-w-[500px] overflow-hidden bg-muted rounded-md w-full mx-auto flex-col gap-4 flex p-10">
+          <Typography
+            variant={"h2"}
+            className="p-10 pb-5 -mx-10 -mt-10 mb-10 bg-primary text-white"
+          >
+            Register
+          </Typography>
 
-        <TextField
-          label="Email"
-          type="email"
-          name="email"
-          labelClassName="text-primary"
-        />
-        <TextField
-          label="Password"
-          type="password"
-          name="password"
-          labelClassName="text-primary"
-        />
-        <Button>Sign Up</Button>
-        <Typography variant={"small"} className="text-center">
-          {`Have an account? `}
-          <Link href={`/login`} className="text-primary hover:underline">
-            Sign In
-          </Link>
-        </Typography>
-      </div>
+          <TextField
+            label="Name"
+            type="name"
+            labelClassName="text-primary"
+            {...register("name")}
+          />
+          <TextField
+            label="Email"
+            type="email"
+            labelClassName="text-primary"
+            {...register("email")}
+          />
+          <TextField
+            label="Password"
+            type="password"
+            labelClassName="text-primary"
+            {...register("password")}
+          />
+
+          <Button loading={loading} disabled={loading} type="submit">
+            Sign Up
+          </Button>
+
+          <Typography variant={"small"} className="text-center">
+            {`Have an account? `}
+            <Link href={`/login`} className="text-primary hover:underline">
+              Sign In
+            </Link>
+          </Typography>
+        </div>
+      </form>
     </div>
   );
 };

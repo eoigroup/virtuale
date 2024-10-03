@@ -3,8 +3,6 @@
 import TextField from "@/components/text-field/text-field";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
-import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
 import Link from "next/link";
 import React, { useState } from "react";
 import { z } from "zod";
@@ -12,6 +10,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { signIn } from "@/lib/api/auth";
+import dynamic from "next/dynamic";
+const ThemeModeButton = dynamic(
+  () => import("@/components/theme-mode-button/theme-mode-button"),
+  { ssr: false }
+);
 
 type IFormInput = {
   email: string;
@@ -27,7 +30,6 @@ const schema = z.object({
 });
 
 const LoginPage = () => {
-  const { setTheme, theme } = useTheme();
   const [loading, setLoading] = useState<boolean>(false);
   const { register, handleSubmit } = useForm<IFormInput>({
     resolver: zodResolver(schema),
@@ -43,20 +45,9 @@ const LoginPage = () => {
     setLoading(false);
   };
 
-  const handleChangeMode = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
-
   return (
     <div className="flex items-center justify-center h-screen">
-      <Button
-        type="button"
-        variant={`link`}
-        onClick={handleChangeMode}
-        className="fixed top-5 right-5"
-      >
-        {theme === "dark" ? <Sun /> : <Moon />}
-      </Button>
+      <ThemeModeButton className="fixed top-5 right-5" />
 
       <form onSubmit={handleSubmit(onSubmit)} className="w-full">
         <div className="max-w-[500px] overflow-hidden bg-muted rounded-md w-full mx-auto flex-col gap-4 flex p-10">

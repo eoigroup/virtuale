@@ -20,7 +20,12 @@ export async function POST(req: Request) {
       }),
     });
 
-    return NextResponse.json(response, { status: 200 });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
+
+    return NextResponse.json(data, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(
       { error: error?.message || "Internal Server Error" },
