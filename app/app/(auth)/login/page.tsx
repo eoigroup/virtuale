@@ -11,6 +11,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { signIn } from "@/lib/api/auth";
 
 type IFormInput = {
   email: string;
@@ -35,21 +36,9 @@ const LoginPage = () => {
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     setLoading(true);
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      // Check if the response is not OK
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.error);
-      }
+      await signIn(data);
     } catch (error: any) {
-      toast.error(error.message || "Something went wrong");
+      toast.error(error.message);
     }
     setLoading(false);
   };
