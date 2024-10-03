@@ -1,5 +1,6 @@
 "use client";
 
+import EmailVerifyModal from "@/components/modal/email-verify-modal/email-verify-modal";
 import TextField from "@/components/text-field/text-field";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
@@ -32,25 +33,23 @@ type IFormInput = {
 };
 
 const RegisterPage = () => {
-  const { setTheme, theme } = useTheme();
-  const { register, handleSubmit } = useForm<IFormInput>({
+  const { register, handleSubmit, getValues } = useForm<IFormInput>({
     resolver: zodResolver(schema),
   });
   const [loading, setLoading] = useState<boolean>(false);
+  const [isVerifying, setIsVerifying] = useState<boolean>(false);
+  const [isOpenVerifyModal, setIsOpenVerifyModal] = useState<boolean>(false);
+  const values = getValues();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     setLoading(true);
     try {
       await signUp(data);
+      setIsOpenVerifyModal(true);
     } catch (error: any) {
-      console.log("error", error);
       toast.error(error.message);
     }
     setLoading(false);
-  };
-
-  const handleChangeMode = () => {
-    setTheme(theme === "light" ? "dark" : "light");
   };
 
   return (
@@ -58,14 +57,7 @@ const RegisterPage = () => {
       <ThemeModeButton className="fixed top-5 right-5" />
 
       <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-        <div className="max-w-[500px] overflow-hidden bg-muted rounded-md w-full mx-auto flex-col gap-4 flex p-10">
-          <Typography
-            variant={"h2"}
-            className="p-10 pb-5 -mx-10 -mt-10 mb-10 bg-primary text-white"
-          >
-            Register
-          </Typography>
-
+        <div className="max-w-[500px] shadow-lg overflow-hidden bg-muted rounded-md w-full mx-auto flex-col gap-4 flex p-10">
           <TextField
             label="Name"
             type="name"
@@ -97,6 +89,12 @@ const RegisterPage = () => {
           </Typography>
         </div>
       </form>
+
+      <EmailVerifyModal
+        email={values.email}
+        isOpen={isOpenVerifyModal}
+        onClose={setIsOpenVerifyModal}
+      />
     </div>
   );
 };

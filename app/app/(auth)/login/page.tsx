@@ -11,6 +11,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { signIn } from "@/lib/api/auth";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 const ThemeModeButton = dynamic(
   () => import("@/components/theme-mode-button/theme-mode-button"),
   { ssr: false }
@@ -31,6 +32,7 @@ const schema = z.object({
 
 const LoginPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
   const { register, handleSubmit } = useForm<IFormInput>({
     resolver: zodResolver(schema),
   });
@@ -39,6 +41,7 @@ const LoginPage = () => {
     setLoading(true);
     try {
       await signIn(data);
+      router.push("/");
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -51,12 +54,6 @@ const LoginPage = () => {
 
       <form onSubmit={handleSubmit(onSubmit)} className="w-full">
         <div className="max-w-[500px] overflow-hidden bg-muted rounded-md w-full mx-auto flex-col gap-4 flex p-10">
-          <Typography
-            variant={"h2"}
-            className="p-10 pb-5 -mx-10 -mt-10 mb-10 bg-primary text-white"
-          >
-            Login
-          </Typography>
           <TextField
             label="Email"
             type="email"
