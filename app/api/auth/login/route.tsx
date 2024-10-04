@@ -1,8 +1,8 @@
 import { API_URL } from "@/lib/config";
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const body = await req.json();
   try {
     const { email, password } = body;
