@@ -1,5 +1,7 @@
+import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { DecodedJWT } from "./types/user";
 
 export const config = {
   matcher: [
@@ -26,6 +28,13 @@ export default async function middleware(req: NextRequest) {
 
   // Get the pathname of the request (e.g. /, /about, /blog/first-post)
   const path = url.pathname;
+
+  if (token) {
+    const decoded = jwtDecode<DecodedJWT>(token);
+    if (decoded.exp && Date.now() >= decoded.exp * 1000) {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
+  }
 
   // rewrites for app pages
   if (hostname == `${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {

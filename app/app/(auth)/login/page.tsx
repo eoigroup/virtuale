@@ -53,7 +53,7 @@ const LoginPage = () => {
       <ThemeModeButton className="fixed top-5 right-5" />
 
       <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-        <div className="max-w-[500px] overflow-hidden bg-muted rounded-md w-full mx-auto flex-col gap-4 flex p-10">
+        <div className="max-w-[500px] overflow-hidden bg-surface-elevation-1 rounded-md w-full mx-auto flex-col gap-4 flex p-10">
           <TextField
             label="Email"
             type="email"

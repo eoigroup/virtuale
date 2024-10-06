@@ -44,7 +44,7 @@ const UserMenu = () => {
               "p-3 px-2 rounded duration-300 transition-all cursor-pointer"
             )}
           >
-            <picture className="flex items-center justify-center min-w-9 w-9 h-9 rounded-full bg-primary">
+            <picture className="flex items-center justify-center min-w-9 w-9 h-9 rounded-full font-bold character-gradient-v">
               {user?.profile_picture ? (
                 <Image
                   src={user.profile_picture}

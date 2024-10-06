@@ -1,9 +1,17 @@
 import React from "react";
 import { Typography } from "../ui/typography";
-import Link from "next/link";
+import { usePersona } from "@/contexts/persona-context";
 import ChatItem from "./chat-item";
+import { usePathname } from "next/navigation";
 
 const ChatList = () => {
+  const { personas } = usePersona();
+  const pathname = usePathname();
+
+  const active = (personaId: string | number) => {
+    return pathname.includes(`/chat/${personaId}`);
+  };
+
   return (
     <div className="px-4 pt-5 h-full overflow-auto">
       <Typography variant={"small"} className="font-medium">
@@ -11,7 +19,13 @@ const ChatList = () => {
       </Typography>
 
       <ul className="py-1">
-        <ChatItem active={false} />
+        {personas.map((persona) => (
+          <ChatItem
+            key={`chat-${persona.persona_id}`}
+            persona={persona}
+            active={active(persona.persona_id!)}
+          />
+        ))}
       </ul>
     </div>
   );

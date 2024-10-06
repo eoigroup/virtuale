@@ -41,5 +41,6 @@ export type IUser = {
 
 export type DecodedJWT = {
   unique_id: string;
+  exp: number
   // Add other properties if needed
 };
