@@ -4,15 +4,20 @@ import Link from "next/link";
 import React from "react";
 import { Typography } from "../ui/typography";
 import { Button } from "../ui/button";
-import { AlignLeft, ChevronsLeft } from "lucide-react";
+import { AlignLeft, ChevronsLeft, Compass } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useMenu } from "@/contexts/menu-context";
+import ChatList from "./chat-list";
+import { usePathname } from "next/navigation";
+import UserMenu from "../user-menu/user-menu";
 
 const Sidebar = () => {
   const { isMenuExpanded, setIsMenuExpanded } = useMenu();
   const handleToggle = () => {
     setIsMenuExpanded((prev) => !prev);
   };
+
+  const pathname = usePathname();
 
   return (
     <aside className="h-dvh fixed z-50">
@@ -22,8 +27,7 @@ const Sidebar = () => {
             "overflow-hidden transition-all ease-out duration-300 bg-muted border-r border-r-border-divider z-20 fixed inset-0 lg:static h-screen lg:h-full",
             {
               "max-w-64": isMenuExpanded, // Expanded state
-              "max-w-0 -translate-x-full lg:max-w-64":
-                !isMenuExpanded, // Collapsed state for mobile
+              "max-w-0 -translate-x-full lg:max-w-64": !isMenuExpanded, // Collapsed state for mobile
             }
           )}
         >
@@ -42,7 +46,21 @@ const Sidebar = () => {
                   <ChevronsLeft size={16} />
                 </Button>
               </div>
-              {/* menu list here */}
+              <div className="p-4 w-full">
+                <Link
+                  href={"/"}
+                  className={cn(
+                    "w-full flex items-center gap-2 px-3 py-2 rounded-md",
+                    "transform duration-200 hover:bg-primary/90",
+                    { "bg-primary": pathname === "/" }
+                  )}
+                >
+                  <Compass size={24} />
+                  Discover
+                </Link>
+              </div>
+              <ChatList />
+              <UserMenu />
             </div>
           </div>
         </div>

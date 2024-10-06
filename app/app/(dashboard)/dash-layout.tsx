@@ -10,13 +10,13 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const { loading } = useUser();
   const { isMenuExpanded } = useMenu();
 
-//   if (loading) {
-//     return (
-//       <div className="w-screen h-screen flex justify-center items-center">
-//         <Loader />
-//       </div>
-//     );
-//   }
+  if (loading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <div className="flex">

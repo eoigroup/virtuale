@@ -13,13 +13,13 @@ type TypographyVariant =
   | "h6"
   | "subtitle"
   | "body"
-  | "smallText"
   | "caption"
   | "overline"
   | "blockquote"
   | "lead"
   | "large"
-  | "small";
+  | "small"
+  | "xsmall";
 
 // Define a mapping from variant to HTML elements
 const variantToElement: Record<TypographyVariant, keyof JSX.IntrinsicElements> =
@@ -32,13 +32,13 @@ const variantToElement: Record<TypographyVariant, keyof JSX.IntrinsicElements> =
     h6: "h6",
     subtitle: "h6", // Default semantic element for subtitles
     body: "p",
-    smallText: "span",
     caption: "span",
     overline: "span",
     blockquote: "blockquote",
     lead: "p",
     large: "p",
     small: "small",
+    xsmall: "small",
   };
 
 // Use cva to define the typography styles
@@ -59,7 +59,7 @@ const typographyVariants = cva("", {
       blockquote: "text-lg italic border-l-4 pl-4 border-gray-300",
       lead: "text-xl font-light text-gray-700",
       large: "text-2xl",
-      "extra-small": "text-xs",
+      xsmall: "text-xs",
     },
   },
   defaultVariants: {
