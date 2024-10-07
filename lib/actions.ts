@@ -1,5 +1,6 @@
 export const USER_ACTIONS = {
   GET_USER: "get_user",
+  UPDATE_USER: "update_user",
 };
 
 export const PERSONA_ACTIONS = {

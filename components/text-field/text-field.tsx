@@ -59,7 +59,7 @@ const TextField: React.FC<TextFieldProps> = forwardRef(
         </div>
         {error && (
           <Typography
-            variant={"extra-small"}
+            variant={"xsmall"}
             className="text-destructive mt-1 text-xs"
             as={"p"}
           >

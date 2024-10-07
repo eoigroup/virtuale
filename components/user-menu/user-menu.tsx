@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useUser } from "@/contexts/user-context";
 import { Typography } from "../ui/typography";
 import { cn } from "@/lib/utils";
-import { ChevronDown, LogOut, Moon, Sun } from "lucide-react";
+import { ChevronDown, LogOut, Moon, Settings, Sun } from "lucide-react";
 import Image from "next/image";
 import {
   DropdownMenu,
@@ -12,12 +12,14 @@ import {
 } from "../ui/dropdown-menu";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
+import UserSettingsModal from "../modal/user-settings-modal/user-settings-modal";
 
 const UserMenu = () => {
   const { user } = useUser();
   const { setTheme, theme } = useTheme();
   const router = useRouter();
-
+  const [isOpenSettingsModal, setIsOpenSettingsModal] =
+    useState<boolean>(false);
   const handleChangeMode = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
@@ -62,9 +64,9 @@ const UserMenu = () => {
             <Typography
               variant={"xsmall"}
               className="text-ellipsis overflow-hidden flex-1 w-[80px] whitespace-nowrap"
-              title={user?.email}
+              title={user?.username}
             >
-              {user?.email}
+              {user?.username}
             </Typography>
             <ChevronDown size={16} />
           </div>
@@ -79,12 +81,23 @@ const UserMenu = () => {
           </DropdownMenuItem>
           <DropdownMenuItem
             className="flex justify-between cursor-pointer gap-2"
+            onClick={() => setIsOpenSettingsModal(true)}
+          >
+            Settings <Settings size={16} />
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="flex justify-between cursor-pointer gap-2"
             onClick={handleLogout}
           >
             Log out <LogOut size={16} />
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+
+      <UserSettingsModal
+        isOpen={isOpenSettingsModal}
+        onClose={setIsOpenSettingsModal}
+      />
     </div>
   );
 };

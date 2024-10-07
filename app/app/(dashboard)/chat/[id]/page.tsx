@@ -21,7 +21,7 @@ const ChatPage = () => {
   return (
     <div className="flex h-full">
       <div className="w-full flex flex-col items-center">
-        <div className="flex-1">
+        <div className="flex-1 w-full overflow-y-auto">
           <div
             className={cn(
               "flex flex-1 flex-col items-center text-center gap-1 pb-6 pt-12",

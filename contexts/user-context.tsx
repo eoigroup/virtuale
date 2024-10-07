@@ -15,6 +15,7 @@ import { getUser } from "@/lib/api/user";
 interface UserContextProps {
   user: IUser | null;
   loading: boolean;
+  updateSessionUser: () => Promise<void>;
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -23,7 +24,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const getSessionUser = async () => {
+  const updateSessionUser = async () => {
     try {
       const response = await getUser();
       setUser(response.data.user);
@@ -34,11 +35,11 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    getSessionUser();
+    updateSessionUser();
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, loading }}>
+    <UserContext.Provider value={{ user, loading, updateSessionUser }}>
       {children}
     </UserContext.Provider>
   );
