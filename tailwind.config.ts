@@ -40,14 +40,18 @@ const config: Config = {
           DEFAULT: "var(--destructive)",
           foreground: "var(--destructive-foreground)",
         },
-        border: "var(--border)",
+        border: {
+          DEFAULT: "var(--border)",
+          outline: "var(--border-outline)",
+        },
+        "border-divider": "var(--border-divider)",
         input: "var(--input)",
         scrim: {
           DEFAULT: "var(--scrim)",
-		  0: 'var(--scrim-0)',
-		  4: 'var(--scrim-4)',
-		  8: 'var(--scrim-8)',
-		  12: 'var(--scrim-12)',
+          0: "var(--scrim-0)",
+          4: "var(--scrim-4)",
+          8: "var(--scrim-8)",
+          12: "var(--scrim-12)",
         },
         "surface-elevation": {
           "1": "var(--surface-elevation-1)",

@@ -4,7 +4,7 @@ import React from "react";
 
 const DashboardPage = () => {
   return (
-    <div>
+    <div className="py-10 max-w-7xl mx-auto">
       <Typography variant={"h6"} className="font-normal text-muted-foreground">
         Welcome back,
       </Typography>

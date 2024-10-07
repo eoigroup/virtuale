@@ -13,7 +13,7 @@ const ChatList = () => {
   };
 
   return (
-    <div className="px-4 pt-5 h-full overflow-auto">
+    <div className="px-4 h-full overflow-auto">
       <Typography variant={"small"} className="font-medium">
         Chats
       </Typography>

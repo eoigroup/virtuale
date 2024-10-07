@@ -19,6 +19,7 @@ const ThemeModeButton = dynamic(
 );
 
 const schema = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
   email: z
     .string()
     .email({ message: "Invalid email address" })
@@ -37,7 +38,6 @@ const RegisterPage = () => {
     resolver: zodResolver(schema),
   });
   const [loading, setLoading] = useState<boolean>(false);
-  const [isVerifying, setIsVerifying] = useState<boolean>(false);
   const [isOpenVerifyModal, setIsOpenVerifyModal] = useState<boolean>(false);
   const values = getValues();
 
@@ -60,7 +60,6 @@ const RegisterPage = () => {
         <div className="max-w-[500px] shadow-lg overflow-hidden bg-surface-elevation-1 rounded-md w-full mx-auto flex-col gap-4 flex p-10">
           <TextField
             label="Name"
-            type="name"
             labelClassName="text-primary"
             {...register("name")}
           />

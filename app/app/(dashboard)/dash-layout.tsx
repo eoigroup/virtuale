@@ -30,13 +30,12 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
       </div>
       <main
         className={cn(
-          "p-4 md:p-8",
           `flex-1 min-h-screen transition-all md:ml-7`,
           { "max-w-full": !isMenuExpanded },
           { "max-w-[calc(100%-256px)]": isMenuExpanded }
         )}
       >
-        <div className="max-w-7xl w-full mx-auto">{children}</div>
+        <div className="w-full mx-auto h-full">{children}</div>
       </main>
     </div>
   );
