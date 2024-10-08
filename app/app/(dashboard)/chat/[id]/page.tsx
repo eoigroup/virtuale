@@ -3,6 +3,7 @@
 import ChatInput from "@/components/chat-input/chat-input";
 import ChatMessages from "@/components/chat-messages/chat-messages";
 import ChatRightPanel from "@/components/chat-right-panel/chat-right-panel";
+import ChatPageLoading from "@/components/loading/chat-page-loading/chat-page-loading";
 import PersonaImage from "@/components/persona-image/persona-image";
 import { Typography } from "@/components/ui/typography";
 import { usePersona } from "@/contexts/persona-context";
@@ -12,10 +13,14 @@ import React from "react";
 
 const ChatPage = () => {
   const { id } = useParams();
-  const { personas } = usePersona();
+  const { personas, loading } = usePersona();
   const persona = personas.find(
     (persona) => Number(persona.persona_id) === Number(id)
   );
+
+  if (loading) {
+    return <ChatPageLoading />;
+  }
 
   if (!persona) return null;
 

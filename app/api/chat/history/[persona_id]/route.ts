@@ -46,7 +46,7 @@ export async function GET(
 
     const body: BodyInit = new FormData();
     body.append("unique_id", jwt.unique_id);
-    body.append("action", PERSONA_ACTIONS.GET_USER_CONVOS);
+    body.append("action", PERSONA_ACTIONS.GET_USER_MESSAGES);
     body.append("persona_id", String(persona_id));
 
     const requestOptions: RequestInit = {
@@ -61,7 +61,7 @@ export async function GET(
       redirect: "follow",
     };
 
-    const response = await fetch(`${API_URL}/api/v2/personas`, requestOptions);
+    const response = await fetch(`${API_URL}/api/v2/user`, requestOptions);
     const data = await response.json();
 
     if (!response.ok) {
