@@ -3,9 +3,10 @@ import { Typography } from "../ui/typography";
 import { usePersona } from "@/contexts/persona-context";
 import ChatItem from "./chat-item";
 import { usePathname } from "next/navigation";
+import { Skeleton } from "../ui/skeleton";
 
 const ChatList = () => {
-  const { personas } = usePersona();
+  const { personas, loading } = usePersona();
   const pathname = usePathname();
 
   const active = (personaId: string | number) => {
@@ -19,13 +20,20 @@ const ChatList = () => {
       </Typography>
 
       <ul className="py-1">
-        {personas.map((persona) => (
-          <ChatItem
-            key={`chat-${persona.persona_id}`}
-            persona={persona}
-            active={active(persona.persona_id!)}
-          />
-        ))}
+        {loading
+          ? [...Array(3)].map((el, index) => (
+              <Skeleton
+                key={`persona-chat-item-loading-${index}`}
+                className="w-full h-11 mt-1 rounded-md"
+              />
+            ))
+          : personas.map((persona) => (
+              <ChatItem
+                key={`chat-${persona.persona_id}`}
+                persona={persona}
+                active={active(persona.persona_id!)}
+              />
+            ))}
       </ul>
     </div>
   );
