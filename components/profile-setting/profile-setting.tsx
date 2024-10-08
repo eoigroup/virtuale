@@ -9,6 +9,7 @@ import { useUser } from "@/contexts/user-context";
 import { toast } from "sonner";
 import { updateUser } from "@/lib/api/user";
 import { cn, getDirtyValues } from "@/lib/utils";
+import UserAvatar from "../user-avatar/user-avatar";
 
 type FormValues = {
   username: string;
@@ -52,7 +53,9 @@ const ProfileSetting = () => {
       <Typography variant={"h3"} className="mb-3">
         Profile
       </Typography>
-      <div className="space-x-4 flex-1">
+      <div className="space-y-4 flex-1">
+        <UserAvatar className="w-20 h-20" variant="large" editable />
+
         <TextField
           label="Username"
           {...register("username")}

@@ -1,5 +1,5 @@
 export type IPersona = {
-  persona_id?: string | number;
+  persona_id: string;
   name: string;
   category_name: null;
   agent_category: string;

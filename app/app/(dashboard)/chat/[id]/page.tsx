@@ -1,11 +1,12 @@
 "use client";
 
 import ChatInput from "@/components/chat-input/chat-input";
+import ChatMessages from "@/components/chat-messages/chat-messages";
 import ChatRightPanel from "@/components/chat-right-panel/chat-right-panel";
+import PersonaImage from "@/components/persona-image/persona-image";
 import { Typography } from "@/components/ui/typography";
 import { usePersona } from "@/contexts/persona-context";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import { useParams } from "next/navigation";
 import React from "react";
 
@@ -29,16 +30,15 @@ const ChatPage = () => {
               "gap-1"
             )}
           >
-            <Image
-              src={persona.profile_image}
-              width={0}
-              height={0}
-              alt=""
-              sizes="100vw"
+            <PersonaImage
+              image={persona.profile_image}
               className="w-16 h-16 object-cover rounded-full"
+              defaultSize={24}
             />
             <Typography variant={"h6"}>{persona.name}</Typography>
           </div>
+
+          <ChatMessages personaId={persona.persona_id} />
         </div>
 
         <div className="flex w-full flex-col max-w-2xl">

@@ -4,6 +4,7 @@ import React from "react";
 import { Typography } from "../ui/typography";
 import Link from "next/link";
 import { MessageCircle, User } from "lucide-react";
+import PersonaImage from "../persona-image/persona-image";
 
 const PersonaCard = ({ persona }: { persona: IPersona }) => {
   return (
@@ -11,20 +12,11 @@ const PersonaCard = ({ persona }: { persona: IPersona }) => {
       href={`/chat/${persona.persona_id}`}
       className="flex gap-4 rounded-lg bg-surface-elevation-1 p-4 cursor-pointer transition-all hover:bg-scrim-8"
     >
-      {persona.profile_image ? (
-        <Image
-          src={persona.profile_image}
-          width={0}
-          height={0}
-          sizes="100vw"
-          alt={persona.name}
-          className="w-[90px] h-[115px] object-cover rounded-xl"
-        />
-      ) : (
-        <div className="flex items-center justify-center w-[90px] h-[115px] object-cover rounded-xl bg-muted">
-          <User size={24} />
-        </div>
-      )}
+      <PersonaImage
+        image={persona.profile_image}
+        className="w-[90px] h-[115px] object-cover rounded-xl"
+        defaultSize={24}
+      />
       <div className="flex-1 flex flex-col">
         <Typography variant={"small"} className="mb-2" as={"div"}>
           {persona.name}

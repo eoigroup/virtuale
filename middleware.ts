@@ -32,6 +32,7 @@ export default async function middleware(req: NextRequest) {
   if (token) {
     const decoded = jwtDecode<DecodedJWT>(token);
     if (decoded.exp && Date.now() >= decoded.exp * 1000) {
+      cookies().delete("jwt");
       return NextResponse.redirect(new URL("/login", req.url));
     }
   }

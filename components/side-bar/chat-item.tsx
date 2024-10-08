@@ -5,6 +5,7 @@ import React from "react";
 import { Typography } from "../ui/typography";
 import { IPersona } from "@/types/persona";
 import { User } from "lucide-react";
+import PersonaImage from "../persona-image/persona-image";
 
 const ChatItem = ({
   persona,
@@ -23,20 +24,11 @@ const ChatItem = ({
           { "bg-surface-elevation-2 hover:opacity-80": active }
         )}
       >
-        {persona.profile_image ? (
-          <Image
-            src={persona.profile_image}
-            width={0}
-            height={0}
-            sizes="100vw"
-            alt=""
-            className="w-8 h-8 rounded-full object-cover"
-          />
-        ) : (
-          <div className="flex items-center justify-center min-w-8 h-8 rounded-full bg-muted">
-            <User size={16} />
-          </div>
-        )}
+        <PersonaImage
+          image={persona.profile_image}
+          className="w-8 h-8 rounded-full object-cover"
+          defaultSize={16}
+        />
         <Typography variant={"small"} className="line-clamp-1">
           {persona.name}
         </Typography>

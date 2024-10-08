@@ -13,6 +13,7 @@ import {
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import UserSettingsModal from "../modal/user-settings-modal/user-settings-modal";
+import UserAvatar from "../user-avatar/user-avatar";
 
 const UserMenu = () => {
   const { user } = useUser();
@@ -46,21 +47,7 @@ const UserMenu = () => {
               "p-3 px-2 rounded duration-300 transition-all cursor-pointer"
             )}
           >
-            <picture className="flex items-center justify-center min-w-9 w-9 h-9 rounded-full font-bold character-gradient-v">
-              {user?.profile_picture ? (
-                <Image
-                  src={user.profile_picture}
-                  width={0}
-                  height={0}
-                  alt=""
-                  className="w-full h-full"
-                  sizes="100vw"
-                />
-              ) : (
-                <Typography variant={"xsmall"}>{getAvatarName()}</Typography>
-              )}
-            </picture>
-
+            <UserAvatar className="w-9 h-9" />
             <Typography
               variant={"xsmall"}
               className="text-ellipsis overflow-hidden flex-1 w-[80px] whitespace-nowrap"
