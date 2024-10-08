@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import ProfileSetting from "@/components/profile-setting/profile-setting";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
+import Preferences from "@/components/preferences/preferences";
 
 interface UserSettingsModalProps {
   isOpen: boolean;
@@ -61,6 +62,9 @@ const UserSettingsModal: React.FC<UserSettingsModalProps> = ({
           <div className="w-full h-full flex-auto px-5 pb-4 pt-0 md:pt-8 flex flex-col mt-4 md:mt-0 items-center">
             <TabsContent value="profile" className="w-full h-full">
               <ProfileSetting />
+            </TabsContent>
+            <TabsContent value="preferences" className="w-full h-full">
+              <Preferences />
             </TabsContent>
           </div>
         </Tabs>
