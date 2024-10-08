@@ -158,3 +158,26 @@ body {
 .character-gradient-v {
   background: linear-gradient(310deg, var(--background) 0, #fbdd00 100%);
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background: var(--accent);
+}
+
+.hide-scrollbar {
+  scrollbar-color: transparent;
+}
+
+.hide-scrollbar::-webkit-scrollbar-thumb,
+.hide-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}

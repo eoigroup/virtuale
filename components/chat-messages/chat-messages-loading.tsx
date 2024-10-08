@@ -22,7 +22,6 @@ const ChatMessage = ({ isUser }: { isUser?: boolean }) => {
 const ChatMessagesLoading = () => {
   return (
     <div className="flex flex-col max-w-3xl mx-auto w-full">
-      <ChatMessage />
       <ChatMessage isUser />
       <ChatMessage />
     </div>

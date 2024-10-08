@@ -1,34 +1,40 @@
 "use client";
 
-import { getChatHistoryByPersonaId } from "@/lib/api/chat";
-import React, { useEffect, useState } from "react";
-import { toast } from "sonner";
+import React from "react";
 import ChatMessagesLoading from "./chat-messages-loading";
+import { ChatMessage } from "@/types/chat";
+import Message from "./message";
+import { IPersona } from "@/types/persona";
+import { Loader } from "../loading/loader/loader";
 
-const ChatMessages = ({ personaId }: { personaId: string }) => {
-  const [chatMessages, setChatMessages] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const getChatHistory = async () => {
-    setLoading(true);
-    try {
-      const response = await getChatHistoryByPersonaId(personaId);
-      setChatMessages(response.data);
-    } catch (error: any) {
-      toast.error(error.message);
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    getChatHistory();
-  }, []);
-
-  if (loading) {
+const ChatMessages = ({
+  initialLoading,
+  messages,
+  persona,
+  processing,
+}: {
+  initialLoading: boolean;
+  processing: boolean;
+  messages: ChatMessage[];
+  persona: IPersona;
+}) => {
+  if (initialLoading) {
     return <ChatMessagesLoading />;
   }
 
-  return <div className="max-w-3xl mx-auto"></div>;
+  return (
+    <div className="max-w-3xl mx-auto">
+      {messages.map((message, index) => (
+        <Message persona={persona} key={`message-${index}`} message={message} />
+      ))}
+
+      {processing && (
+        <div className="mx-20">
+          <Loader className="mt-2" />
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default ChatMessages;
