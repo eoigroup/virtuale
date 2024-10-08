@@ -9,7 +9,7 @@ import {
   ReactNode,
 } from "react";
 import { toast } from "sonner";
-import { getPersonaTemplates } from "@/lib/api/persona";
+import { getAllPersonas, getPersonaTemplates } from "@/lib/api/persona";
 import { IPersona } from "@/types/persona";
 
 interface PersonaContextProps {
@@ -31,7 +31,7 @@ export const PersonaProvider = ({ children }: { children: ReactNode }) => {
   const updatePersonas = async () => {
     setLoading(true);
     try {
-      const response = await getPersonaTemplates();
+      const response = await getAllPersonas();
       setPersonas(response.data);
     } catch (error: any) {
       toast.error(error?.message || "Error loading persona templates");

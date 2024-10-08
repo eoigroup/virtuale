@@ -56,6 +56,7 @@ const ProfileSetting = () => {
         <TextField
           label="Username"
           {...register("username")}
+          className="bg-surface-elevation-3"
           error={errors.username}
         />
       </div>

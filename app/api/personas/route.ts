@@ -36,6 +36,7 @@ export async function POST(req: NextRequest) {
     const body: BodyInit = new FormData();
     body.append("unique_id", jwt.unique_id);
     body.append("action", PERSONA_ACTIONS.FETCH_ALL_PERSONAS);
+    body.append("virtuale_ai_enable", "true");
 
     const requestOptions: RequestInit = {
       method: "POST",
@@ -49,14 +50,15 @@ export async function POST(req: NextRequest) {
       redirect: "follow",
     };
 
-    const response = await fetch(`${API_URL}/api/v2/personas`, requestOptions);
+    const response = await fetch(`${API_URL}/api/personas`, requestOptions);
+    let data = await response.json();
+    data = data.data.filter((el: any) => el.virtuale_ai_enable);
 
-    const data = await response.json();
     if (!response.ok) {
       throw new Error(data.error);
     }
 
-    return NextResponse.json(data, { status: 200 });
+    return NextResponse.json({ data }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(
       { error: error?.message || "Internal Server Error" },

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
@@ -11,6 +11,23 @@ interface UserSettingsModalProps {
   onClose: (open: boolean) => void;
 }
 
+const CustomTabTrigger = ({
+  children,
+  value,
+}: {
+  children: ReactNode;
+  value: string;
+}) => {
+  return (
+    <TabsTrigger
+      value={value}
+      className="rounded-xl w-full md:justify-start data-[state=active]:bg-surface-elevation-3"
+    >
+      {children}
+    </TabsTrigger>
+  );
+};
+
 const UserSettingsModal: React.FC<UserSettingsModalProps> = ({
   isOpen,
   onClose,
@@ -22,7 +39,7 @@ const UserSettingsModal: React.FC<UserSettingsModalProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent
-        className="gap-5 min-h-full md:min-h-[624px] md:min-w-[708px]"
+        className="gap-5 min-h-full md:min-h-[624px] md:min-w-[708px] bg-popover"
         aria-describedby=""
       >
         <DialogTitle className="hidden" />
@@ -37,15 +54,8 @@ const UserSettingsModal: React.FC<UserSettingsModalProps> = ({
               "gap-2"
             )}
           >
-            <TabsTrigger value="profile" className="w-full md:justify-start">
-              Profile
-            </TabsTrigger>
-            {/* <TabsTrigger value="account" className="w-full md:justify-start">
-              Account
-            </TabsTrigger>
-            <TabsTrigger value="preferences" className="w-full md:justify-start">
-              Preferences
-            </TabsTrigger> */}
+            <CustomTabTrigger value="profile">Profile</CustomTabTrigger>
+            <CustomTabTrigger value="preferences">Preferences</CustomTabTrigger>
           </TabsList>
 
           <div className="w-full h-full flex-auto px-5 pb-4 pt-0 md:pt-8 flex flex-col mt-4 md:mt-0 items-center">

@@ -1,6 +1,7 @@
-import PersonaList from "@/components/persona-list/persona-list";
 import { Typography } from "@/components/ui/typography";
 import React from "react";
+import dynamic from "next/dynamic";
+const PersonaList = dynamic(() => import("@/components/persona-list/persona-list"), {ssr: false})
 
 const DashboardPage = () => {
   return (

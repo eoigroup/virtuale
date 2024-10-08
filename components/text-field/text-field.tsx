@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { forwardRef, useState } from "react";
 import { FieldError } from "react-hook-form";
@@ -18,7 +18,7 @@ interface TextFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 const TextField: React.FC<TextFieldProps> = forwardRef(
   (
-    { label, type, name, labelClassName, error, ...inputProps },
+    { label, type, name, labelClassName, error, className, ...inputProps },
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     const [isPasswordVisible, setPasswordVisible] = useState(false);
@@ -41,7 +41,7 @@ const TextField: React.FC<TextFieldProps> = forwardRef(
             type={type === "password" && isPasswordVisible ? "text" : type}
             id={name}
             name={name}
-            className={cn("mt-2", {
+            className={cn("mt-2", className, {
               "border-destructive": error,
             })}
             {...inputProps}
