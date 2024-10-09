@@ -26,7 +26,7 @@ const ChatItem = ({
       >
         <PersonaImage
           image={persona.profile_image}
-          className="w-8 h-8 rounded-full object-cover"
+          className="w-8 min-w-8 h-8 rounded-full object-cover"
           defaultSize={16}
         />
         <Typography variant={"small"} className="line-clamp-1">
