@@ -6,8 +6,8 @@ import React from "react";
 import { Toaster as SToaster } from "sonner";
 
 const Toaster = () => {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
+  const { theme, systemTheme } = useTheme();
+  const isDark = theme === "dark" || systemTheme === "dark";
 
   return (
     <SToaster

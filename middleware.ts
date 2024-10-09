@@ -28,7 +28,6 @@ export default async function middleware(req: NextRequest) {
 
   // Get the pathname of the request (e.g. /, /about, /blog/first-post)
   const path = url.pathname;
-  console.log('process.env.NEXT_PUBLIC_ROOT_DOMAIN', process.env.NEXT_PUBLIC_ROOT_DOMAIN)
 
   if (token) {
     const decoded = jwtDecode<DecodedJWT>(token);
