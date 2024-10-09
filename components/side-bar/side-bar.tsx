@@ -37,7 +37,7 @@ const Sidebar = () => {
                 <div className="pl-6 pt-4 flex w-full items-center">
                   <Link href={"/"} className="flex-1">
                     <Typography variant={`h3`} className="font-bold">
-                      Vrtuale.ai
+                      Virtuale.ai
                     </Typography>
                   </Link>
 
