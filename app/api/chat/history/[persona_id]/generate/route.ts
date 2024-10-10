@@ -80,7 +80,7 @@ export async function POST(
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.error || data?.data?.reply);
+      throw new Error(data.error || data?.reply || data?.data?.reply);
     }
 
     return NextResponse.json(data, { status: 200 });

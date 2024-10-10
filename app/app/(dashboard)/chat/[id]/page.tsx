@@ -59,42 +59,70 @@ const ChatPage = () => {
     }
   };
 
+  const handleAudioSend = async (audio: string) => {
+    handleOnGenerate(audio, ChatTypes.AUDIO);
+  };
   const handleTextSend = async (text: string) => {
+    handleOnGenerate(text, ChatTypes.TEXT);
+  };
+
+  const handleOnGenerate = async (text: string, type: Partial<ChatTypes>) => {
     if (!persona) return;
 
     const message = sanitizeInput(text.replace(/&nbsp;/g, " "));
-    setChatMessages((prev) => [
-      ...prev,
-      {
-        message: text,
-        msg_format: ChatTypes.TEXT,
+    const encoding =
+      type === ChatTypes.TEXT ? ChatEncoding.TEXT : ChatEncoding.BASE_64;
+
+    let userMessage: ChatMessage = {
+      message: text,
+      msg_format: type,
+      persona_id: String(id),
+      unique_id: user!.unique_id,
+      sender: ChatSenderTypes.USER,
+    };
+
+    if (ChatTypes.AUDIO) {
+      userMessage = {
+        message: message,
+        file_link: `data:audio/webm;codecs=opus;base64,${text}`,
+        msg_format: type,
         persona_id: String(id),
         unique_id: user!.unique_id,
         sender: ChatSenderTypes.USER,
-      },
-    ]);
+      };
+    }
+
+    setChatMessages((prev) => [...prev, userMessage]);
     setProcessing(true);
     try {
       const response = await generateResponseFromUserMessage(
         {
           msg: message,
-          type: ChatTypes.TEXT,
-          encoding: ChatEncoding.TEXT,
+          type: type,
+          encoding: encoding,
         },
         persona.persona_id
       );
-      const reply = response.reply.join(" ");
+      let reply = null;
+      let fileLink = null;
 
-      setChatMessages((prev) => [
-        ...prev,
-        {
-          message: reply,
-          msg_format: ChatTypes.TEXT,
-          persona_id: String(id),
-          unique_id: user!.unique_id,
-          sender: ChatSenderTypes.ASSISTANT,
-        },
-      ]);
+      if (type === ChatTypes.TEXT) {
+        reply = response.reply.join(" ");
+      } else if (type === ChatTypes.AUDIO) {
+        reply = response.transcript;
+        fileLink = response.reply;
+      }
+
+      const replyMessage = {
+        message: reply,
+        msg_format: type,
+        persona_id: String(id),
+        unique_id: user!.unique_id,
+        sender: ChatSenderTypes.ASSISTANT,
+        ...(fileLink && { file_link: fileLink }),
+      };
+
+      setChatMessages((prev) => [...prev, replyMessage]);
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -191,6 +219,8 @@ const ChatPage = () => {
           <ChatInput
             placeholder={`Message ${persona.name}`}
             onTextSend={handleTextSend}
+            onAudioSend={handleAudioSend}
+            disabled={initialLoading}
           />
         </div>
       </div>

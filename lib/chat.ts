@@ -2,6 +2,7 @@ export enum ChatTypes {
   TEXT = "text",
   AUDIO = "audio",
   PHOTO = "photo",
+  VOICE = "voice",
 }
 
 export enum ChatEncoding {

@@ -227,3 +227,7 @@ body {
 .self-swiper .swiper-button-next::after {
   content: none;
 }
+
+.self-voice-recorder canvas {
+  max-width: 100%;
+}

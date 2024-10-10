@@ -28,3 +28,23 @@ export const removeEmojis = (input: string): string => {
 
   return input.replace(emojiRegex, "");
 };
+
+export const convertBlobToBase64 = (
+  blob: Blob,
+  full?: boolean
+): Promise<string> => {
+  const reader = new FileReader();
+
+  return new Promise((resolve, reject) => {
+    reader.readAsDataURL(blob);
+    reader.onloadend = () => {
+      const result = reader.result as string;
+      let base64String = result.split(",")[1];
+      if (full) {
+        base64String = reader.result as string;
+      }
+      resolve(base64String);
+    };
+    reader.onerror = (error) => reject(error);
+  });
+};

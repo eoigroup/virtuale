@@ -46,6 +46,7 @@ const config: Config = {
         },
         "border-divider": "var(--border-divider)",
         input: "var(--input)",
+        blue: "var(--blue)",
         scrim: {
           DEFAULT: "var(--scrim)",
           0: "var(--scrim-0)",
