@@ -1,5 +1,4 @@
 import { jwtDecode } from "jwt-decode";
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { DecodedJWT } from "./types/user";
 
@@ -18,7 +17,7 @@ export const config = {
 
 export default async function middleware(req: NextRequest) {
   const url = req.nextUrl;
-  const jwtCookie = cookies().get("jwt");
+  const jwtCookie = req.cookies.get("jwt");
   const token = jwtCookie?.value;
 
   // Get hostname of request (e.g. demo.vercel.pub, demo.localhost:3000)
@@ -32,8 +31,9 @@ export default async function middleware(req: NextRequest) {
   if (token) {
     const decoded = jwtDecode<DecodedJWT>(token);
     if (decoded.exp && Date.now() >= decoded.exp * 1000) {
-      cookies().delete("jwt");
-      return NextResponse.redirect(new URL("/login", req.url));
+      const response = NextResponse.redirect(new URL("/login", req.url));
+      response.cookies.set("jwt", "", { maxAge: -1, path: "/" });
+      return response;
     }
   }
   // rewrites for app pages
