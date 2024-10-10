@@ -22,17 +22,17 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
     <div className="flex">
       <Sidebar />
       <div
-        className={cn("transition-width duration-300 w-0 lg:w-64", {
-          "lg:w-7": !isMenuExpanded,
+        className={cn("transition-width duration-300 w-0 lg:min-w-64 lg:w-64", {
+          "lg:w-7 lg:min-w-7": !isMenuExpanded,
         })}
       >
         &nbsp;
       </div>
       <main
         className={cn(
-          `flex-1 min-h-screen transition-all md:ml-7`,
+          `flex-1 w-full min-h-screen transition-all overflow-hidden`,
           { "max-w-full": !isMenuExpanded },
-          { "max-w-[calc(100%-256px)]": isMenuExpanded }
+          { "lg:max-w-[calc(100%-256px)]": isMenuExpanded }
         )}
       >
         <div className="w-full mx-auto h-full">{children}</div>

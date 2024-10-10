@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
 import Providers from "./providers";
 import dynamic from "next/dynamic";
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/free-mode';
+import 'swiper/css/pagination';
+import "./globals.css";
+
 const Toaster = dynamic(() => import("@/components/toaster/toaster"), {
   ssr: false,
 });

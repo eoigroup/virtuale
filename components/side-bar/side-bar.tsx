@@ -21,14 +21,21 @@ const Sidebar = () => {
 
   return (
     <>
-      <aside className="h-dvh fixed z-50">
-        <div className="w-full h-full flex">
+      <aside className={cn("h-dvh fixed z-50", { "lg:z-0": !isMenuExpanded })}>
+        <div className="w-fit h-full flex">
+          {isMenuExpanded && (
+            <div
+              className="block lg:hidden fixed bg-black/60 w-screen h-screen"
+              onClick={handleToggle}
+            />
+          )}
+
           <div
             className={cn(
-              "overflow-hidden transition-all ease-out duration-300 bg-primary-foreground border-r border-r-border-divider z-20 fixed inset-0 lg:static h-screen lg:h-full",
+              "overflow-hidden transition-[max-width,transform] ease-out duration-300 bg-primary-foreground border-r border-r-border-divider z-20 fixed inset-0 lg:static h-screen lg:h-full",
               {
                 "max-w-64": isMenuExpanded, // Expanded state
-                "max-w-0 -translate-x-full lg:max-w-64": !isMenuExpanded, // Collapsed state for mobile
+                "w-fit -translate-x-full lg:max-w-64": !isMenuExpanded, // Collapsed state for mobile
               }
             )}
           >

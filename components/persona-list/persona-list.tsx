@@ -4,6 +4,8 @@ import React from "react";
 import PersonaCard from "../persona-card/persona-card";
 import { usePersona } from "@/contexts/persona-context";
 import PersonaLoading from "./persona-loading";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Navigation } from "swiper/modules";
 
 const PersonaList = () => {
   const { personas, loading } = usePersona();
@@ -13,12 +15,29 @@ const PersonaList = () => {
   }
 
   return (
-    <div className="mt-10 grid grid-cols-4 gap-4">
-      {personas.map((persona) => (
-        <div key={persona.persona_id} className="col-span-1">
-          <PersonaCard persona={persona} />
-        </div>
-      ))}
+    <div className="mt-10 ">
+      <Swiper
+        spaceBetween={10}
+        modules={[FreeMode]}
+        freeMode={true}
+        breakpoints={{
+          640: {
+            slidesPerView: 1,
+          },
+          768: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 4,
+          },
+        }}
+      >
+        {personas.map((persona) => (
+          <SwiperSlide key={persona.persona_id}>
+            <PersonaCard persona={persona} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };
