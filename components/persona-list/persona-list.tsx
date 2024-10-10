@@ -18,8 +18,9 @@ const PersonaList = () => {
     <div className="mt-10 ">
       <Swiper
         spaceBetween={10}
-        modules={[FreeMode]}
-        freeMode={true}
+        modules={[FreeMode, Navigation]}
+        freeMode
+        navigation
         breakpoints={{
           640: {
             slidesPerView: 1,
@@ -31,6 +32,7 @@ const PersonaList = () => {
             slidesPerView: 4,
           },
         }}
+        className="self-swiper"
       >
         {personas.map((persona) => (
           <SwiperSlide key={persona.persona_id}>
