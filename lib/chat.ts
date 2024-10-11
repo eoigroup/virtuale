@@ -5,6 +5,11 @@ export enum ChatTypes {
   VOICE = "voice",
 }
 
+export enum ChatResponseFormats {
+  TEXT = "text",
+  AUDIO = "audio",
+}
+
 export enum ChatEncoding {
   TEXT = "text",
   BASE_64 = "base64",

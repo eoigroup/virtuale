@@ -1,9 +1,15 @@
-import { ChatEncoding, ChatSenderTypes, ChatTypes } from "@/lib/chat";
+import {
+  ChatEncoding,
+  ChatResponseFormats,
+  ChatSenderTypes,
+  ChatTypes,
+} from "@/lib/chat";
 
 export type ChatMessagePayload = {
   msg: string;
   encoding: Partial<ChatEncoding>;
   type: Partial<ChatTypes>;
+  response_format?: Partial<ChatResponseFormats>;
 };
 
 export type ChatMessage = {

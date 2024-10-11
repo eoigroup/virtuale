@@ -40,7 +40,7 @@ export async function POST(
   if (!persona_id) {
     return Response.json({ message: "persona_id is missing" }, { status: 400 });
   }
-  const { msg, type, encoding } = await req.json();
+  const { msg, type, encoding, response_format } = await req.json();
 
   if (!msg) {
     return Response.json({ message: "msg is missing" }, { status: 400 });
@@ -63,6 +63,9 @@ export async function POST(
     body.append("msg", msg);
     body.append("type", type);
     body.append("encoding", encoding);
+    if (response_format) {
+      body.append("response_format", response_format);
+    }
 
     const requestOptions: RequestInit = {
       method: "POST",

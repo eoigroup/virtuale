@@ -6,6 +6,7 @@ import { usePersona } from "@/contexts/persona-context";
 import PersonaLoading from "./persona-loading";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
+import { Typography } from "../ui/typography";
 
 const PersonaList = () => {
   const { personas, loading } = usePersona();
@@ -15,7 +16,10 @@ const PersonaList = () => {
   }
 
   return (
-    <div className="mt-10 ">
+    <div className="mt-10">
+      <Typography variant={"h5"} className="mb-4 ml-4">
+        For you
+      </Typography>
       <Swiper
         spaceBetween={10}
         modules={[FreeMode, Navigation]}
