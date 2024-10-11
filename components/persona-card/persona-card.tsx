@@ -1,16 +1,18 @@
 import { IPersona } from "@/types/persona";
-import Image from "next/image";
 import React from "react";
 import { Typography } from "../ui/typography";
 import Link from "next/link";
-import { MessageCircle, User } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import PersonaImage from "../persona-image/persona-image";
 import AnimatedCard from "../animated-card/animated-card";
 
 const PersonaCard = ({ persona }: { persona: IPersona }) => {
   return (
     <AnimatedCard className="rounded-lg p-4">
-      <Link href={`/chat/${persona.persona_id}`} className="flex gap-4">
+      <Link
+        href={`/chat/${persona.persona_id}`}
+        className="flex gap-4 flex-row-reverse"
+      >
         <PersonaImage
           image={persona.profile_image}
           className="w-[90px] h-[115px] object-cover rounded-xl"

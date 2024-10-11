@@ -9,30 +9,39 @@ import {
   ReactNode,
 } from "react";
 import { toast } from "sonner";
-import { getAllPersonas, getPersonaTemplates } from "@/lib/api/persona";
-import { IPersona } from "@/types/persona";
+import { getAllPersonas, getUserConvos } from "@/lib/api/persona";
+import { IPersona, IUserConvos } from "@/types/persona";
 
 interface PersonaContextProps {
   personas: IPersona[];
+  userConvos: IUserConvos[];
   loading: boolean;
   updatePersonas: () => Promise<void>;
 }
 
 const PersonaContext = createContext<PersonaContextProps>({
   personas: [],
+  userConvos: [],
   loading: false,
   updatePersonas: async () => {},
 });
 
 export const PersonaProvider = ({ children }: { children: ReactNode }) => {
   const [personas, setPersonas] = useState<IPersona[]>([]);
+  const [userConvos, setUserConvos] = useState<IUserConvos[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const updatePersonas = async () => {
     setLoading(true);
     try {
-      const response = await getAllPersonas();
-      setPersonas(response.data);
+      const response = await Promise.all([getAllPersonas(), getUserConvos()]);
+
+      setPersonas(response[0].data);
+      setUserConvos(
+        response[1].data.sort((a: IUserConvos, b: IUserConvos) =>
+          a.timestamp.localeCompare(b.timestamp)
+        )
+      );
     } catch (error: any) {
       toast.error(error?.message || "Error loading persona templates");
     }
@@ -44,7 +53,9 @@ export const PersonaProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <PersonaContext.Provider value={{ personas, updatePersonas, loading }}>
+    <PersonaContext.Provider
+      value={{ personas, userConvos, updatePersonas, loading }}
+    >
       {children}
     </PersonaContext.Provider>
   );

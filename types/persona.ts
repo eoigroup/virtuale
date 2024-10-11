@@ -120,3 +120,27 @@ export type IPersona = {
   creator_notes_activate: boolean;
   creator_notes: string;
 };
+
+export type IUserConvos = {
+  id: string | number;
+  user_id: string | number;
+  persona_id: string | number;
+  subscription_id: string;
+  quota: number;
+  is_active: boolean;
+  is_premium: boolean;
+  is_subscribed: boolean;
+  religion_status: string;
+  relation_status: string;
+  political_status: string;
+  religion_score: number;
+  relation_score: number;
+  political_score: number;
+  active_setting: null; //temporary
+  language: string;
+  last_reset: string;
+  in_waiting_room: boolean;
+  in_auto_msg_queue: boolean;
+  planned_msg: string;
+  timestamp: string;
+};

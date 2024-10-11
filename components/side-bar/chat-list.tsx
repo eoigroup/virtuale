@@ -2,15 +2,17 @@ import React from "react";
 import { Typography } from "../ui/typography";
 import { usePersona } from "@/contexts/persona-context";
 import ChatItem from "./chat-item";
-import { usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 import { Skeleton } from "../ui/skeleton";
 
 const ChatList = () => {
-  const { personas, loading } = usePersona();
-  const pathname = usePathname();
-
+  const { personas, userConvos, loading } = usePersona();
+  const { id } = useParams();
+  const _personas = personas.filter((persona) =>
+    userConvos.some((c) => c.persona_id === persona.persona_id)
+  );
   const active = (personaId: string | number) => {
-    return pathname.includes(`/chat/${personaId}`);
+    return id == personaId;
   };
 
   return (
@@ -27,7 +29,7 @@ const ChatList = () => {
                 className="w-full h-11 mt-1 rounded-md"
               />
             ))
-          : personas.map((persona) => (
+          : _personas.map((persona) => (
               <ChatItem
                 key={`chat-${persona.persona_id}`}
                 persona={persona}
