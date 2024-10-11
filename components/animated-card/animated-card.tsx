@@ -1,15 +1,23 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, MotionProps } from "framer-motion";
 import { ReactNode, useRef, useState } from "react";
 
-export default function AnimatedCard({
-  children,
-  className = "",
-}: {
+interface AnimatedCard extends MotionProps {
+  visibleCircle?: boolean;
+  circleSize?: number;
   className?: string;
   children: ReactNode;
-}) {
+}
+
+export default function AnimatedCard(props: AnimatedCard) {
+  const {
+    children,
+    className = "",
+    visibleCircle,
+    circleSize = 150,
+    ...rest
+  } = props;
   const ref = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -33,12 +41,13 @@ export default function AnimatedCard({
         "relative w-full bg-surface-elevation-1 hover:cursor-pointer overflow-hidden",
         className
       )}
+      {...rest}
     >
       <div
         className="absolute inset-0 z-0 transition-opacity duration-300 ease-in-out"
         style={{
-          background: `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.2), transparent 80%)`,
-          opacity: isHovered ? 1 : 0,
+          background: `radial-gradient(circle ${circleSize}px at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.2), transparent 80%)`,
+          opacity: visibleCircle || isHovered ? 1 : 0,
           pointerEvents: "none",
         }}
       />

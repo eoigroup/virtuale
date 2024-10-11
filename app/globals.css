@@ -231,3 +231,20 @@ body {
 .self-voice-recorder canvas {
   max-width: 100%;
 }
+
+.hero-card-effect:hover {
+  transform: perspective(3000px) rotateX(8deg) rotateY(5deg);
+}
+
+.typing-effect {
+  width: 100%;
+  animation: typing 1s steps(22);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@keyframes typing {
+  0% {
+    width: 0;
+  }
+}

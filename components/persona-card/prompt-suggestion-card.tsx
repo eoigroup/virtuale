@@ -35,7 +35,7 @@ const PromptSuggestionCard = ({ persona }: { persona: IPersona }) => {
         {suggestions.slice(0, 2).map((suggestion, index) => (
           <Link
             href={`/chat/${persona.persona_id}?suggestion=${index}`}
-            key={`suggestion-${persona.persona_id}`}
+            key={`suggestion-${persona.persona_id}-${index}`}
             className="w-full rounded-md p-3 bg-surface-elevation-2 hover:bg-scrim-8"
           >
             <Typography variant={"xsmall"} as={"div"}>
