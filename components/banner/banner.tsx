@@ -13,12 +13,12 @@ const list = [
   {
     title: "A trusted circle of support",
     videoLink:
-      "https://characterai.io/static/editorial/scenarios/lighthouse.mp4",
+      "https://media.identica.ai/media/virtuale/lighthouse.mp4",
     personas: [13, 87],
   },
   {
     title: "Learn something new today",
-    videoLink: "https://characterai.io/static/editorial/scenarios/library.mp4",
+    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
     personas: [5, 87],
   },
 ];
