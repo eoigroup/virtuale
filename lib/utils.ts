@@ -48,3 +48,9 @@ export const convertBlobToBase64 = (
     reader.onerror = (error) => reject(error);
   });
 };
+
+export const replaceQuotes = (url: string) => {
+  url = url.replace(/client_id="([^"]*)"/, "client_id=$1");
+
+  return url;
+};
