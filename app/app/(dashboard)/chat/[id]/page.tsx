@@ -13,9 +13,11 @@ import {
   generateResponseFromUserMessage,
   getChatHistoryByPersonaId,
 } from "@/lib/api/chat";
+import { getUserConvos } from "@/lib/api/persona";
 import { ChatEncoding, ChatSenderTypes, ChatTypes } from "@/lib/chat";
 import { cn } from "@/lib/utils";
 import { ChatMessage } from "@/types/chat";
+import { IUserConvos } from "@/types/persona";
 import { ChevronDown } from "lucide-react";
 import { useParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
@@ -23,7 +25,7 @@ import { toast } from "sonner";
 
 const ChatPage = () => {
   const { id } = useParams();
-  const { personas, userConvos, loading } = usePersona();
+  const { personas, userConvos, setUserConvos, loading } = usePersona();
   const [initialLoading, setInitialLoading] = useState<boolean>(false);
   const [processing, setProcessing] = useState<boolean>(false);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
@@ -58,6 +60,20 @@ const ChatPage = () => {
     }
   };
 
+  const addPersonaToChatList = async () => {
+    try {
+      const response = await getUserConvos();
+
+      setUserConvos(
+        response.data.sort((a: IUserConvos, b: IUserConvos) =>
+          a.timestamp.localeCompare(b.timestamp)
+        )
+      );
+    } catch (error: any) {
+      toast.error(error?.message || "Error loading user convos");
+    }
+  };
+
   const handleAudioSend = async (audio: string) => {
     handleOnGenerate(audio, ChatTypes.AUDIO);
   };
@@ -67,6 +83,12 @@ const ChatPage = () => {
 
   const handleOnGenerate = async (text: string, type: Partial<ChatTypes>) => {
     if (!persona) return;
+    const isPersonaExistOnChatList = userConvos.some(
+      (persona) => persona.persona_id === id
+    );
+    if (!isPersonaExistOnChatList) {
+      addPersonaToChatList();
+    }
 
     const message = sanitizeInput(text.replace(/&nbsp;/g, " "));
     const encoding =

@@ -7,6 +7,8 @@ import {
   useEffect,
   useState,
   ReactNode,
+  Dispatch,
+  SetStateAction,
 } from "react";
 import { toast } from "sonner";
 import { getAllPersonas, getUserConvos } from "@/lib/api/persona";
@@ -17,12 +19,14 @@ interface PersonaContextProps {
   userConvos: IUserConvos[];
   loading: boolean;
   updatePersonas: () => Promise<void>;
+  setUserConvos: Dispatch<SetStateAction<IUserConvos[]>>;
 }
 
 const PersonaContext = createContext<PersonaContextProps>({
   personas: [],
   userConvos: [],
   loading: false,
+  setUserConvos: () => {},
   updatePersonas: async () => {},
 });
 
@@ -54,7 +58,7 @@ export const PersonaProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <PersonaContext.Provider
-      value={{ personas, userConvos, updatePersonas, loading }}
+      value={{ personas, userConvos, updatePersonas, setUserConvos, loading }}
     >
       {children}
     </PersonaContext.Provider>
