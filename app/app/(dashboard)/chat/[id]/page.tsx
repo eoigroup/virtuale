@@ -4,7 +4,6 @@ import ChatInput from "@/components/chat-input/chat-input";
 import ChatMessages from "@/components/chat-messages/chat-messages";
 import ChatRightPanel from "@/components/chat-right-panel/chat-right-panel";
 import ChatPageLoading from "@/components/loading/chat-page-loading/chat-page-loading";
-import { Loader } from "@/components/loading/loader/loader";
 import PersonaImage from "@/components/persona-image/persona-image";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
@@ -24,7 +23,7 @@ import { toast } from "sonner";
 
 const ChatPage = () => {
   const { id } = useParams();
-  const { personas, loading } = usePersona();
+  const { personas, userConvos, loading } = usePersona();
   const [initialLoading, setInitialLoading] = useState<boolean>(false);
   const [processing, setProcessing] = useState<boolean>(false);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
@@ -81,7 +80,7 @@ const ChatPage = () => {
       sender: ChatSenderTypes.USER,
     };
 
-    if (ChatTypes.AUDIO) {
+    if (type === ChatTypes.AUDIO) {
       userMessage = {
         message: message,
         file_link: `data:audio/webm;codecs=opus;base64,${text}`,
