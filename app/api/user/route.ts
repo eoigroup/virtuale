@@ -1,11 +1,8 @@
-import { API_URL } from "@/lib/config";
+import { AGENT_API_KEY, AGENT_AUTHOR, API_URL } from "@/lib/config";
 import { NextRequest, NextResponse } from "next/server";
 import { jwtDecode } from "jwt-decode";
 import { DecodedJWT } from "@/types/user";
 import { USER_ACTIONS } from "@/lib/actions";
-
-const agentAuthor = process.env.AGENT_AUTHOR || "";
-const agentApiKey = process.env.AGENT_API_KEY || "";
 
 export async function POST(req: NextRequest) {
   const jwtToken = req.cookies.get("jwt")?.value;
@@ -17,14 +14,14 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  if (!agentApiKey) {
+  if (!AGENT_API_KEY) {
     return Response.json(
       { message: "AGENT_API_KEY is missing" },
       { status: 400 }
     );
   }
 
-  if (!agentAuthor) {
+  if (!AGENT_AUTHOR) {
     return Response.json(
       { message: "AGENT_AUTHOR is missing" },
       { status: 400 }
@@ -40,8 +37,8 @@ export async function POST(req: NextRequest) {
     const requestOptions: RequestInit = {
       method: "POST",
       headers: {
-        Authorization: `Api-Key ${agentApiKey}`,
-        author: agentAuthor,
+        Authorization: `Api-Key ${AGENT_API_KEY}`,
+        author: AGENT_AUTHOR,
         Cookie: `jwt=${jwtToken};`,
         ContentType: "multipart/form-data",
       },

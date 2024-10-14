@@ -1,22 +1,33 @@
-import { AGENT_API_KEY, AGENT_AUTHOR, API_URL } from "@/lib/config";
+import { API_URL } from "@/lib/config";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
+  const body = await req.json();
   try {
-    const response = await fetch(`${API_URL}/auth/google/auth/`, {
+    const { email } = body;
+
+    if (!email) {
+      return NextResponse.json(
+        { error: "Missing email request body" },
+        { status: 400 }
+      );
+    }
+
+    const response = await fetch(`${API_URL}/auth/reset-password/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Api-Key ${AGENT_API_KEY}`,
-        author: AGENT_AUTHOR,
       },
+      body: JSON.stringify({
+        email,
+      }),
     });
 
-    const data = await response.text();
-
+    const data = await response.json();
     if (!response.ok) {
-      throw new Error(data);
+      throw new Error(data.error);
     }
+
     return NextResponse.json(data, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(

@@ -13,6 +13,7 @@ import { signIn, signInWithGoogle } from "@/lib/api/auth";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { replaceQuotes } from "@/lib/utils";
+import ForgotPasswordModal from "@/components/modal/forgot-password-modal/forgot-password-modal";
 const ThemeModeButton = dynamic(
   () => import("@/components/theme-mode-button/theme-mode-button"),
   { ssr: false }
@@ -34,10 +35,13 @@ const schema = z.object({
 const LoginPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
-  const { register, handleSubmit } = useForm<IFormInput>({
+  const { register, getValues, handleSubmit } = useForm<IFormInput>({
     resolver: zodResolver(schema),
   });
   const [googleAuthLoading, setGoogleAuthLoading] = useState(false);
+  const [isOpenResetPasswordModal, setIsOpenResetPasswordModal] =
+    useState(false);
+  const values = getValues();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     setLoading(true);
@@ -82,8 +86,10 @@ const LoginPage = () => {
 
           <div className="flex relative w-full items-center justify-end">
             <Typography
-              variant={"small"}
+              variant={"xsmall"}
+              as={"div"}
               className="hover:text-muted-foreground cursor-pointer"
+              onClick={() => setIsOpenResetPasswordModal(true)}
             >
               Forgot Password?
             </Typography>
@@ -137,6 +143,12 @@ const LoginPage = () => {
           </Typography>
         </div>
       </form>
+
+      <ForgotPasswordModal
+        isOpen={isOpenResetPasswordModal}
+        onClose={() => setIsOpenResetPasswordModal(false)}
+        email={values.email}
+      />
     </div>
   );
 };
