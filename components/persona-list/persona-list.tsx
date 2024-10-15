@@ -31,36 +31,38 @@ const PersonaList = () => {
 
   return (
     <>
-      <div className="mt-10">
-        <Typography variant={"h5"} className="mb-4 ml-4">
-          For you
-        </Typography>
+      {forYouPersonas && forYouPersonas.length > 0 && (
+        <div className="mt-10">
+          <Typography variant={"h5"} className="mb-4 ml-4">
+            For you
+          </Typography>
 
-        <Swiper
-          spaceBetween={10}
-          modules={[FreeMode, Navigation]}
-          freeMode
-          navigation
-          breakpoints={{
-            640: {
-              slidesPerView: 1,
-            },
-            768: {
-              slidesPerView: 2,
-            },
-            1024: {
-              slidesPerView: 4,
-            },
-          }}
-          className="self-swiper"
-        >
-          {forYouPersonas.map((persona) => (
-            <SwiperSlide key={persona.persona_id}>
-              <PersonaCard persona={persona} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+          <Swiper
+            spaceBetween={10}
+            modules={[FreeMode, Navigation]}
+            freeMode
+            navigation
+            breakpoints={{
+              640: {
+                slidesPerView: 1,
+              },
+              768: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 4,
+              },
+            }}
+            className="self-swiper"
+          >
+            {forYouPersonas.map((persona) => (
+              <SwiperSlide key={persona.persona_id}>
+                <PersonaCard persona={persona} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      )}
 
       <div className="mt-10">
         <Typography variant={"h5"} className="mb-4 ml-4">
