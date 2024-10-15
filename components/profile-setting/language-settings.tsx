@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Typography } from "../ui/typography";
-import TextField from "../text-field/text-field";
 import { useUser } from "@/contexts/user-context";
 import { Button } from "../ui/button";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -8,7 +7,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { updateUser } from "@/lib/api/user";
 import { toast } from "sonner";
-import { cn } from "@/lib/utils";
 import Select from "../select/select";
 import { LangList } from "@/lib/lang";
 

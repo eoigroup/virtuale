@@ -8,6 +8,7 @@ import { X } from "lucide-react";
 import Preferences from "@/components/preferences/preferences";
 import SecuritySettings from "@/components/profile-setting/security-settings";
 import LanguageSettings from "@/components/profile-setting/language-settings";
+import Version from "@/components/profile-setting/version";
 
 interface UserSettingsModalProps {
   isOpen: boolean;
@@ -61,6 +62,7 @@ const UserSettingsModal: React.FC<UserSettingsModalProps> = ({
             <CustomTabTrigger value="security">Security</CustomTabTrigger>
             <CustomTabTrigger value="language">Language</CustomTabTrigger>
             <CustomTabTrigger value="preferences">Preferences</CustomTabTrigger>
+            <CustomTabTrigger value="version">Version</CustomTabTrigger>
           </TabsList>
 
           <div className="w-full h-full flex-auto px-5 pb-4 pt-0 md:pt-8 flex flex-col mt-4 md:mt-0 items-center">
@@ -75,6 +77,9 @@ const UserSettingsModal: React.FC<UserSettingsModalProps> = ({
             </TabsContent>
             <TabsContent value="language" className="w-full h-full">
               <LanguageSettings />
+            </TabsContent>
+            <TabsContent value="version" className="w-full h-full">
+              <Version />
             </TabsContent>
           </div>
         </Tabs>
