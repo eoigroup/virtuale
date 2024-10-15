@@ -37,6 +37,8 @@ export type IUser = {
   star_sign: string;
   unique_id: string;
   username: string;
+  self_describe: string
+  creator_balance: number
 };
 
 export type DecodedJWT = {

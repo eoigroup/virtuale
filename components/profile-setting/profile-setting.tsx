@@ -15,11 +15,15 @@ type FormValues = {
   username: string;
   nickname: string;
   interest: string;
+  self_describe: string;
+  creator_balance: string;
 };
 const validationSchema = z.object({
   username: z.string().min(1, { message: "Username is required" }),
   nickname: z.string(),
   interest: z.string(),
+  self_describe: z.string(),
+  creator_balance: z.string(),
 });
 
 const ProfileSetting = () => {
@@ -31,6 +35,8 @@ const ProfileSetting = () => {
         username: user?.username || "",
         nickname: user?.nickname || "",
         interest: user?.interest || "",
+        self_describe: user?.self_describe || "",
+        creator_balance: String(user?.creator_balance || ""),
       },
       resolver: zodResolver(validationSchema),
     });
@@ -81,6 +87,19 @@ const ProfileSetting = () => {
           {...register("interest")}
           className="bg-surface-elevation-3"
           error={errors.interest}
+        />
+        <TextField
+          label="Self Description"
+          {...register("self_describe")}
+          className="bg-surface-elevation-3"
+          error={errors.self_describe}
+        />
+        <TextField
+          label="Balance"
+          {...register("creator_balance")}
+          className="bg-surface-elevation-3"
+          disabled
+          error={errors.creator_balance}
         />
       </div>
 
