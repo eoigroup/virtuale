@@ -13,9 +13,13 @@ import UserAvatar from "../user-avatar/user-avatar";
 
 type FormValues = {
   username: string;
+  nickname: string;
+  interest: string;
 };
 const validationSchema = z.object({
   username: z.string().min(1, { message: "Username is required" }),
+  nickname: z.string(),
+  interest: z.string(),
 });
 
 const ProfileSetting = () => {
@@ -25,12 +29,16 @@ const ProfileSetting = () => {
     useForm<FormValues>({
       defaultValues: {
         username: user?.username || "",
+        nickname: user?.nickname || "",
+        interest: user?.interest || "",
       },
       resolver: zodResolver(validationSchema),
     });
   const { errors } = formState;
 
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
+    if (loading) return;
+
     setLoading(true);
     try {
       const payload = getDirtyValues(getValues, formState.dirtyFields);
@@ -61,6 +69,18 @@ const ProfileSetting = () => {
           {...register("username")}
           className="bg-surface-elevation-3"
           error={errors.username}
+        />
+        <TextField
+          label="Nickname"
+          {...register("nickname")}
+          className="bg-surface-elevation-3"
+          error={errors.nickname}
+        />
+        <TextField
+          label="Interest"
+          {...register("interest")}
+          className="bg-surface-elevation-3"
+          error={errors.interest}
         />
       </div>
 

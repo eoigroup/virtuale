@@ -5,6 +5,7 @@ export const getAllPersonas = async () => {
       headers: {
         "Content-Type": "application/json",
       },
+      next: { revalidate: 5 * 60 }, // Revalidate cache every 5 mins
     });
 
     // Check if the response is not OK

@@ -13,12 +13,22 @@ interface TextFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   name: string;
   labelClassName?: string;
+  containerClassName?: string;
   error?: FieldError;
 }
 
 const TextField: React.FC<TextFieldProps> = forwardRef(
   (
-    { label, type, name, labelClassName, error, className, ...inputProps },
+    {
+      label,
+      type,
+      name,
+      containerClassName,
+      labelClassName,
+      error,
+      className,
+      ...inputProps
+    },
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     const [isPasswordVisible, setPasswordVisible] = useState(false);
@@ -28,7 +38,7 @@ const TextField: React.FC<TextFieldProps> = forwardRef(
     };
 
     return (
-      <div>
+      <div className={containerClassName}>
         <Label
           htmlFor={name}
           className={cn("block", labelClassName, { "text-destructive": error })}
