@@ -105,12 +105,14 @@ const Topbar = () => {
                   </div>
                 </div>
               </div>
-              <X
-                strokeWidth={1}
-                size={16}
-                className="cursor-pointer"
-                onClick={() => setSearchQuery("")}
-              />
+              {searchQuery && (
+                <X
+                  strokeWidth={1}
+                  size={16}
+                  className="cursor-pointer"
+                  onClick={() => setSearchQuery("")}
+                />
+              )}
             </div>
           </div>
 
