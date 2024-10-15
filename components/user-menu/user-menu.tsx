@@ -14,6 +14,8 @@ import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import UserSettingsModal from "../modal/user-settings-modal/user-settings-modal";
 import UserAvatar from "../user-avatar/user-avatar";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 const UserMenu = () => {
   const { user } = useUser();
@@ -39,6 +41,43 @@ const UserMenu = () => {
 
   return (
     <div className="flex flex-col justify-end pb-2 px-5">
+      <div className="flex justify-center items-center w-full text-xs text-muted-foreground pt-5 pb-3">
+        <Link
+          target="_blank"
+          className="flex items-center hover:text-foreground"
+          href="/privacy"
+        >
+          Privacy Policy
+        </Link>
+        <span className="text-muted-foreground px-2">•</span>
+        <Link
+          target="_blank"
+          className="flex items-center hover:text-foreground"
+          href="/tos"
+        >
+          Terms of Service
+        </Link>
+      </div>
+
+      <div
+        data-orientation="horizontal"
+        role="none"
+        className="shrink-0 bg-border-divider h-[1px] w-full mb-3"
+      />
+
+      <div className="flex flex-col gap-3 pb-3">
+        <Button
+          variant={"outline"}
+          className="hover:shadow-plus-shadow rounded-full gap-1 border-border-outline"
+          type="button"
+        >
+          Try
+          <div className="flex items-center font-medium rounded-spacing-xs p-0 text-light bg-transparent">
+            ai<div className="text-plus font-bold">+</div>
+          </div>
+        </Button>
+      </div>
+
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <div

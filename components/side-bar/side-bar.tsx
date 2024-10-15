@@ -4,17 +4,23 @@ import Link from "next/link";
 import React from "react";
 import { Typography } from "../ui/typography";
 import { Button } from "../ui/button";
-import { AlignLeft, ChevronsLeft, Compass } from "lucide-react";
+import { AlignLeft, ChevronsLeft, Compass, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useMenu } from "@/contexts/menu-context";
 import ChatList from "./chat-list";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import UserMenu from "../user-menu/user-menu";
 
 const Sidebar = () => {
   const { isMenuExpanded, setIsMenuExpanded } = useMenu();
+  const router = useRouter();
+
   const handleToggle = () => {
     setIsMenuExpanded((prev) => !prev);
+  };
+
+  const handleOnClick = () => {
+    router.push("/persona/new");
   };
 
   const pathname = usePathname();
@@ -57,6 +63,15 @@ const Sidebar = () => {
                   </Button>
                 </div>
                 <div className="p-4 w-full">
+                  <Button
+                    className="mb-2 gap-1 h-11 px-5 rounded-2xl hover:bg-scrim-8"
+                    variant={"secondary"}
+                    onClick={handleOnClick}
+                  >
+                    <Plus />
+                    Create
+                  </Button>
+
                   <Link
                     href={"/"}
                     className={cn(

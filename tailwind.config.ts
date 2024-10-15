@@ -67,11 +67,17 @@ const config: Config = {
           "4": "var(--chart-4)",
           "5": "var(--chart-5)",
         },
+        plus: {
+          DEFAULT: "var(--plus-gold)",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        "plus-shadow": "0px 0px 16px 6px rgba(255, 213, 105, .1)",
       },
     },
   },
