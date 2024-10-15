@@ -42,7 +42,27 @@ const ChatPage = () => {
     setInitialLoading(true);
     try {
       const response = await getChatHistoryByPersonaId(String(id));
-      setChatMessages(response.data);
+      const messages = [];
+      if (persona?.welcome_message) {
+        messages.push({
+          message: persona?.welcome_message,
+          msg_format: ChatTypes.TEXT,
+          persona_id: String(id),
+          unique_id: user!.unique_id,
+          sender: ChatSenderTypes.ASSISTANT,
+        });
+      }
+
+      if (persona?.welcome_image) {
+        messages.push({
+          msg_format: ChatTypes.PHOTO,
+          file_link: persona.welcome_image,
+          persona_id: String(id),
+          unique_id: user!.unique_id,
+          sender: ChatSenderTypes.ASSISTANT,
+        });
+      }
+      setChatMessages([...messages, ...response.data]);
     } catch (error: any) {
       toast.error(error.message);
     }

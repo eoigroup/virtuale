@@ -9,6 +9,7 @@ import { Typography } from "../ui/typography";
 import { useUser } from "@/contexts/user-context";
 import { Play } from "lucide-react";
 import AudioPlayerVisualizer from "../audio-player-visualizer/audio-player-visualizer";
+import Image from "next/image";
 
 const Message = ({
   message,
@@ -30,6 +31,12 @@ const Message = ({
     }
   };
 
+  const showPhoto = () => {
+    if (message.file_link) {
+      return [ChatTypes.PHOTO].includes(message.msg_format);
+    }
+  };
+
   const showTextMessage = () => {
     if (
       isUser &&
@@ -42,10 +49,10 @@ const Message = ({
   };
 
   const showAudioMessage = () => {
-    if (
-      !isUser &&
-      [ChatTypes.AUDIO, ChatTypes.VOICE].includes(message.msg_format)
-    ) {
+    if (![ChatTypes.AUDIO, ChatTypes.VOICE].includes(message.msg_format))
+      return false;
+
+    if (!isUser) {
       return false;
     }
 
@@ -109,6 +116,18 @@ const Message = ({
           )}
           {showAudioMessage() && (
             <audio src={message.file_link!} controls className="h-12 -m-3" />
+          )}
+          {showPhoto() && (
+            <div className="-m-3">
+              <Image
+                width={0}
+                src={message.file_link!}
+                height={0}
+                sizes="100vw"
+                className="rounded-md w-auto"
+                alt=""
+              />
+            </div>
           )}
         </div>
       </div>
