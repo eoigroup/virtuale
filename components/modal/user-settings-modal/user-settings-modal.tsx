@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import Preferences from "@/components/preferences/preferences";
 import SecuritySettings from "@/components/profile-setting/security-settings";
+import LanguageSettings from "@/components/profile-setting/language-settings";
 
 interface UserSettingsModalProps {
   isOpen: boolean;
@@ -58,6 +59,7 @@ const UserSettingsModal: React.FC<UserSettingsModalProps> = ({
           >
             <CustomTabTrigger value="profile">Profile</CustomTabTrigger>
             <CustomTabTrigger value="security">Security</CustomTabTrigger>
+            <CustomTabTrigger value="language">Language</CustomTabTrigger>
             <CustomTabTrigger value="preferences">Preferences</CustomTabTrigger>
           </TabsList>
 
@@ -70,6 +72,9 @@ const UserSettingsModal: React.FC<UserSettingsModalProps> = ({
             </TabsContent>
             <TabsContent value="security" className="w-full h-full">
               <SecuritySettings />
+            </TabsContent>
+            <TabsContent value="language" className="w-full h-full">
+              <LanguageSettings />
             </TabsContent>
           </div>
         </Tabs>
