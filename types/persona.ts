@@ -17,6 +17,7 @@ export type IPersona = {
   personality_system_prompt: string;
   personality_system_prompt_2: string;
   personality_system_prompt_3: string;
+  virtuale_ai_enable: boolean;
   vision_enabled: boolean;
   vision_model: string;
   vision_prompt: string;

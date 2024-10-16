@@ -2,6 +2,7 @@ import Banner from "@/components/banner/banner";
 import PersonaList from "@/components/persona-list/persona-list";
 import { PERSONA_ACTIONS } from "@/lib/actions";
 import { AGENT_API_KEY, AGENT_AUTHOR, API_URL } from "@/lib/config";
+import { IPersona } from "@/types/persona";
 import dynamic from "next/dynamic";
 import React from "react";
 const LandingHeader = dynamic(
@@ -26,7 +27,7 @@ const HomePage = async () => {
 
   const response = await fetch(`${API_URL}/api/personas`, requestOptions);
   const res = await response.json();
-  const personas = res.data;
+  const personas = res.data.filter((p: IPersona) => p.virtuale_ai_enable);
 
   return (
     <>
