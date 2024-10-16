@@ -1,12 +1,7 @@
 import { Typography } from "@/components/ui/typography";
 import React from "react";
-import dynamic from "next/dynamic";
-import Banner from "@/components/banner/banner";
 import Topbar from "@/components/topbar/topbar";
-const PersonaList = dynamic(
-  () => import("@/components/persona-list/persona-list"),
-  { ssr: false }
-);
+import Discover from "@/components/discover/discover";
 
 const DashboardPage = () => {
   return (
@@ -21,8 +16,7 @@ const DashboardPage = () => {
 
         <Topbar />
       </div>
-      <Banner />
-      <PersonaList />
+      <Discover />
     </div>
   );
 };

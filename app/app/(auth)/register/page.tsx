@@ -1,12 +1,12 @@
 "use client";
 
+import LandingHeader from "@/components/landing-header/landing-header";
 import EmailVerifyModal from "@/components/modal/email-verify-modal/email-verify-modal";
 import TextField from "@/components/text-field/text-field";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { signUp } from "@/lib/api/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -53,48 +53,52 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <ThemeModeButton className="fixed top-5 right-5" />
+    <>
+      <LandingHeader />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-        <div className="max-w-[500px] shadow-lg overflow-hidden bg-surface-elevation-1 rounded-md w-full mx-auto flex-col gap-4 flex p-10">
-          <TextField
-            label="Name"
-            labelClassName="text-primary"
-            {...register("name")}
-          />
-          <TextField
-            label="Email"
-            type="email"
-            labelClassName="text-primary"
-            {...register("email")}
-          />
-          <TextField
-            label="Password"
-            type="password"
-            labelClassName="text-primary"
-            {...register("password")}
-          />
+      <main className="flex items-center justify-center h-screen">
+        <ThemeModeButton className="fixed top-5 right-5" />
 
-          <Button loading={loading} disabled={loading} type="submit">
-            Sign Up
-          </Button>
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+          <div className="max-w-[500px] shadow-lg overflow-hidden bg-surface-elevation-1 rounded-md w-full mx-auto flex-col gap-4 flex p-10">
+            <TextField
+              label="Name"
+              labelClassName="text-primary"
+              {...register("name")}
+            />
+            <TextField
+              label="Email"
+              type="email"
+              labelClassName="text-primary"
+              {...register("email")}
+            />
+            <TextField
+              label="Password"
+              type="password"
+              labelClassName="text-primary"
+              {...register("password")}
+            />
 
-          <Typography variant={"small"} className="text-center">
-            {`Have an account? `}
-            <Link href={`/login`} className="text-primary hover:underline">
-              Sign In
-            </Link>
-          </Typography>
-        </div>
-      </form>
+            <Button loading={loading} disabled={loading} type="submit">
+              Sign Up
+            </Button>
 
-      <EmailVerifyModal
-        email={values.email}
-        isOpen={isOpenVerifyModal}
-        onClose={setIsOpenVerifyModal}
-      />
-    </div>
+            <Typography variant={"small"} className="text-center">
+              {`Have an account? `}
+              <Link href={`/login`} className="text-primary hover:underline">
+                Sign In
+              </Link>
+            </Typography>
+          </div>
+        </form>
+
+        <EmailVerifyModal
+          email={values.email}
+          isOpen={isOpenVerifyModal}
+          onClose={setIsOpenVerifyModal}
+        />
+      </main>
+    </>
   );
 };
 

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import React from "react";
-import { Typography } from "../ui/typography";
 import { Button } from "../ui/button";
 import { AlignLeft, ChevronsLeft, Compass, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -10,6 +9,7 @@ import { useMenu } from "@/contexts/menu-context";
 import ChatList from "./chat-list";
 import { usePathname, useRouter } from "next/navigation";
 import UserMenu from "../user-menu/user-menu";
+import Logo from "../logo/logo";
 
 const Sidebar = () => {
   const { isMenuExpanded, setIsMenuExpanded } = useMenu();
@@ -48,11 +48,7 @@ const Sidebar = () => {
             <div className="h-full border-r border-r-border-divider w-64">
               <div className="flex h-full flex-col overflow-hidden border-r-border-divider w-full">
                 <div className="pl-6 pt-4 flex w-full items-center">
-                  <Link href={"/"} className="flex-1">
-                    <Typography variant={`h3`} className="font-bold">
-                      Virtuale.ai
-                    </Typography>
-                  </Link>
+                  <Logo />
 
                   <Button
                     variant={`link-outlined`}

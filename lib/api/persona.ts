@@ -7,7 +7,6 @@ export const getAllPersonas = async () => {
       },
       next: { revalidate: 5 * 60 }, // Revalidate cache every 5 mins
     });
-
     // Check if the response is not OK
     if (!res.ok) {
       const errorData = await res.json();

@@ -9,9 +9,17 @@ import { FreeMode, Navigation } from "swiper/modules";
 import { Typography } from "../ui/typography";
 import PersonaSecondaryCard from "../persona-card/persona-secondary-card";
 import PromptSuggestionCard from "../persona-card/prompt-suggestion-card";
+import { IPersona, IUserConvos } from "@/types/persona";
 
-const PersonaList = () => {
-  const { personas, userConvos, loading } = usePersona();
+const PersonaList = ({
+  personas,
+  loading = false,
+  userConvos = [],
+}: {
+  personas: IPersona[];
+  loading?: boolean;
+  userConvos?: IUserConvos[];
+}) => {
   const forYouPersonas = personas.filter((p) =>
     userConvos.some((u) => u.persona_id === p.persona_id)
   );

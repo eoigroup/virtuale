@@ -7,13 +7,13 @@ import { usePersona } from "@/contexts/persona-context";
 import { Skeleton } from "../ui/skeleton";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { IPersona } from "@/types/persona";
 
 // TODO: change video
 const list = [
   {
     title: "A trusted circle of support",
-    videoLink:
-      "https://media.identica.ai/media/virtuale/lighthouse.mp4",
+    videoLink: "https://media.identica.ai/media/virtuale/lighthouse.mp4",
     personas: [13, 87],
   },
   {
@@ -23,9 +23,13 @@ const list = [
   },
 ];
 
-const Banner = () => {
-  const { personas, loading } = usePersona();
-
+const Banner = ({
+  personas,
+  loading,
+}: {
+  personas: IPersona[];
+  loading: boolean;
+}) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeItem = list[activeIndex];
   const _personas = personas.filter((p) =>
