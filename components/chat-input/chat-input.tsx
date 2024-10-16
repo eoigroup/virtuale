@@ -1,8 +1,7 @@
-import React, { ChangeEvent, MouseEvent, useState } from "react";
+import React, { ChangeEvent, memo, MouseEvent, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { Button } from "../ui/button";
 import { Baseline, Link, Mic, SendHorizontal } from "lucide-react";
-import { AudioRecorder, useAudioRecorder } from "react-audio-voice-recorder";
 import { ChatTypes } from "@/lib/chat";
 import VoiceRecorder from "../voice-recorder/voice-recorder";
 
@@ -116,4 +115,4 @@ const ChatInput = ({
   );
 };
 
-export default ChatInput;
+export default memo(ChatInput);

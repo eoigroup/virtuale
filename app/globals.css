@@ -243,6 +243,21 @@ body {
   overflow: hidden;
 }
 
+.chat-right-panel {
+  animation-name: slideInFromRight !important;
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 @keyframes typing {
   0% {
     width: 0;

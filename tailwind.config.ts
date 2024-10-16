@@ -70,6 +70,7 @@ const config: Config = {
         plus: {
           DEFAULT: "var(--plus-gold)",
         },
+        "border-outline": "var(--border-outline)",
       },
       borderRadius: {
         lg: "var(--radius)",

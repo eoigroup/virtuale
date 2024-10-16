@@ -2,10 +2,11 @@
 
 import ChatInput from "@/components/chat-input/chat-input";
 import ChatMessages from "@/components/chat-messages/chat-messages";
-import ChatRightPanel from "@/components/chat-right-panel/chat-right-panel";
+import ChatHeader from "@/components/chat/chat-header/chat-header";
+import PersonaDetailCenter from "@/components/chat/persona-detail/persona-detail-center";
+import ScrollToBottom from "@/components/chat/scroll-to-bottom/scroll-to-bottom";
 import ChatPageLoading from "@/components/loading/chat-page-loading/chat-page-loading";
 import PersonaImage from "@/components/persona-image/persona-image";
-import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { usePersona } from "@/contexts/persona-context";
 import { useUser } from "@/contexts/user-context";
@@ -18,10 +19,13 @@ import { ChatEncoding, ChatSenderTypes, ChatTypes } from "@/lib/chat";
 import { cn } from "@/lib/utils";
 import { ChatMessage } from "@/types/chat";
 import { IUserConvos } from "@/types/persona";
-import { ChevronDown } from "lucide-react";
+import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+const ChatRightPanel = dynamic(
+  () => import("@/components/chat-right-panel/chat-right-panel")
+);
 
 const ChatPage = () => {
   const { id } = useParams();
@@ -37,32 +41,40 @@ const ChatPage = () => {
   const { user } = useUser();
   const [isScrolledUp, setIsScrolledUp] = useState<boolean>(false); // State for tracking if scrolled up
   let scrollTimeout: NodeJS.Timeout | null = null;
+  const [isOpenChatRightPanel, setIsOpenChatRightPanel] =
+    useState<boolean>(false);
+
+  const welcomeMessages = () => {
+    const messages = [];
+    if (persona?.welcome_message) {
+      messages.push({
+        message: persona?.welcome_message,
+        msg_format: ChatTypes.TEXT,
+        persona_id: String(id),
+        unique_id: user!.unique_id,
+        sender: ChatSenderTypes.ASSISTANT,
+      });
+    }
+
+    if (persona?.welcome_image) {
+      messages.push({
+        msg_format: ChatTypes.PHOTO,
+        file_link: persona.welcome_image,
+        persona_id: String(id),
+        unique_id: user!.unique_id,
+        sender: ChatSenderTypes.ASSISTANT,
+      });
+    }
+
+    return messages;
+  };
 
   const getChatHistory = async () => {
     setInitialLoading(true);
     try {
+      const welcomeMessage = welcomeMessages();
       const response = await getChatHistoryByPersonaId(String(id));
-      const messages = [];
-      if (persona?.welcome_message) {
-        messages.push({
-          message: persona?.welcome_message,
-          msg_format: ChatTypes.TEXT,
-          persona_id: String(id),
-          unique_id: user!.unique_id,
-          sender: ChatSenderTypes.ASSISTANT,
-        });
-      }
-
-      if (persona?.welcome_image) {
-        messages.push({
-          msg_format: ChatTypes.PHOTO,
-          file_link: persona.welcome_image,
-          persona_id: String(id),
-          unique_id: user!.unique_id,
-          sender: ChatSenderTypes.ASSISTANT,
-        });
-      }
-      setChatMessages([...messages, ...response.data]);
+      setChatMessages([...welcomeMessage, ...response.data]);
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -74,13 +86,13 @@ const ChatPage = () => {
     return doc.body.textContent || "";
   };
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     if (lastMessageRef.current) {
-      lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
+      lastMessageRef.current.scrollIntoView();
     }
-  };
+  }, []);
 
-  const addPersonaToChatList = async () => {
+  const addPersonaToChatList = useCallback(async () => {
     try {
       const response = await getUserConvos();
 
@@ -92,83 +104,102 @@ const ChatPage = () => {
     } catch (error: any) {
       toast.error(error?.message || "Error loading user convos");
     }
-  };
+  }, []);
 
-  const handleAudioSend = async (audio: string) => {
-    handleOnGenerate(audio, ChatTypes.AUDIO);
-  };
-  const handleTextSend = async (text: string) => {
-    handleOnGenerate(text, ChatTypes.TEXT);
-  };
+  const handleOnGenerate = useCallback(
+    async (text: string, type: Partial<ChatTypes>) => {
+      if (!persona) return;
+      const isPersonaExistOnChatList = userConvos.some(
+        (persona) => persona.persona_id === id
+      );
 
-  const handleOnGenerate = async (text: string, type: Partial<ChatTypes>) => {
-    if (!persona) return;
-    const isPersonaExistOnChatList = userConvos.some(
-      (persona) => persona.persona_id === id
-    );
-    if (!isPersonaExistOnChatList) {
-      addPersonaToChatList();
-    }
+      if (!isPersonaExistOnChatList) {
+        addPersonaToChatList();
+      }
 
-    const message = sanitizeInput(text.replace(/&nbsp;/g, " "));
-    const encoding =
-      type === ChatTypes.TEXT ? ChatEncoding.TEXT : ChatEncoding.BASE_64;
+      const message = sanitizeInput(text.replace(/&nbsp;/g, " "));
+      const encoding =
+        type === ChatTypes.TEXT ? ChatEncoding.TEXT : ChatEncoding.BASE_64;
 
-    let userMessage: ChatMessage = {
-      message: text,
-      msg_format: type,
-      persona_id: String(id),
-      unique_id: user!.unique_id,
-      sender: ChatSenderTypes.USER,
-    };
-
-    if (type === ChatTypes.AUDIO) {
-      userMessage = {
-        message: message,
-        file_link: `data:audio/webm;codecs=opus;base64,${text}`,
+      let userMessage: ChatMessage = {
+        message: text,
         msg_format: type,
         persona_id: String(id),
         unique_id: user!.unique_id,
         sender: ChatSenderTypes.USER,
       };
-    }
 
-    setChatMessages((prev) => [...prev, userMessage]);
-    setProcessing(true);
-    try {
-      const response = await generateResponseFromUserMessage(
-        {
-          msg: message,
-          type: type,
-          encoding: encoding,
-        },
-        persona.persona_id
-      );
-      let reply = null;
-      let fileLink = null;
-
-      if (type === ChatTypes.TEXT) {
-        reply = response.reply.join(" ");
-      } else if (type === ChatTypes.AUDIO) {
-        reply = response.transcript;
-        fileLink = response.reply;
+      if (type === ChatTypes.AUDIO) {
+        userMessage = {
+          message: message,
+          file_link: `data:audio/webm;codecs=opus;base64,${text}`,
+          msg_format: type,
+          persona_id: String(id),
+          unique_id: user!.unique_id,
+          sender: ChatSenderTypes.USER,
+        };
       }
 
-      const replyMessage = {
-        message: reply,
-        msg_format: type,
-        persona_id: String(id),
-        unique_id: user!.unique_id,
-        sender: ChatSenderTypes.ASSISTANT,
-        ...(fileLink && { file_link: fileLink }),
-      };
+      setChatMessages((prev) => [...prev, userMessage]);
+      setProcessing(true);
+      try {
+        const response = await generateResponseFromUserMessage(
+          {
+            msg: message,
+            type: type,
+            encoding: encoding,
+          },
+          persona.persona_id
+        );
+        let reply = null;
+        let fileLink = null;
 
-      setChatMessages((prev) => [...prev, replyMessage]);
-    } catch (error: any) {
-      toast.error(error.message);
-    }
-    setProcessing(false);
-  };
+        if (type === ChatTypes.TEXT) {
+          reply = response.reply.join(" ");
+        } else if (type === ChatTypes.AUDIO) {
+          reply = response.transcript;
+          fileLink = response.reply;
+        }
+
+        const replyMessage = {
+          message: reply,
+          msg_format: type,
+          persona_id: String(id),
+          unique_id: user!.unique_id,
+          sender: ChatSenderTypes.ASSISTANT,
+          ...(fileLink && { file_link: fileLink }),
+        };
+
+        setChatMessages((prev) => [...prev, replyMessage]);
+      } catch (error: any) {
+        toast.error(error.message);
+      }
+      setProcessing(false);
+    },
+    [id, persona, user, userConvos, addPersonaToChatList]
+  );
+
+  const handleAudioSend = useCallback(
+    async (audio: string) => {
+      handleOnGenerate(audio, ChatTypes.AUDIO);
+    },
+    [handleOnGenerate]
+  );
+
+  const handleOpenPanel = useCallback(() => {
+    setIsOpenChatRightPanel(true);
+  }, []);
+
+  const handleRightPanelOpenChange = useCallback((open: boolean) => {
+    setIsOpenChatRightPanel(open);
+  }, []);
+
+  const handleTextSend = useCallback(
+    async (text: string) => {
+      handleOnGenerate(text, ChatTypes.TEXT);
+    },
+    [handleOnGenerate]
+  );
 
   const handleOnScroll = () => {
     const scrollContainer = scrollContainerRef.current;
@@ -195,7 +226,7 @@ const ChatPage = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [chatMessages]);
+  }, [chatMessages, scrollToBottom]);
 
   useEffect(() => {
     getChatHistory();
@@ -210,49 +241,26 @@ const ChatPage = () => {
   return (
     <div className="flex h-screen">
       <div className="relative w-full flex flex-col items-center">
+        <ChatHeader onOpenPanel={handleOpenPanel} />
         <div
           className="flex-1 w-full overflow-y-auto hide-scrollbar "
           ref={scrollContainerRef}
           onScroll={handleOnScroll}
         >
-          <div
-            className={cn(
-              "flex flex-1 flex-col items-center text-center gap-1 pb-6 pt-12",
-              "overflow-auto",
-              "gap-1"
-            )}
-          >
-            <PersonaImage
-              image={persona.profile_image}
-              className="w-16 h-16 object-cover rounded-full"
-              defaultSize={24}
-            />
-            <Typography variant={"h6"}>{persona.name}</Typography>
-          </div>
-
+          <PersonaDetailCenter
+            key={`chat-persona-detail-${persona.persona_id}`}
+            persona={persona}
+          />
           <ChatMessages
             initialLoading={initialLoading}
             messages={chatMessages}
             persona={persona}
             processing={processing}
           />
-
-          <div
-            className={cn(
-              "absolute pointer-events-auto flex justify-end w-fit bottom-28 right-5 p-unit-sm opacity-0 transition-all translate-y-[2rem]",
-              { "opacity-100 translate-y-0": isScrolledUp }
-            )}
-          >
-            <Button
-              type="button"
-              aria-label="Go to most recent message"
-              className="rounded-full p-1 h-auto"
-              onClick={scrollToBottom}
-            >
-              <ChevronDown />
-            </Button>
-          </div>
-
+          <ScrollToBottom
+            isScrolledUp={isScrolledUp}
+            onClick={scrollToBottom}
+          />
           <div ref={lastMessageRef} />
         </div>
 
@@ -265,7 +273,11 @@ const ChatPage = () => {
           />
         </div>
       </div>
-      <ChatRightPanel />
+
+      <ChatRightPanel
+        open={isOpenChatRightPanel}
+        onOpenChange={handleRightPanelOpenChange}
+      />
     </div>
   );
 };
