@@ -54,3 +54,8 @@ export const replaceQuotes = (url: string) => {
 
   return url;
 };
+
+// Validation function to check if file is an image
+export const validateImageFile = (file: File) => {
+  return file.type.startsWith("image/");
+};

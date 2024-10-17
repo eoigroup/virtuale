@@ -49,12 +49,11 @@ export async function POST(req: NextRequest) {
 
     const response = await fetch(`${API_URL}/api/personas`, requestOptions);
     let data = await response.json();
-    data = data.data.filter((el: any) => el.virtuale_ai_enable);
-
     if (!response.ok) {
       throw new Error(data.error);
     }
 
+    data = data.data.filter((el: any) => el.virtuale_ai_enable);
     return NextResponse.json({ data }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(

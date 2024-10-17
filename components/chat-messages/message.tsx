@@ -32,15 +32,15 @@ const Message = ({
   };
 
   const showPhoto = () => {
-    if (message.file_link) {
-      return [ChatTypes.PHOTO].includes(message.msg_format);
-    }
+    return [ChatTypes.PHOTO].includes(message.msg_format);
   };
 
   const showTextMessage = () => {
     if (
       isUser &&
-      [ChatTypes.AUDIO, ChatTypes.VOICE].includes(message.msg_format)
+      [ChatTypes.AUDIO, ChatTypes.VOICE, ChatTypes.PHOTO].includes(
+        message.msg_format
+      )
     ) {
       return false;
     }
@@ -121,10 +121,11 @@ const Message = ({
             <div className="-m-3">
               <Image
                 width={0}
-                src={message.file_link!}
+                src={message.message}
                 height={0}
                 sizes="100vw"
-                className="rounded-md w-auto"
+                priority
+                className="rounded-md w-auto h-auto"
                 alt=""
               />
             </div>

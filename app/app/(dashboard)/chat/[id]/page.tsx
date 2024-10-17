@@ -6,8 +6,6 @@ import ChatHeader from "@/components/chat/chat-header/chat-header";
 import PersonaDetailCenter from "@/components/chat/persona-detail/persona-detail-center";
 import ScrollToBottom from "@/components/chat/scroll-to-bottom/scroll-to-bottom";
 import ChatPageLoading from "@/components/loading/chat-page-loading/chat-page-loading";
-import PersonaImage from "@/components/persona-image/persona-image";
-import { Typography } from "@/components/ui/typography";
 import { usePersona } from "@/contexts/persona-context";
 import { useUser } from "@/contexts/user-context";
 import {
@@ -16,7 +14,7 @@ import {
 } from "@/lib/api/chat";
 import { getUserConvos } from "@/lib/api/persona";
 import { ChatEncoding, ChatSenderTypes, ChatTypes } from "@/lib/chat";
-import { cn } from "@/lib/utils";
+import { convertBlobToBase64 } from "@/lib/utils";
 import { ChatMessage } from "@/types/chat";
 import { IUserConvos } from "@/types/persona";
 import dynamic from "next/dynamic";
@@ -59,7 +57,7 @@ const ChatPage = () => {
     if (persona?.welcome_image) {
       messages.push({
         msg_format: ChatTypes.PHOTO,
-        file_link: persona.welcome_image,
+        message: persona.welcome_image,
         persona_id: String(id),
         unique_id: user!.unique_id,
         sender: ChatSenderTypes.ASSISTANT,
@@ -107,12 +105,11 @@ const ChatPage = () => {
   }, []);
 
   const handleOnGenerate = useCallback(
-    async (text: string, type: Partial<ChatTypes>) => {
+    async (text: string, type: Partial<ChatTypes>, blog?: Blob) => {
       if (!persona) return;
       const isPersonaExistOnChatList = userConvos.some(
-        (persona) => persona.persona_id === id
+        (persona) => String(persona.persona_id) === String(id)
       );
-
       if (!isPersonaExistOnChatList) {
         addPersonaToChatList();
       }
@@ -129,10 +126,23 @@ const ChatPage = () => {
         sender: ChatSenderTypes.USER,
       };
 
-      if (type === ChatTypes.AUDIO) {
+      if (type === ChatTypes.AUDIO && blog) {
+        const fileLink = await convertBlobToBase64(blog, true);
         userMessage = {
           message: message,
-          file_link: `data:audio/webm;codecs=opus;base64,${text}`,
+          file_link: fileLink,
+          msg_format: type,
+          persona_id: String(id),
+          unique_id: user!.unique_id,
+          sender: ChatSenderTypes.USER,
+        };
+      }
+
+      if (type === ChatTypes.PHOTO && blog) {
+        const message = await convertBlobToBase64(blog, true);
+
+        userMessage = {
+          message: message,
           msg_format: type,
           persona_id: String(id),
           unique_id: user!.unique_id,
@@ -159,11 +169,13 @@ const ChatPage = () => {
         } else if (type === ChatTypes.AUDIO) {
           reply = response.transcript;
           fileLink = response.reply;
+        } else {
+          reply = response.reply;
         }
 
         const replyMessage = {
           message: reply,
-          msg_format: type,
+          msg_format: type === ChatTypes.PHOTO ? ChatTypes.TEXT : type,
           persona_id: String(id),
           unique_id: user!.unique_id,
           sender: ChatSenderTypes.ASSISTANT,
@@ -180,8 +192,15 @@ const ChatPage = () => {
   );
 
   const handleAudioSend = useCallback(
-    async (audio: string) => {
-      handleOnGenerate(audio, ChatTypes.AUDIO);
+    async (audio: string, blob: Blob) => {
+      handleOnGenerate(audio, ChatTypes.AUDIO, blob);
+    },
+    [handleOnGenerate]
+  );
+  const handleImageSend = useCallback(
+    async (file: File) => {
+      const base64 = await convertBlobToBase64(file);
+      handleOnGenerate(base64, ChatTypes.PHOTO, file);
     },
     [handleOnGenerate]
   );
@@ -269,6 +288,7 @@ const ChatPage = () => {
             placeholder={`Message ${persona.name}`}
             onTextSend={handleTextSend}
             onAudioSend={handleAudioSend}
+            onImageSend={handleImageSend}
             disabled={initialLoading}
           />
         </div>

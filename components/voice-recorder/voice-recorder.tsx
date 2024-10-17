@@ -1,11 +1,25 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
-import { Mic, MicOff, Pause, Play, SendHorizontal, Square } from "lucide-react";
+import {
+  Mic,
+  MicOff,
+  Pause,
+  Play,
+  SendHorizontal,
+  Square,
+  X,
+} from "lucide-react";
 import { useAudioRecorder } from "react-audio-voice-recorder";
 import { AudioVisualizer, LiveAudioVisualizer } from "react-audio-visualize";
 import { convertBlobToBase64 } from "@/lib/utils";
 
-const VoiceRecorder = ({ onSend }: { onSend: (audio: string) => void }) => {
+const VoiceRecorder = ({
+  onSend,
+  onCancel,
+}: {
+  onSend: (audio: string, blob: Blob) => void;
+  onCancel: () => void;
+}) => {
   const {
     isPaused,
     mediaRecorder,
@@ -50,7 +64,7 @@ const VoiceRecorder = ({ onSend }: { onSend: (audio: string) => void }) => {
 
     try {
       const base64Audio = await convertBlobToBase64(recordingBlob);
-      onSend(base64Audio);
+      onSend(base64Audio, recordingBlob);
     } catch (error) {
       console.error("Error converting the Audio Blob to base 64", error);
     }
@@ -95,6 +109,14 @@ const VoiceRecorder = ({ onSend }: { onSend: (audio: string) => void }) => {
       </div>
 
       <div className="flex gap-1">
+        <Button
+          className="rounded-full w-10 h-10 p-0 flex items-center justify-center"
+          onClick={onCancel}
+          title={"cancel"}
+        >
+          <X size={16} />
+        </Button>
+
         {audio && (
           <>
             <Button
