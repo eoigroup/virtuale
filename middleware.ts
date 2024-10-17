@@ -47,7 +47,7 @@ export default async function middleware(req: NextRequest) {
 
     // Allow access to /login and /register if unauthenticated
     if (!token && path !== "/login" && path !== "/register") {
-      return NextResponse.redirect(new URL("/login", req.url));
+      return NextResponse.redirect(new URL("/", req.url));
     } else if (token && (path === "/login" || path === "/register")) {
       return NextResponse.redirect(new URL("/", req.url));
     }

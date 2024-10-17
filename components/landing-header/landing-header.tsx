@@ -4,7 +4,11 @@ import React, { useEffect, useState } from "react";
 import Logo from "../logo/logo";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import ThemeModeButton from "../theme-mode-button/theme-mode-button";
+import dynamic from "next/dynamic";
+
+const ThemeModeButton = dynamic(() => import("../theme-mode-button/theme-mode-button"), {
+  ssr: false,
+});
 
 const LandingHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);

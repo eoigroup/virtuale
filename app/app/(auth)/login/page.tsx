@@ -44,6 +44,7 @@ const LoginPage = () => {
     try {
       await signIn(data);
       router.push("/");
+      window.location.reload();
     } catch (error: any) {
       toast.error(error.message);
     }
