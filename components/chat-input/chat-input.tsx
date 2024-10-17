@@ -124,7 +124,7 @@ const ChatInput = ({
           <div className="w-full flex justify-center items-center pr-4">
             <div
               className={cn(
-                "flex grow items-center p-1 rounded-3xl placeholder:text-placeholder bg-surface-elevation-1 m-4 mb-1 border-solid border border-border-outline overflow-hidden",
+                "relative flex grow items-center p-1 rounded-3xl placeholder:text-placeholder bg-surface-elevation-1 mx-4 mt-6 mb-1 border-solid border border-border-outline",
                 { "shadow-plus-shadow": isDragging }
               )}
             >

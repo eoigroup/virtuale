@@ -83,6 +83,38 @@ const VoiceRecorder = ({
 
   return (
     <>
+      <div className="absolute -translate-y-full right-0 top-0 flex items-center">
+        <Button
+          className="p-1 h-auto"
+          onClick={onCancel}
+          variant={"link-outlined"}
+          title={"cancel"}
+        >
+          <X size={16} />
+        </Button>
+
+        {audio && (
+          <Button
+            className="p-1 h-auto"
+            variant={'link-outlined'}
+            onClick={handleToggleAudio}
+            title={isAudioPlaying ? "Pause" : "Play"}
+          >
+            {isAudioPlaying ? <Pause size={16} /> : <Play size={16} />}
+          </Button>
+        )}
+
+        {!audio && (
+          <Button
+            className="p-1 h-auto "
+            onClick={togglePauseResume}
+            variant={'link-outlined'}
+          >
+            {isPaused ? <Mic size={16} /> : <MicOff size={16} />}
+          </Button>
+        )}
+      </div>
+
       <div className="self-voice-recorder w-full relative flex flex-col ml-2">
         <div className="mx-2 flex items-center justify-center">
           {mediaRecorder && (
@@ -109,24 +141,8 @@ const VoiceRecorder = ({
       </div>
 
       <div className="flex gap-1">
-        <Button
-          className="rounded-full w-10 h-10 p-0 flex items-center justify-center"
-          onClick={onCancel}
-          title={"cancel"}
-        >
-          <X size={16} />
-        </Button>
-
         {audio && (
           <>
-            <Button
-              className="rounded-full w-10 h-10 p-0 flex items-center justify-center"
-              onClick={handleToggleAudio}
-              title={isAudioPlaying ? "Pause" : "Play"}
-            >
-              {isAudioPlaying ? <Pause size={16} /> : <Play size={16} />}
-            </Button>
-
             <Button
               className="rounded-full w-10 h-10 p-0 flex items-center justify-center"
               onClick={handleOnSend}
@@ -145,12 +161,6 @@ const VoiceRecorder = ({
               title="Stop"
             >
               <Square size={16} />
-            </Button>
-            <Button
-              className="rounded-full w-10 h-10 p-0 flex items-center justify-center"
-              onClick={togglePauseResume}
-            >
-              {isPaused ? <Mic size={16} /> : <MicOff size={16} />}
             </Button>
           </>
         )}
