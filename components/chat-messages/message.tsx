@@ -35,27 +35,11 @@ const Message = ({
   };
 
   const showTextMessage = () => {
-    if (
-      isUser &&
-      [ChatTypes.AUDIO, ChatTypes.VOICE, ChatTypes.PHOTO].includes(
-        message.msg_format
-      )
-    ) {
+    if (isUser && [ChatTypes.PHOTO].includes(message.msg_format)) {
       return false;
     }
 
     return true;
-  };
-
-  const showAudioMessage = () => {
-    if (![ChatTypes.AUDIO, ChatTypes.VOICE].includes(message.msg_format))
-      return false;
-
-    if (!isUser) {
-      return false;
-    }
-
-    return Boolean(message.file_link);
   };
 
   const handleAudioPlayToggle = () => {
