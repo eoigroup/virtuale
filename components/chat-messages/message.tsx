@@ -25,7 +25,6 @@ const Message = ({
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   const showAudio = () => {
-    if (isUser) return false;
     if (message.file_link) {
       return [ChatTypes.AUDIO, ChatTypes.VOICE].includes(message.msg_format);
     }
@@ -59,6 +58,21 @@ const Message = ({
     return Boolean(message.file_link);
   };
 
+  const handleAudioPlayToggle = () => {
+    if (isPlaying) {
+      audioRef.current?.pause();
+      setIsPlaying(false);
+      return;
+    }
+
+    audioRef.current?.play();
+    setIsPlaying(true);
+  };
+
+  const handleAudioEnded = () => {
+    setIsPlaying(false);
+  };
+
   return (
     <div
       className={cn(
@@ -88,11 +102,9 @@ const Message = ({
           {showAudio() && (
             <>
               <span
-                className="text-blue cursor-pointer"
-                onClick={() => {
-                  audioRef.current?.play();
-                  setIsPlaying(true);
-                }}
+                className="text-blue cursor-pointer w-4 min-w-4"
+                onClick={handleAudioPlayToggle}
+                title={isPlaying ? "Pause" : "Play"}
               >
                 {isPlaying ? <AudioPlayerVisualizer /> : <Play size={16} />}
               </span>
@@ -100,23 +112,20 @@ const Message = ({
                 ref={audioRef}
                 src={message.file_link!}
                 controls={false}
-                onEnded={() => setIsPlaying(false)}
+                onEnded={handleAudioEnded}
               />
             </>
           )}
         </div>
         <div
           className={cn(
-            "mt-1 max-w-xl rounded-2xl px-3 min-h-12 flex justify-center py-3 bg-surface-elevation-2 min-w-[60px] font-light",
-            { "bg-transparent": showAudioMessage() }
+            "mt-1 max-w-xl rounded-2xl px-3 min-h-12 flex justify-center py-3 bg-surface-elevation-2 min-w-[60px] font-light"
           )}
         >
           {showTextMessage() && (
             <p className="break-words whitespace-pre-line">{message.message}</p>
           )}
-          {showAudioMessage() && (
-            <audio src={message.file_link!} controls className="h-12 -m-3" />
-          )}
+
           {showPhoto() && (
             <div className="-m-3">
               <Image
@@ -126,7 +135,7 @@ const Message = ({
                 sizes="100vw"
                 priority
                 className="rounded-md w-auto h-auto"
-                alt=""
+                alt="Image"
               />
             </div>
           )}
