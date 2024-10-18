@@ -66,6 +66,7 @@ const Banner = ({
           className="object-cover object-center select-none w-[800px] h-[300px]"
           id="hero-scenario-video"
           autoPlay
+          playsInline
           key={`hero-video-${activeIndex}`}
         >
           <source src={activeItem.videoLink} type="video/mp4" />
