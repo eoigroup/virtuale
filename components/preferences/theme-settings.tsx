@@ -24,7 +24,7 @@ const ThemeSettings = () => {
         Theme
       </Typography>
 
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-col md:flex-row gap-4">
         <Button
           variant={variant("system")}
           className="flex gap-1"

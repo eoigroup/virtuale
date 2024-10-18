@@ -47,15 +47,19 @@ const UserSettingsModal: React.FC<UserSettingsModalProps> = ({
         aria-describedby=""
       >
         <DialogTitle className="hidden" />
-        <Tabs defaultValue="profile" className="flex flex-col md:flex-row">
+        <Tabs defaultValue="profile" className="flex flex-col md:flex-row w-full overflow-hidden">
           <TabsList
             className={cn(
+              "overflow-auto",
+              "overflow-y-hidden",
+              "w-full",
               "bg-transparent",
-              "md:flex-col justify-start rounded-none p-5 md:pt-8",
+              "md:flex-col justify-start rounded-none",
               "border-b md:border-b-0 md:border-r border-border-outline",
-              "min-h-16 md:h-full",
+              "md:min-h-16 md:h-full",
               "md:min-w-[180px] md:max-w-fit",
-              "gap-2"
+              "gap-2",
+              "p-5 min-h-20 pb-2 md:pb-5 md:pt-8 items-end md:items-center"
             )}
           >
             <CustomTabTrigger value="profile">Profile</CustomTabTrigger>
