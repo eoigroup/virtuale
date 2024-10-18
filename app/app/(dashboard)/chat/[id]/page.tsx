@@ -135,7 +135,7 @@ const ChatPage = () => {
       if (type === ChatTypes.AUDIO && blog) {
         const fileLink = await convertBlobToBase64(blog, true);
         userMessage = {
-          message: message,
+          message: '', //TODO: add transcript of audio
           file_link: fileLink,
           msg_format: type,
           persona_id: String(id),
