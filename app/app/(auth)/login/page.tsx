@@ -55,7 +55,22 @@ const LoginPage = () => {
     try {
       setGoogleAuthLoading(true);
       const link = await signInWithGoogle();
-      window.open(replaceQuotes(link), "_blank");
+      const newWindow = window.open("", "_blank");
+
+      if (newWindow) {
+        newWindow.location = replaceQuotes(link);
+
+        if (
+          !newWindow ||
+          newWindow.closed ||
+          typeof newWindow.closed === "undefined"
+        ) {
+          // Safari popup was blocked, inform the user
+          toast.error(
+            "Please allow popups for this site to continue with Google authentication."
+          );
+        }
+      }
     } catch (error) {
     } finally {
       setGoogleAuthLoading(false);
