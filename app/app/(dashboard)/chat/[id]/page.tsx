@@ -19,7 +19,13 @@ import { ChatMessage } from "@/types/chat";
 import { IUserConvos } from "@/types/persona";
 import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { toast } from "sonner";
 const ChatRightPanel = dynamic(
   () => import("@/components/chat-right-panel/chat-right-panel")
@@ -284,13 +290,15 @@ const ChatPage = () => {
         </div>
 
         <div className="flex w-full flex-col max-w-2xl">
-          <ChatInput
-            placeholder={`Message ${persona.name}`}
-            onTextSend={handleTextSend}
-            onAudioSend={handleAudioSend}
-            onImageSend={handleImageSend}
-            disabled={initialLoading}
-          />
+          <Suspense>
+            <ChatInput
+              placeholder={`Message ${persona.name}`}
+              onTextSend={handleTextSend}
+              onAudioSend={handleAudioSend}
+              onImageSend={handleImageSend}
+              disabled={initialLoading}
+            />
+          </Suspense>
         </div>
       </div>
 

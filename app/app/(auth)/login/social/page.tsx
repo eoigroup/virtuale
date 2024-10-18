@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
-export default function SocialPage() {
+export default function SocialLoginTokenCheckPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
