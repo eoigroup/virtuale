@@ -1,4 +1,5 @@
 import { API_URL } from "@/lib/config";
+import { MEMBER_SHIP } from "@/lib/membership";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -8,7 +9,6 @@ export async function POST(req: NextRequest) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        is_creator: "true",
       },
       body: JSON.stringify({
         name: body?.name,
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
         creator_first_name: body?.name,
         email: body?.email,
         password: body?.password,
-        is_creator: body?.is_creator,
+        virtuale_member_type: MEMBER_SHIP.FREE,
       }),
     });
 
