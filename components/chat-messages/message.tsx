@@ -68,7 +68,7 @@ const Message = ({
         <PersonaImage
           defaultSize={12}
           image={persona.profile_image}
-          className="w-6 h-6"
+          className="min-w-6 w-6 h-6"
         />
       ) : (
         <UserAvatar className="min-w-6 w-6 h-6" />
