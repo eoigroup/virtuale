@@ -1,4 +1,11 @@
-import React, { ChangeEvent, memo, MouseEvent, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  memo,
+  MouseEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { Button } from "../ui/button";
 import { Baseline, Link, Mic, SendHorizontal } from "lucide-react";
@@ -7,6 +14,8 @@ import VoiceRecorder from "../voice-recorder/voice-recorder";
 import ImagePreviewModal from "../modal/image-preview-modal/image-preview-modal";
 import { cn, validateImageFile } from "@/lib/utils";
 import { toast } from "sonner";
+import { useParams, useSearchParams } from "next/navigation";
+import { usePersona } from "@/contexts/persona-context";
 
 const ChatInput = ({
   placeholder,
@@ -27,6 +36,9 @@ const ChatInput = ({
   const [showImageModal, setShowImageModal] = useState<boolean>(false);
   const [selectedFile, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
+  const searchParams = useSearchParams();
+  const { personas } = usePersona();
+  const { id } = useParams();
 
   const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
@@ -112,6 +124,19 @@ const ChatInput = ({
     setIsDragging(false);
   };
 
+  useEffect(() => {
+    const persona = personas.find(
+      (persona) => Number(persona.persona_id) === Number(id)
+    );
+    const searchParam = searchParams.get("suggestion");
+    if (!persona || !searchParam) return;
+    const suggestions = persona.agent_suggested_questions?.split("@") || [];
+    const suggestion = suggestions[Number(searchParam)];
+    if (suggestion) {
+      setText(suggestion);
+    }
+  }, [personas, searchParams]);
+
   return (
     <>
       <div
@@ -154,7 +179,10 @@ const ChatInput = ({
               )}
 
               {chatType === ChatTypes.AUDIO && (
-                <VoiceRecorder onSend={handleOnAudioSend} onCancel={handleOnAduioCancel} />
+                <VoiceRecorder
+                  onSend={handleOnAudioSend}
+                  onCancel={handleOnAduioCancel}
+                />
               )}
             </div>
           </div>
