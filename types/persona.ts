@@ -120,6 +120,7 @@ export type IPersona = {
   agent_role: string;
   creator_notes_activate: boolean;
   creator_notes: string;
+  virtuale_hero: boolean;
 };
 
 export type IUserConvos = {

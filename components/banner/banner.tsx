@@ -8,17 +8,14 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { IPersona } from "@/types/persona";
 
-// TODO: change video
 const list = [
   {
     title: "A trusted circle of support",
     videoLink: "https://media.identica.ai/media/virtuale/lighthouse.mp4",
-    personas: [13, 87],
   },
   {
     title: "Learn something new today",
     videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
-    personas: [5, 87],
   },
 ];
 
@@ -31,9 +28,12 @@ const Banner = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeItem = list[activeIndex];
-  const _personas = personas.filter((p) =>
-    activeItem.personas.includes(Number(p.persona_id))
-  );
+  const itemsPerPage = 2;
+  const startIndex = activeIndex * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const _personas = personas
+    .filter((p) => p.virtuale_hero)
+    .slice(startIndex, endIndex);
 
   useEffect(() => {
     if (loading) return;
