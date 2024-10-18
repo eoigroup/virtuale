@@ -243,6 +243,13 @@ body {
   overflow: hidden;
 }
 
+@media (max-width: 768px) {
+  .typing-effect {
+    white-space: inherit;
+    animation: none;
+  }
+}
+
 .chat-right-panel {
   animation-name: slideInFromRight !important;
 }
