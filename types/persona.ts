@@ -121,6 +121,8 @@ export type IPersona = {
   creator_notes_activate: boolean;
   creator_notes: string;
   virtuale_hero: boolean;
+  virtuale_trythese: boolean;
+  virtuale_featured: boolean;
 };
 
 export type IUserConvos = {
@@ -145,4 +147,10 @@ export type IUserConvos = {
   in_auto_msg_queue: boolean;
   planned_msg: string;
   timestamp: string;
+};
+
+export type ICategory = {
+  id: string;
+  category: string;
+  is_active: boolean;
 };

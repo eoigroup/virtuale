@@ -2,7 +2,6 @@
 
 import React from "react";
 import PersonaCard from "../persona-card/persona-card";
-import { usePersona } from "@/contexts/persona-context";
 import PersonaLoading from "./persona-loading";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
@@ -10,6 +9,7 @@ import { Typography } from "../ui/typography";
 import PersonaSecondaryCard from "../persona-card/persona-secondary-card";
 import PromptSuggestionCard from "../persona-card/prompt-suggestion-card";
 import { IPersona, IUserConvos } from "@/types/persona";
+import FeaturedPersonas from "./featured-personas";
 
 const PersonaList = ({
   personas,
@@ -23,10 +23,8 @@ const PersonaList = ({
   const forYouPersonas = personas.filter((p) =>
     userConvos.some((u) => u.persona_id === p.persona_id)
   );
-  const featuredPersonas = personas.filter((p) =>
-    userConvos.every((u) => u.persona_id !== p.persona_id)
-  );
-  const tryThese = personas.filter((p) => p.profile_image);
+  const featuredPersonas = personas.filter((p) => p.virtuale_featured);
+  const tryThese = personas.filter((p) => p.virtuale_trythese);
   const promptSuggestionPersonas = personas.filter((p) => {
     if (!p.agent_suggested_questions) return false;
     const suggestions = p.agent_suggested_questions.split("@");
@@ -87,36 +85,7 @@ const PersonaList = ({
         </div>
       </div>
 
-      <div className="mt-10">
-        <Typography variant={"h5"} className="mb-4 ml-4">
-          Featured
-        </Typography>
-
-        <Swiper
-          spaceBetween={10}
-          modules={[FreeMode, Navigation]}
-          freeMode
-          navigation
-          breakpoints={{
-            640: {
-              slidesPerView: 1,
-            },
-            768: {
-              slidesPerView: 2,
-            },
-            1024: {
-              slidesPerView: 4,
-            },
-          }}
-          className="self-swiper"
-        >
-          {featuredPersonas.map((persona) => (
-            <SwiperSlide key={`feature-${persona.persona_id}`}>
-              <PersonaCard persona={persona} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+      <FeaturedPersonas personas={featuredPersonas} />
 
       <div className="mt-10">
         <Typography variant={"h5"} className="mb-4 ml-4">
