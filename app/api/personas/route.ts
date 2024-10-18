@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
       throw new Error(data.error);
     }
 
-    data = data.data.filter((el: any) => el.virtuale_ai_enable);
+    data = data.data.filter((el: any) => el.virtuale_ai_enable && el.is_active);
     return NextResponse.json({ data }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(
