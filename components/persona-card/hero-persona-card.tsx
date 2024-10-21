@@ -9,17 +9,25 @@ import Link from "next/link";
 const HeroPersonaCard = ({
   persona,
   index = 0,
+  className,
 }: {
   persona: IPersona;
+  className?: string;
   index?: number;
 }) => {
   return (
     <Link
       href={`/chat/${persona.persona_id}`}
-      className="flex-1 hero-card-effect transition-all duration-300"
+      className={cn(
+        "flex-1 hero-card-effect transition-all duration-300",
+        className
+      )}
     >
       <AnimatedCard
-        className={cn("w-full xl:w-[280px] md:h-[280px] h-[200px] rounded-xl", "p-4")}
+        className={cn(
+          "w-full xl:w-[280px] md:h-[280px] h-[200px] rounded-xl",
+          "p-4"
+        )}
         visibleCircle
         circleSize={350}
         initial={{ opacity: 0, translateY: "50px" }}
@@ -27,7 +35,10 @@ const HeroPersonaCard = ({
         transition={{ duration: 0.2, delay: index * 0.1 }}
       >
         <div className="flex gap-1">
-          <PersonaImage image={persona.profile_image} className="w-12 min-w-12 h-12" />
+          <PersonaImage
+            image={persona.profile_image}
+            className="w-12 min-w-12 h-12"
+          />
           <Typography>{persona.name}</Typography>
         </div>
         <Typography className="line-clamp-4">

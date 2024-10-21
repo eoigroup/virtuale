@@ -10,6 +10,7 @@ import PersonaSecondaryCard from "../persona-card/persona-secondary-card";
 import PromptSuggestionCard from "../persona-card/prompt-suggestion-card";
 import { IPersona, IUserConvos } from "@/types/persona";
 import FeaturedPersonas from "./featured-personas";
+import FeaturedPersonaBanner from "./featured-persona-banner";
 
 const PersonaList = ({
   personas,
@@ -84,6 +85,8 @@ const PersonaList = ({
           ))}
         </div>
       </div>
+
+      <FeaturedPersonaBanner personas={personas} />
 
       <FeaturedPersonas personas={featuredPersonas} />
 
