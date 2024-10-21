@@ -39,7 +39,7 @@ const Message = ({
       return false;
     }
 
-    return ChatTypes.TEXT === message.msg_format;
+    return [ChatTypes.TEXT, ChatTypes.AUDIO, ChatTypes.VOICE].includes(message.msg_format)
   };
 
   const handleAudioPlayToggle = () => {
