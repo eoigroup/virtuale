@@ -20,7 +20,7 @@ const PersonaImage = ({
         height={0}
         sizes="100vw"
         alt=""
-        className={cn("rounded-full", className)}
+        className={cn("rounded-full object-cover", className)}
       />
     );
   }
