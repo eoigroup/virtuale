@@ -9,8 +9,8 @@ import { Typography } from "../ui/typography";
 import PersonaSecondaryCard from "../persona-card/persona-secondary-card";
 import PromptSuggestionCard from "../persona-card/prompt-suggestion-card";
 import { IPersona, IUserConvos } from "@/types/persona";
+import CategoryList from "./category-list";
 import FeaturedPersonas from "./featured-personas";
-import FeaturedPersonaBanner from "./featured-persona-banner";
 
 const PersonaList = ({
   personas,
@@ -86,9 +86,9 @@ const PersonaList = ({
         </div>
       </div>
 
-      <FeaturedPersonaBanner personas={personas} />
+      <FeaturedPersonas personas={personas} featuredPersonas={featuredPersonas} />
 
-      <FeaturedPersonas personas={featuredPersonas} />
+      <CategoryList personas={personas} />
 
       <div className="mt-10">
         <Typography variant={"h5"} className="mb-4 ml-4">
