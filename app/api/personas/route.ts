@@ -48,9 +48,9 @@ export async function POST(req: NextRequest) {
     };
 
     const response = await fetch(`${API_URL}/api/personas`, requestOptions);
+    console.log("response", response);
     if (!response.ok) {
       let data = await response.json();
-      console.log("response", response);
       console.log("data", data);
       throw new Error(data.error);
     }

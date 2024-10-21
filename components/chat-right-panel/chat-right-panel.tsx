@@ -38,12 +38,12 @@ const ChatRightPanel = ({
           <div className="flex items-center gap-3">
             <PersonaImage
               image={persona.profile_image}
-              className="w-[65px] h-[65px]"
+              className="w-[65px] h-[65px] object-cover"
             />
 
             <Typography>{persona.name}</Typography>
           </div>
-          <RightPanelPersonaActions />
+          <RightPanelPersonaActions persona={persona} />
           {persona.profile_about && (
             <Typography variant={"xsmall"} className="text-muted-foreground">
               {persona.profile_about}

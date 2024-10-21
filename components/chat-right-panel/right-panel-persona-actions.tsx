@@ -2,8 +2,9 @@ import React from "react";
 import { Button } from "../ui/button";
 import { Flag, Share, ThumbsDown, ThumbsUp } from "lucide-react";
 import { Typography } from "../ui/typography";
+import { IPersona } from "@/types/persona";
 
-const RightPanelPersonaActions = () => {
+const RightPanelPersonaActions = ({ persona }: { persona: IPersona }) => {
   const handleClickLike = () => {
     // TODO: after API ready
   };
@@ -26,7 +27,7 @@ const RightPanelPersonaActions = () => {
           >
             <ThumbsUp size={16} />
           </Button>
-          <Typography variant={"xsmall"}>800</Typography>
+          <Typography variant={"xsmall"}>{persona.likes}</Typography>
           <span className="h-full w-[1px] bg-current" />
 
           <Button
