@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { useUser } from "@/contexts/user-context";
 import { Typography } from "../ui/typography";
 import { cn } from "@/lib/utils";
 import { ChevronDown, LogOut, Moon, Settings, Sun } from "lucide-react";
-import Image from "next/image";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +15,7 @@ import UserSettingsModal from "../modal/user-settings-modal/user-settings-modal"
 import UserAvatar from "../user-avatar/user-avatar";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import TryAIModal from "../modal/try-ai-modal/try-ai-modal";
 
 const UserMenu = () => {
   const { user } = useUser();
@@ -23,6 +23,7 @@ const UserMenu = () => {
   const router = useRouter();
   const [isOpenSettingsModal, setIsOpenSettingsModal] =
     useState<boolean>(false);
+  const [isOpenTryModalModal, setIsOpenTryModal] = useState<boolean>(false);
   const handleChangeMode = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
@@ -31,12 +32,8 @@ const UserMenu = () => {
     router.push("/logout");
   };
 
-  const getAvatarName = () => {
-    if (user?.username) {
-      return user.username.charAt(0).toUpperCase();
-    }
-
-    return user?.email.charAt(0).toUpperCase();
+  const handleOpenTryModal = () => {
+    setIsOpenTryModal(true);
   };
 
   return (
@@ -70,6 +67,7 @@ const UserMenu = () => {
           variant={"outline"}
           className="hover:shadow-plus-shadow rounded-full gap-1 border-border-outline"
           type="button"
+          onClick={handleOpenTryModal}
         >
           Try
           <div className="flex items-center font-medium rounded-spacing-xs p-0 text-light bg-transparent">
@@ -124,8 +122,10 @@ const UserMenu = () => {
         isOpen={isOpenSettingsModal}
         onClose={setIsOpenSettingsModal}
       />
+
+      <TryAIModal isOpen={isOpenTryModalModal} onClose={setIsOpenTryModal} />
     </div>
   );
 };
 
-export default UserMenu;
+export default memo(UserMenu);
