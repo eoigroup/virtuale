@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { Typography } from "../ui/typography";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -7,36 +9,68 @@ import { ICategory, IPersona } from "@/types/persona";
 import { toast } from "sonner";
 import { getPersonaCategories } from "@/lib/api/persona";
 import { Button } from "../ui/button";
+import { Skeleton } from "../ui/skeleton";
 
 const FeaturedPersonas = ({ personas }: { personas: IPersona[] }) => {
-  // const [categories, setCategories] = useState<ICategory[]>([]);
+  const [categories, setCategories] = useState<ICategory[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [_personas, setPersonas] = useState<IPersona[]>(personas);
+  const [activeCategory, setActiveCategory] = useState<string>("");
 
-  // const getCategories = async () => {
-  //   try {
-  //     const response = await getPersonaCategories();
-  //     setCategories(response.data);
-  //   } catch (error: any) {
-  //     toast.error(error.message || "Error fetching categories");
-  //   }
-  // };
+  const getCategories = async () => {
+    if (loading) return;
+    setLoading(true);
+    try {
+      const response = await getPersonaCategories();
+      setCategories(response.data);
+    } catch (error: any) {
+      toast.error(error.message || "Error fetching categories");
+    }
+    setLoading(false);
+  };
 
-  // useEffect(() => {
-  //   getCategories();
-  // }, []);
+  const handleFilterPersona = (category: string) => {
+    if (category === activeCategory) {
+      setActiveCategory("");
+      setPersonas(personas);
+    } else {
+      setActiveCategory(category);
+      setPersonas(
+        personas.filter((persona) => persona.agent_category === category)
+      );
+    }
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   return (
     <div className="mt-10">
-      {/* <div className="flex items-center">
-        {categories.map((category) => (
-          <Button key={`category-${category.id}`} variant={"outline"}>
-            {category.category}
-          </Button>
-        ))}
-      </div> */}
-
       <Typography variant={"h5"} className="mb-4 ml-4">
         Featured
       </Typography>
+
+      <div className="flex items-center overflow-auto gap-2 py-1 mb-4">
+        {!loading
+          ? categories.map((category) => (
+              <Button
+                key={`category-${category.id}`}
+                variant={
+                  activeCategory === category.category ? "default" : "outline"
+                }
+                onClick={() => handleFilterPersona(category.category)}
+              >
+                {category.category}
+              </Button>
+            ))
+          : [...Array(6)].map((el, index) => (
+              <Skeleton
+                key={`category-loading-${index}`}
+                className="w-[110px] h-10 rounded-md"
+              />
+            ))}
+      </div>
 
       <Swiper
         spaceBetween={10}
@@ -56,7 +90,7 @@ const FeaturedPersonas = ({ personas }: { personas: IPersona[] }) => {
         }}
         className="self-swiper"
       >
-        {personas.map((persona) => (
+        {_personas.map((persona) => (
           <SwiperSlide key={`feature-${persona.persona_id}`}>
             <PersonaCard persona={persona} />
           </SwiperSlide>

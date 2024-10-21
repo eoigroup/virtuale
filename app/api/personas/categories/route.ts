@@ -5,15 +5,6 @@ import { DecodedJWT } from "@/types/user";
 import { PERSONA_ACTIONS } from "@/lib/actions";
 
 export async function POST(req: NextRequest) {
-  const jwtToken = req.cookies.get("jwt")?.value;
-
-  if (!jwtToken) {
-    return Response.json(
-      { message: "You are not authenticated" },
-      { status: 400 }
-    );
-  }
-
   if (!AGENT_API_KEY) {
     return Response.json(
       { message: "AGENT_API_KEY is missing" },
@@ -29,9 +20,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const jwt = jwtDecode<DecodedJWT>(jwtToken);
     const body: BodyInit = new FormData();
-    body.append("unique_id", jwt.unique_id);
     body.append("action", PERSONA_ACTIONS.GET_ALL_CATEGORIES);
 
     const requestOptions: RequestInit = {
@@ -39,15 +28,13 @@ export async function POST(req: NextRequest) {
       headers: {
         Authorization: `Api-Key ${AGENT_API_KEY}`,
         author: AGENT_AUTHOR,
-        Cookie: `jwt=${jwtToken};`,
         ContentType: "multipart/form-data",
       },
       body: body,
       redirect: "follow",
     };
 
-    const response = await fetch(`${API_URL}/api/v2/personas`, requestOptions);
-
+    const response = await fetch(`${API_URL}/api/personas`, requestOptions);
     const data = await response.json();
     if (!response.ok) {
       throw new Error(data.error);
