@@ -42,51 +42,54 @@ const FeaturedPersonas = ({
         Featured
       </Typography>
 
-      <Swiper
-        spaceBetween={10}
-        slidesPerView={1}
-        className="self-swiper"
-        loop
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-        modules={[Autoplay]}
+      <motion.div
+        className={cn("flex gap-3 flex-col md:flex-row")}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
       >
-        {list.map((item, index) => {
-          const persona = personas.find(
-            (p) => String(p.persona_id) === String(item.id)
-          );
+        <div className="md:w-[280px]">
+          <Swiper
+            spaceBetween={10}
+            slidesPerView={1}
+            className="self-swiper"
+            loop
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            modules={[Autoplay]}
+          >
+            {list.map((item, index) => {
+              const persona = personas.find(
+                (p) => String(p.persona_id) === String(item.id)
+              );
 
-          return (
-            <SwiperSlide key={`featured-box-${index}`}>
-              <motion.div
-                className={cn("flex gap-3 flex-col md:flex-row")}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                {persona && (
-                  <HeroPersonaCard
-                    persona={persona}
-                    className="flex-none md:min-w-[280px]"
-                  />
-                )}
-                <div className="flex-1 rounded-xl overflow-hidden">
-                  <Image
-                    src={`/${item.image}`}
-                    alt=""
-                    width={0}
-                    height={0}
-                    sizes="100vw"
-                    className="w-full h-[280px] object-cover"
-                  />
-                </div>
-              </motion.div>
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
+              return (
+                <SwiperSlide key={`featured-box-${index}`}>
+                  {persona && (
+                    <HeroPersonaCard
+                      persona={persona}
+                      className="flex-none md:min-w-[280px]"
+                    />
+                  )}
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </div>
+
+        <div className="flex-1 w-full rounded-xl overflow-hidden">
+          <Image
+            src={`/9448016.jpg`}
+            alt=""
+            width={0}
+            height={0}
+            sizes="100vw"
+            className="w-full h-[280px] object-cover"
+          />
+        </div>
+      </motion.div>
 
       <div className="w-full mt-6">
         <Swiper
