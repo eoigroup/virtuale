@@ -81,13 +81,13 @@ const Topbar = () => {
           {/* Backdrop */}
           {dropdownVisible && (
             <div
-              className="absolute left-0 top-0 z-30 h-screen w-screen bg-black opacity-30"
+              className="absolute left-0 top-0 z-[99] h-screen w-screen bg-transparent"
               onClick={() => setDropdownVisible(false)}
             />
           )}
 
           {/* Search input */}
-          <div className="relative h-10 w-64 md:w-96">
+          <div className="relative z-[100] h-10 w-64 md:w-96">
             <div className="absolute z-40 flex gap-2 w-full max-w-3xl border-spacing-1 border-divider flex-row self-center items-center rounded-full bg-surface-elevation-1 p-4 placeholder:text-placeholder">
               <Search size={16} />
               <div className="relative flex flex-col w-full">
@@ -119,7 +119,7 @@ const Topbar = () => {
           {/* Dropdown with search results */}
           {dropdownVisible && (
             <div className="flex max-w-3xl justify-end md:justify-center self-center">
-              <div className="absolute z-50 mt-5 max-h-[calc(100vh-12rem)] max-w-[90dvw] sm:w-96 overflow-y-scroll rounded-3xl bg-surface-elevation-2 p-2 flex flex-col gap-1">
+              <div className="absolute z-[100] mt-5 max-h-[calc(100vh-12rem)] max-w-[90dvw] sm:w-96 overflow-y-scroll rounded-3xl bg-surface-elevation-2 p-2 flex flex-col gap-1">
                 {filteredPersonas.length > 0 ? (
                   filteredPersonas.map((persona) => (
                     <SearchResultPersonaCard
