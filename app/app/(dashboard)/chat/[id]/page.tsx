@@ -205,7 +205,7 @@ const ChatPage = () => {
   );
   const handleImageSend = useCallback(
     async (file: File) => {
-      const base64 = await convertBlobToBase64(file);
+      const base64 = await convertBlobToBase64(file, true);
       handleOnGenerate(base64, ChatTypes.PHOTO, file);
     },
     [handleOnGenerate]
