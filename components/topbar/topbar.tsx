@@ -81,13 +81,13 @@ const Topbar = () => {
           {/* Backdrop */}
           {dropdownVisible && (
             <div
-              className="absolute left-0 top-0 z-[51] h-screen w-screen bg-transparent"
+              className="absolute left-0 top-0 z-[48] h-screen w-screen bg-transparent"
               onClick={() => setDropdownVisible(false)}
             />
           )}
 
           {/* Search input */}
-          <div className="relative z-[50] h-10 w-64 md:w-96">
+          <div className="relative z-[49] h-10 w-64 md:w-96">
             <div className="absolute z-40 flex gap-2 w-full max-w-3xl border-spacing-1 border-divider flex-row self-center items-center rounded-full bg-surface-elevation-1 p-4 placeholder:text-placeholder">
               <Search size={16} />
               <div className="relative flex flex-col w-full">
