@@ -26,6 +26,9 @@ const HomePage = async () => {
   };
 
   const response = await fetch(`${API_URL}/api/personas`, requestOptions);
+  if (!response.ok) {
+    return { message: "Something went wrong" };
+  }
   const res = await response.json();
   const personas = res.data.filter((p: IPersona) => p.virtuale_ai_enable);
 
