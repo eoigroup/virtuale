@@ -7,9 +7,13 @@ export default function LogoutPage() {
   const router = useRouter();
 
   const handleLogout = async () => {
-    await logout();
-    router.push("/login");
-    window.location.reload();
+    try {
+      await logout();
+      router.push("/login");
+      window.location.reload();
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   useEffect(() => {
