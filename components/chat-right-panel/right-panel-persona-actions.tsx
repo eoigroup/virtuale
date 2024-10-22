@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Flag, Share, ThumbsDown, ThumbsUp } from "lucide-react";
 import { Typography } from "../ui/typography";
 import { IPersona } from "@/types/persona";
 import { updatePersonaById } from "@/lib/api/persona";
 import { useUser } from "@/contexts/user-context";
+import ShareLinkModal from "../modal/share-link-modal/share-link-modal";
 
 const RightPanelPersonaActions = ({ persona }: { persona: IPersona }) => {
   const [likes, setLikes] = useState(persona.likes);
@@ -12,6 +13,8 @@ const RightPanelPersonaActions = ({ persona }: { persona: IPersona }) => {
   const [userHasLiked, setUserHasLiked] = useState(false);
   const [userHasDisliked, setUserHasDisliked] = useState(false);
   const { user } = useUser();
+  const [showShareLinkModal, setShowShareLinkModal] = useState(false);
+
   // Define the localStorage key for this user and persona
   const localStorageKey = `persona-${persona.persona_id}-user-${
     user!.unique_id
@@ -97,10 +100,22 @@ const RightPanelPersonaActions = ({ persona }: { persona: IPersona }) => {
     }
   };
 
+  const openShareLinkModal = useCallback(() => {
+    setShowShareLinkModal(true);
+  }, []);
+
+  const closeShareLinkModal = useCallback(() => {
+    setShowShareLinkModal(false);
+  }, []);
+
   return (
     <div className="flex justify-between">
       <div className="flex flex-row gap-1">
-        <Button variant={"outline"} className="rounded-full h-auto p-3">
+        <Button
+          variant={"outline"}
+          className="rounded-full h-auto p-3"
+          onClick={openShareLinkModal}
+        >
           <Share size={16} />
         </Button>
 
@@ -131,6 +146,13 @@ const RightPanelPersonaActions = ({ persona }: { persona: IPersona }) => {
       <Button variant={"outline"} className="rounded-full h-auto p-3">
         <Flag size={16} />
       </Button>
+
+      <ShareLinkModal
+        personaName={persona.name}
+        personaId={persona.persona_id}
+        isOpen={showShareLinkModal}
+        onClose={closeShareLinkModal}
+      />
     </div>
   );
 };
