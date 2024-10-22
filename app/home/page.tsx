@@ -13,6 +13,9 @@ const LandingHeader = dynamic(
 const body: BodyInit = new FormData();
 body.append("action", PERSONA_ACTIONS.FETCH_ALL_PERSONAS);
 
+export const revalidate = 60
+
+
 const HomePage = async () => {
   const requestOptions: RequestInit = {
     method: "POST",
