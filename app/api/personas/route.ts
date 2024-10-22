@@ -48,12 +48,15 @@ export async function POST(req: NextRequest) {
     };
 
     const response = await fetch(`${API_URL}/api/personas`, requestOptions);
-    console.log("response", response);
     if (!response.ok) {
-      let data = await response.json();
-      console.log("data", data);
-      throw new Error(data.error);
+      if (response.headers.get("content-type")?.includes("application/json")) {
+        const data = await response.json();
+        throw new Error(data.error || data?.reply || data?.data?.reply);
+      } else {
+        throw new Error(response.statusText);
+      }
     }
+
     let data = await response.json();
     data = data.data.filter((el: any) => el.virtuale_ai_enable && el.is_active);
     return NextResponse.json({ data }, { status: 200 });

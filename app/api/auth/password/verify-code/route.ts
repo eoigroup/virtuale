@@ -32,10 +32,16 @@ export async function POST(req: NextRequest) {
       }),
     });
 
-    const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.error);
+      if (response.headers.get("content-type")?.includes("application/json")) {
+        const data = await response.json();
+        throw new Error(data.error || data?.reply || data?.data?.reply);
+      } else {
+        throw new Error(response.statusText);
+      }
     }
+
+    const data = await response.json();
 
     const responseCookies = response?.headers?.get("Set-Cookie");
     if (responseCookies) {

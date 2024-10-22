@@ -23,8 +23,12 @@ export async function POST(req: NextRequest) {
   try {
     const response = await fetch(`${API_URL}/auth/logout/`, requestOptions);
     if (!response.ok) {
-      const data = await response.json();
-      throw new Error(data.error || data?.reply || data?.data?.reply);
+      if (response.headers.get("content-type")?.includes("application/json")) {
+        const data = await response.json();
+        throw new Error(data.error || data?.reply || data?.data?.reply);
+      } else {
+        throw new Error(response.statusText);
+      }
     }
 
     cookies().delete("jwt");
