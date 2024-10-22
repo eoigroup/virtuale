@@ -40,6 +40,7 @@ const ChatPage = () => {
   const persona = personas.find(
     (persona) => Number(persona.persona_id) === Number(id)
   );
+  console.log('persona', persona)
   const lastMessageRef = useRef<HTMLDivElement | null>(null); // Ref for the last message
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const { user } = useUser();
