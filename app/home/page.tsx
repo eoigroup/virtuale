@@ -26,6 +26,7 @@ const HomePage = async () => {
   };
 
   const response = await fetch(`${API_URL}/api/personas`, requestOptions);
+  console.log('response', response)
   if (!response.ok) {
     return "Something went wrong";
   }
