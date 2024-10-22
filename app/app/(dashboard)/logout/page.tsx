@@ -4,21 +4,21 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function LogoutPage() {
-  const router = useRouter();
+  // const router = useRouter();
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      router.push("/login");
-      window.location.reload();
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  // const handleLogout = async () => {
+  //   try {
+  //     await logout();
+  //     router.push("/login");
+  //     window.location.reload();
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    handleLogout();
-  }, []);
+  // useEffect(() => {
+  //   handleLogout();
+  // }, []);
 
   return null;
 }
