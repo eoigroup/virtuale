@@ -20,7 +20,6 @@ interface PersonaContextProps {
   loading: boolean;
   updatePersonas: () => Promise<void>;
   setUserConvos: Dispatch<SetStateAction<IUserConvos[]>>;
-  setPersonas: Dispatch<SetStateAction<IPersona[]>>;
 }
 
 const PersonaContext = createContext<PersonaContextProps>({
@@ -28,7 +27,6 @@ const PersonaContext = createContext<PersonaContextProps>({
   userConvos: [],
   loading: false,
   setUserConvos: () => {},
-  setPersonas: () => {},
   updatePersonas: async () => {},
 });
 
@@ -40,9 +38,11 @@ export const PersonaProvider = ({ children }: { children: ReactNode }) => {
   const updatePersonas = async () => {
     setLoading(true);
     try {
-      const response = await Promise.all([getUserConvos()]);
+      const response = await Promise.all([getAllPersonas(), getUserConvos()]);
+
+      setPersonas(response[0].data);
       setUserConvos(
-        response[0].data.sort((a: IUserConvos, b: IUserConvos) =>
+        response[1].data.sort((a: IUserConvos, b: IUserConvos) =>
           a.timestamp.localeCompare(b.timestamp)
         )
       );
@@ -58,14 +58,7 @@ export const PersonaProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <PersonaContext.Provider
-      value={{
-        personas,
-        userConvos,
-        updatePersonas,
-        setPersonas,
-        setUserConvos,
-        loading,
-      }}
+      value={{ personas, userConvos, updatePersonas, setUserConvos, loading }}
     >
       {children}
     </PersonaContext.Provider>

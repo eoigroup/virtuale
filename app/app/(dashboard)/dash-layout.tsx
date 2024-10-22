@@ -16,14 +16,14 @@ const DashboardLayout = ({
   personas: IPersona[];
 }) => {
   const { loading } = useUser();
-  const { setPersonas } = usePersona();
+  // const { setPersonas } = usePersona();
   const { isMenuExpanded } = useMenu();
 
-  useEffect(() => {
-    if (loading) return;
+  // useEffect(() => {
+  //   if (loading) return;
 
-    setPersonas(personas);
-  }, [personas, loading]);
+  //   setPersonas(personas);
+  // }, [personas, loading]);
 
   if (loading) {
     return (
