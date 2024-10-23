@@ -44,7 +44,6 @@ const ChatPage = () => {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const { user } = useUser();
   const [isScrolledUp, setIsScrolledUp] = useState<boolean>(false); // State for tracking if scrolled up
-  let scrollTimeout: NodeJS.Timeout | null = null;
   const [isOpenChatRightPanel, setIsOpenChatRightPanel] =
     useState<boolean>(false);
 
@@ -135,7 +134,7 @@ const ChatPage = () => {
       if (type === ChatTypes.AUDIO && blog) {
         const fileLink = await convertBlobToBase64(blog, true);
         userMessage = {
-          message: '', //TODO: add transcript of audio
+          message: "", //TODO: add transcript of audio
           file_link: fileLink,
           msg_format: type,
           persona_id: String(id),
@@ -226,29 +225,6 @@ const ChatPage = () => {
     [handleOnGenerate]
   );
 
-  const handleOnScroll = () => {
-    const scrollContainer = scrollContainerRef.current;
-
-    if (scrollContainer) {
-      const isAtBottom =
-        scrollContainer.scrollHeight - scrollContainer.scrollTop ===
-        scrollContainer.clientHeight;
-      // Show or hide the "scroll to bottom" button
-      setIsScrolledUp(!isAtBottom);
-
-      // Remove hide-scrollbar class while scrolling
-      scrollContainer.classList.remove("hide-scrollbar");
-
-      // Clear any previous timeout
-      if (scrollTimeout) clearTimeout(scrollTimeout);
-
-      // Add hide-scrollbar class after 300ms of no scrolling
-      scrollTimeout = setTimeout(() => {
-        scrollContainer.classList.add("hide-scrollbar");
-      }, 1000);
-    }
-  };
-
   useEffect(() => {
     scrollToBottom();
   }, [chatMessages, scrollToBottom]);
@@ -268,9 +244,9 @@ const ChatPage = () => {
       <div className="relative w-full flex flex-col items-center">
         <ChatHeader onOpenPanel={handleOpenPanel} />
         <div
-          className="flex-1 w-full overflow-y-auto hide-scrollbar "
+          className="flex-1 w-full overflow-y-auto "
           ref={scrollContainerRef}
-          onScroll={handleOnScroll}
+          // onScroll={handleOnScroll}
         >
           <PersonaDetailCenter
             key={`chat-persona-detail-${persona.persona_id}`}

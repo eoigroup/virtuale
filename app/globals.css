@@ -173,15 +173,6 @@ body {
   background: var(--accent);
 }
 
-.hide-scrollbar {
-  scrollbar-color: transparent;
-}
-
-.hide-scrollbar::-webkit-scrollbar-thumb,
-.hide-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
 .self-swiper .swiper-button-prev {
   top: 0;
   width: 64px;
