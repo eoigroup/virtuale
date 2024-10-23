@@ -14,7 +14,7 @@ import PersonaCard from "../persona-card/persona-card";
 
 const list = [
   {
-    id: 2,
+    id: 13,
     image: "9448016.jpg",
   },
   {
