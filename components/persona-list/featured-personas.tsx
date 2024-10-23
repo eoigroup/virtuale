@@ -39,7 +39,7 @@ const FeaturedPersonas = ({
   return (
     <div className="w-full mt-10">
       <Typography variant={"h5"} className="mb-4 ml-4">
-        Featured
+      Top Picks
       </Typography>
 
       <motion.div
