@@ -101,7 +101,7 @@ const ChatPage = () => {
 
       setUserConvos(
         response.data.sort((a: IUserConvos, b: IUserConvos) =>
-          a.timestamp.localeCompare(b.timestamp)
+          b.timestamp.localeCompare(a.timestamp)
         )
       );
     } catch (error: any) {

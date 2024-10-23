@@ -4,13 +4,27 @@ import { usePersona } from "@/contexts/persona-context";
 import ChatItem from "./chat-item";
 import { useParams } from "next/navigation";
 import { Skeleton } from "../ui/skeleton";
+import { IPersona } from "@/types/persona";
 
 const ChatList = () => {
   const { personas, userConvos, loading } = usePersona();
   const { id } = useParams();
-  const _personas = personas.filter((persona) =>
-    userConvos.some((c) => c.persona_id === persona.persona_id)
-  );
+  const getPersonas = () => {
+    const arr: IPersona[] = [];
+    userConvos.forEach((user) => {
+      const persona = personas.find(
+        (persona) => persona.persona_id === user.persona_id
+      );
+
+      if (persona) {
+        arr.push(persona);
+      }
+    });
+
+    return arr;
+  };
+  const _personas = getPersonas();
+  
   const active = (personaId: string | number) => {
     return id == personaId;
   };

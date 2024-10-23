@@ -43,7 +43,7 @@ export const PersonaProvider = ({ children }: { children: ReactNode }) => {
       setPersonas(response[0].data);
       setUserConvos(
         response[1].data.sort((a: IUserConvos, b: IUserConvos) =>
-          a.timestamp.localeCompare(b.timestamp)
+          b.timestamp.localeCompare(a.timestamp)
         )
       );
     } catch (error: any) {
