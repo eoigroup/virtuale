@@ -27,7 +27,12 @@ const Sidebar = () => {
 
   return (
     <>
-      <aside className={cn("h-dynamic-vh fixed z-50", { "lg:z-0": !isMenuExpanded })}>
+      <aside
+        style={{
+          paddingBottom: "env(safe-area-inset-bottom)",
+        }}
+        className={cn("h-dynamic-vh fixed z-50", { "lg:z-0": !isMenuExpanded })}
+      >
         <div className="w-fit h-full flex">
           {isMenuExpanded && (
             <div
