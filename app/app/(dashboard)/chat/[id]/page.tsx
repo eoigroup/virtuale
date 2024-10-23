@@ -252,7 +252,7 @@ const ChatPage = () => {
   if (!persona) return null;
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-dynamic-vh">
       <div className="relative w-full flex flex-col items-center">
         <ChatHeader onOpenPanel={handleOpenPanel} />
         <div
