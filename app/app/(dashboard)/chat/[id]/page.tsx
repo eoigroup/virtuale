@@ -225,6 +225,18 @@ const ChatPage = () => {
     [handleOnGenerate]
   );
 
+  const handleOnScroll = () => {
+    const scrollContainer = scrollContainerRef.current;
+
+    if (scrollContainer) {
+      const isAtBottom =
+        scrollContainer.scrollHeight - scrollContainer.scrollTop ===
+        scrollContainer.clientHeight;
+      // Show or hide the "scroll to bottom" button
+      setIsScrolledUp(!isAtBottom);
+    }
+  };
+
   useEffect(() => {
     scrollToBottom();
   }, [chatMessages, scrollToBottom]);
@@ -244,9 +256,9 @@ const ChatPage = () => {
       <div className="relative w-full flex flex-col items-center">
         <ChatHeader onOpenPanel={handleOpenPanel} />
         <div
-          className="flex-1 w-full overflow-y-auto "
+          className="flex-1 w-full overflow-y-auto hide-scrollbar "
           ref={scrollContainerRef}
-          // onScroll={handleOnScroll}
+          onScroll={handleOnScroll}
         >
           <PersonaDetailCenter
             key={`chat-persona-detail-${persona.persona_id}`}
