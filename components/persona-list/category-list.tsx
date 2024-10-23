@@ -9,6 +9,8 @@ import { toast } from "sonner";
 import { getPersonaCategories } from "@/lib/api/persona";
 import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
+import { Typography } from "../ui/typography";
+
 
 const CategoryList = ({ personas }: { personas: IPersona[] }) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
@@ -51,6 +53,9 @@ const CategoryList = ({ personas }: { personas: IPersona[] }) => {
 
   return (
     <div className="mt-10">
+         <Typography variant={"h5"} className="mb-4 ml-4">
+         Explore Interests
+      </Typography>
       <div className="flex items-center overflow-auto gap-2 py-1 mb-4">
         {!loading
           ? categories.map((category) => (
