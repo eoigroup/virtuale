@@ -28,22 +28,19 @@ const Sidebar = () => {
   return (
     <>
       <aside
-        style={{
-          paddingBottom: "env(safe-area-inset-bottom)",
-        }}
-        className={cn("h-dynamic-vh fixed z-50", { "lg:z-0": !isMenuExpanded })}
+        className={cn("h-dynamic-vh fixed bottom-0 z-50", { "lg:z-0": !isMenuExpanded })}
       >
         <div className="w-fit h-full flex">
           {isMenuExpanded && (
             <div
-              className="block lg:hidden fixed bg-black/60 w-screen h-screen"
+              className="block lg:hidden fixed bg-black/60 w-screen h-dynamic-vh"
               onClick={handleToggle}
             />
           )}
 
           <div
             className={cn(
-              "overflow-hidden transition-[max-width,transform] ease-out duration-300 bg-primary-foreground border-r border-r-border-divider z-20 fixed inset-0 lg:static h-screen lg:h-full",
+              "overflow-hidden transition-[max-width,transform] ease-out duration-300 bg-primary-foreground border-r border-r-border-divider z-20 fixed inset-0 lg:static h-dynamic-vh lg:h-full",
               {
                 "max-w-64": isMenuExpanded, // Expanded state
                 "w-fit -translate-x-full lg:max-w-64": !isMenuExpanded, // Collapsed state for mobile
