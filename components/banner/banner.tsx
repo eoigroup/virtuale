@@ -10,13 +10,54 @@ import { IPersona } from "@/types/persona";
 
 const list = [
   {
-    title: "A trusted circle of support",
+    title: "Learn Something New Today",
+    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
+  },
+  {
+    title: "Your World of Personal Conversations",
     videoLink: "https://media.identica.ai/media/virtuale/lighthouse.mp4",
   },
   {
-    title: "Learn something new today",
+    title: "Where Every Chat Has Character",
     videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
   },
+  {
+    title: "Beyond Chat, Beyond AI - It's Personal",
+    videoLink: "https://media.identica.ai/media/virtuale/lighthouse.mp4",
+  },
+  {
+    title: "Find Your Perfect Conversation",
+    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
+  },
+  {
+    title: "Personas for Every Purpose",
+    videoLink: "https://media.identica.ai/media/virtuale/lighthouse.mp4",
+  },
+  {
+    title: "Chat with Purpose, Connect with Personality",
+    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
+  },
+  {
+    title: "Where Conversations Come to Life",
+    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
+  },
+  {
+    title: "Your Perfect Chat Partner Awaits",
+    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
+  },
+  {
+    title: "Discover Your Next Great Conversation",
+    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
+  },
+  {
+    title: "Your Trusted Circle of Support, Available Anytime",
+    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
+  },
+  {
+    title: "Where Understanding Meets You",
+    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
+  },
+
 ];
 
 const Banner = ({
