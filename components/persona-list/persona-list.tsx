@@ -41,7 +41,7 @@ const PersonaList = ({
       {forYouPersonas && forYouPersonas.length > 0 && (
         <div className="mt-10">
           <Typography variant={"h5"} className="mb-4 ml-4">
-          Your Inner Circle
+            For you
           </Typography>
 
           <Swiper
@@ -73,7 +73,7 @@ const PersonaList = ({
 
       <div className="mt-10">
         <Typography variant={"h5"} className="mb-4 ml-4">
-        Spotlight Conversations
+          Try these
         </Typography>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
@@ -92,7 +92,7 @@ const PersonaList = ({
 
       <div className="mt-10">
         <Typography variant={"h5"} className="mb-4 ml-4">
-        Conversational Sparks
+          Try saying
         </Typography>
 
         <Swiper

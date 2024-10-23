@@ -82,7 +82,7 @@ const Sidebar = () => {
                     )}
                   >
                     <Compass size={24} />
-                    Explore
+                    Discover
                   </Link>
                 </div>
                 <ChatList />
