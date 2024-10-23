@@ -256,7 +256,7 @@ const ChatPage = () => {
       <div className="relative w-full flex flex-col items-center">
         <ChatHeader onOpenPanel={handleOpenPanel} />
         <div
-          className="flex-1 w-full overflow-y-auto hide-scrollbar "
+          className="flex-1 w-full overflow-y-auto "
           ref={scrollContainerRef}
           onScroll={handleOnScroll}
         >

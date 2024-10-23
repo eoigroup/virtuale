@@ -27,7 +27,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <aside className={cn("h-view-point fixed z-50", { "lg:z-0": !isMenuExpanded })}>
+      <aside className={cn("h-dynamic-vh fixed z-50", { "lg:z-0": !isMenuExpanded })}>
         <div className="w-fit h-full flex">
           {isMenuExpanded && (
             <div

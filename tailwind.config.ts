@@ -81,8 +81,8 @@ const config: Config = {
         "plus-shadow": "0px 0px 16px 6px rgba(255, 213, 105, .1)",
       },
       height: {
-        "view-point": 'calc(var(--vh) * 100)'
-      }
+        "dynamic-vh": "calc(var(--vh, 1vh) * 100)", // Fallback to 1vh if --vh isn't set
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
