@@ -2,7 +2,6 @@
 import Loader from "@/components/loader/loader";
 import Sidebar from "@/components/side-bar/side-bar";
 import { useMenu } from "@/contexts/menu-context";
-import { usePersona } from "@/contexts/persona-context";
 import { useUser } from "@/contexts/user-context";
 import { cn } from "@/lib/utils";
 import { IPersona } from "@/types/persona";
@@ -16,14 +15,19 @@ const DashboardLayout = ({
   personas: IPersona[];
 }) => {
   const { loading } = useUser();
-  // const { setPersonas } = usePersona();
   const { isMenuExpanded } = useMenu();
 
-  // useEffect(() => {
-  //   if (loading) return;
+  useEffect(() => {
+    const setViewportHeight = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
 
-  //   setPersonas(personas);
-  // }, [personas, loading]);
+    window.addEventListener("resize", setViewportHeight);
+    setViewportHeight();
+
+    return () => window.removeEventListener("resize", setViewportHeight);
+  }, []);
 
   if (loading) {
     return (

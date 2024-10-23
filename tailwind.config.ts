@@ -80,6 +80,9 @@ const config: Config = {
       boxShadow: {
         "plus-shadow": "0px 0px 16px 6px rgba(255, 213, 105, .1)",
       },
+      height: {
+        "view-point": 'calc(var(--vh) * 100)'
+      }
     },
   },
   plugins: [require("tailwindcss-animate")],
