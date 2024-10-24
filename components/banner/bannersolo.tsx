@@ -11,6 +11,7 @@ const Banner = ({ loading }: { loading: boolean }) => {
     return <Skeleton className="my-6 w-full h-[280px]" />;
   }
 
+  
   return (
     <div className="relative h-[280px] rounded-3xl overflow-hidden">
       <Image
