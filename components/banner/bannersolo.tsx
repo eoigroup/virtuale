@@ -28,7 +28,7 @@ const Banner = ({ loading }: { loading: boolean }) => {
       <div className="relative h-full w-full flex flex-col items-center justify-center p-6 text-center z-10">
   
         <Typography variant="h3" className="text-white typing-effect">
-        "Every Conversation, A New Connection
+        Every Conversation, A New Connection
         </Typography>
 
         <Typography className="text-white mt-2">
