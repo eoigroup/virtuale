@@ -11,6 +11,7 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode, Navigation } from "swiper/modules";
 import PersonaCard from "../persona-card/persona-card";
+import BannerSolo from "../banner/bannersolo";
 
 const list = [
   {
@@ -80,14 +81,7 @@ const FeaturedPersonas = ({
         </div>
 
         <div className="flex-1 w-full rounded-xl overflow-hidden">
-          <Image
-            src={`/9448016.jpg`}
-            alt=""
-            width={0}
-            height={0}
-            sizes="100vw"
-            className="w-full h-[280px] object-cover"
-          />
+          <BannerSolo />
         </div>
       </motion.div>
 
