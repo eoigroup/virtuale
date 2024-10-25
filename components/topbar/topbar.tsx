@@ -96,7 +96,7 @@ const Topbar = () => {
                     <div className="relative flex items-center w-full">
                       <Input
                         type="text"
-                        placeholder="Search for Characters"
+                        placeholder="Search for Personas by name"
                         className="bg-transparent border-none p-0 outline-none h-auto"
                         value={searchQuery}
                         onChange={handleSearchChange} // Update search query

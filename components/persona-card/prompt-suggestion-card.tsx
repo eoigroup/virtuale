@@ -3,48 +3,63 @@ import React from "react";
 import { Typography } from "../ui/typography";
 import PersonaImage from "../persona-image/persona-image";
 import Link from "next/link";
+import AnimatedCard from "../animated-card/animated-card";
+import { MessageCircle } from "lucide-react";
 
 const PromptSuggestionCard = ({ persona }: { persona: IPersona }) => {
   const suggestions = persona.agent_suggested_questions?.split("@") || [];
 
   return (
-    <div className="flex flex-col gap-2 bg-surface-elevation-1 rounded-lg p-4">
+    <AnimatedCard className="rounded-3xl bg-surface-elevation-2 backdrop-blur-lg p-4 relative">
       <div className="flex gap-4">
-        <PersonaImage
-          image={persona.profile_image}
-          className="w-[48px] h-[48px] object-cover rounded-full"
-          defaultSize={24}
-        />
+        {/* Left Image Section */}
+        <div className="relative" style={{ margin: '-1rem 0 -1rem -1rem' }}>
+          <div className="absolute right-0 top-0 w-4 h-full bg-gradient-to-l from-white/5 via-transparent to-transparent z-10" />
+          <PersonaImage
+            image={persona.profile_image}
+            className="w-[110px] h-[170px] object-cover rounded-l-xl rounded-r-sm"
+            defaultSize={24}
+          />
+        </div>
+
+        {/* Right Content Section */}
         <div className="flex-1 flex flex-col">
-          <Typography variant={"small"} className="mb-2" as={"div"}>
+          <Typography 
+            variant="small" 
+            className="text-lg font-semibold mb-1 leading-none"
+          >
             {persona.name}
           </Typography>
-          <div className="flex flex-1">
-            <Typography
-              variant={"xsmall"}
-              as={"div"}
-              className="text-foreground font-normal line-clamp-2 text-ellipsis overflow-hidden whitespace-normal break-anywhere"
-            >
-              {`${persona.msg_history_count} chats`}
-            </Typography>
+          
+          <Typography 
+            variant="xsmall"
+            className="text-gray-400 mb-2 block"
+          >
+            Great for suggestions
+          </Typography>
+
+      
+
+          {/* Suggestions Section */}
+          <div className="flex flex-col gap-2 mt-auto">
+            {suggestions.slice(0, 2).map((suggestion, index) => (
+              <Link
+                href={`/chat/${persona.persona_id}?suggestion=${index}`}
+                key={`suggestion-${persona.persona_id}-${index}`}
+                className="w-full rounded-md p-2 bg-surface-elevation-1 hover:bg-scrim-8 transition-colors"
+              >
+                <Typography 
+                  variant="xsmall" 
+                  className="text-gray-400 line-clamp-1"
+                >
+                  {suggestion}
+                </Typography>
+              </Link>
+            ))}
           </div>
         </div>
       </div>
-
-      <div className="w-full flex flex-col gap-1">
-        {suggestions.slice(0, 2).map((suggestion, index) => (
-          <Link
-            href={`/chat/${persona.persona_id}?suggestion=${index}`}
-            key={`suggestion-${persona.persona_id}-${index}`}
-            className="w-full rounded-md p-3 bg-surface-elevation-2 hover:bg-scrim-8"
-          >
-            <Typography variant={"xsmall"} as={"div"}>
-              {suggestion}
-            </Typography>
-          </Link>
-        ))}
-      </div>
-    </div>
+    </AnimatedCard>
   );
 };
 

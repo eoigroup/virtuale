@@ -227,22 +227,13 @@ body {
   transform: perspective(3000px) rotateX(8deg) rotateY(5deg);
 }
 
-.typing-effect {
-  width: 100%;
-  animation: typing 1s steps(22);
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-@media (max-width: 768px) {
-  .typing-effect {
-    white-space: inherit;
-    animation: none;
+@keyframes typing {
+  from {
+    width: 0;
   }
-}
-
-.chat-right-panel {
-  animation-name: slideInFromRight !important;
+  to {
+    width: 100%;
+  }
 }
 
 @keyframes slideInFromRight {
@@ -256,8 +247,22 @@ body {
   }
 }
 
-@keyframes typing {
-  0% {
-    width: 0;
+.typing-effect {
+  display: inline-block;  /* Add this */
+  width: 0;              /* Change from 100% to 0 */
+  animation: typing 1s steps(22) forwards;  /* Add forwards */
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .typing-effect {
+    white-space: inherit;
+    animation: none;
+    width: 100%;  /* Add this */
   }
+}
+
+.chat-right-panel {
+  animation-name: slideInFromRight !important;
 }

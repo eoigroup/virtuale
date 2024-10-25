@@ -8,7 +8,7 @@ import AnimatedCard from "../animated-card/animated-card";
 
 const PersonaCard = ({ persona }: { persona: IPersona }) => {
   return (
-    <AnimatedCard className="rounded-3xl bg-surface-elevation-2 backdrop-blur-lg p-4 relative">
+    <AnimatedCard className="rounded-3xl bg-white/5 backdrop-blur-lg p-4 relative">
       <Link
         href={`/chat/${persona.persona_id}`}
         className="flex gap-4"

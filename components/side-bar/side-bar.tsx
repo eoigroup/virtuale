@@ -61,6 +61,8 @@ const Sidebar = () => {
                   </Button>
                 </div>
                 <div className="p-4 w-full">
+                  
+                  {/*}
                   <Button
                     className="mb-2 gap-1 h-11 px-5 rounded-2xl hover:bg-scrim-8"
                     variant={"secondary"}
@@ -69,6 +71,7 @@ const Sidebar = () => {
                     <Plus />
                     Create
                   </Button>
+                   {*/}
 
                   <Link
                     href={"/"}

@@ -9,6 +9,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import {AudioLines } from "lucide-react";
+
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import UserSettingsModal from "../modal/user-settings-modal/user-settings-modal";
@@ -69,12 +71,32 @@ const UserMenu = () => {
           type="button"
           onClick={handleOpenTryModal}
         >
-          Try
+
+<div className="flex items-center font-medium rounded-spacing-xs p-0 text-light bg-transparent">
+            <AudioLines size={12} className="text-yellow-400 font-bold ml-2" />
+          </div>
+          
+          Suggest Persona
+       
+        </Button>
+
+        <Button
+          variant={"outline"}
+          className="hover:shadow-plus-shadow rounded-full gap-1 border-border-outline"
+          type="button"
+          onClick={handleOpenTryModal}
+        >
+          Premium
           <div className="flex items-center font-medium rounded-spacing-xs p-0 text-light bg-transparent">
-            ai<div className="text-plus font-bold">+</div>
+            
+            <AudioLines size={12} className="text-yellow-400 font-bold mr-2" />
+            
           </div>
         </Button>
+
       </div>
+
+      
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

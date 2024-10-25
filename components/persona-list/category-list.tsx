@@ -61,6 +61,7 @@ const CategoryList = ({ personas }: { personas: IPersona[] }) => {
           ? categories.map((category) => (
               <Button
                 key={`category-${category.id}`}
+                size="lg"
                 variant={
                   activeCategory === category.category ? "default" : "outline"
                 }

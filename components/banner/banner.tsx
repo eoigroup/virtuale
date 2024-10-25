@@ -17,47 +17,6 @@ const list = [
     title: "Your World of Personal Conversations",
     videoLink: "https://media.identica.ai/media/virtuale/lighthouse.mp4",
   },
-  {
-    title: "Where Every Chat Has Character",
-    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
-  },
-  {
-    title: "Beyond Chat, Beyond AI - It's Personal",
-    videoLink: "https://media.identica.ai/media/virtuale/lighthouse.mp4",
-  },
-  {
-    title: "Find Your Perfect Conversation",
-    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
-  },
-  {
-    title: "Personas for Every Purpose",
-    videoLink: "https://media.identica.ai/media/virtuale/lighthouse.mp4",
-  },
-  {
-    title: "Chat with Purpose, Connect with Personality",
-    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
-  },
-  {
-    title: "Where Conversations Come to Life",
-    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
-  },
-  {
-    title: "Your Perfect Chat Partner Awaits",
-    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
-  },
-  {
-    title: "Discover Your Next Great Conversation",
-    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
-  },
-  {
-    title: "Your Trusted Circle of Support, Available Anytime",
-    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
-  },
-  {
-    title: "Where Understanding Meets You",
-    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
-  },
-
 ];
 
 const Banner = ({
@@ -93,45 +52,73 @@ const Banner = ({
   return (
     <motion.div
       key={`hero-${activeIndex}`}
-      className={cn(
-        "rounded-3xl gap-10 bg-background items-center xl:flex justify-between my-6 relative pb-6"
-      )}
+      className="w-full text-center"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
+      
     >
-      <div className="h-[300px] bg-contain overflow-hidden rounded-3xl md:rounded-r-none relative xl:absolute w-full z-0">
-        <video
-          preload="auto"
-          className="object-cover object-center select-none w-full md:w-[800px] h-[300px]"
-          id="hero-scenario-video"
-          autoPlay
-          playsInline
-          key={`hero-video-${activeIndex}`}
-        >
-          <source src={activeItem.videoLink} type="video/mp4" />
-        </video>
+      <div className="flex items-center justify-center relative">
+        {/* Left Persona Card */}
+        <div className="hidden xl:block absolute left-2 z-20">
+          {_personas[0] && (
+            <HeroPersonaCard
+              persona={_personas[0]}
+              index={0}
+            />
+          )}
+        </div>
 
-        <div
-          className="m-h-[300px] h-[300px] hidden md:block absolute z-10 top-0 w-full md:w-[800px] "
-          style={{
-            backgroundImage: `linear-gradient(to left, var(--background), var(--hero-transparent))`,
-          }}
-        />
+        {/* Center Video Container */}
+        <div className="h-[360px] bg-contain overflow-hidden relative w-[1200px]">
+          <video
+            preload="auto"
+            className="object-cover object-center select-none w-full h-[360px]"
+            id="hero-scenario-video"
+            autoPlay
+            playsInline
+            key={`hero-video-${activeIndex}`}
+          >
+            <source src={activeItem.videoLink} type="video/mp4" />
+          </video>
 
-        <div className="absolute z-10 p-5 md:p-10 justify-between h-full w-full items-start flex flex-col top-0">
-          <div className="w-full">
-            <Typography className="text-muted-foreground">
-              Who do you want to talk to?
-            </Typography>
-            <Typography variant={"h3"} className="typing-effect">
-              {activeItem.title}
-            </Typography>
+          <div
+            className="m-h-[360px] h-[360px] absolute z-10 top-0 w-full"
+            style={{
+              backgroundImage: `linear-gradient(to right, 
+                var(--background), 
+                var(--hero-transparent), 
+                var(--background))`,
+            }}
+          />
+ 
+          <div className="absolute z-10 p-5 md:p-10 flex flex-col justify-end h-full w-full top-0">
+            <div className="w-full text-center">
+              <Typography className="text-muted-foreground">
+                Who do you want to talk to?
+              </Typography>
+              <Typography 
+                    key={`typing-${activeIndex}`} 
+                    variant={"h3"} className="typing-effect">
+                {activeItem.title}
+              </Typography>
+            </div>
           </div>
+        </div>
+
+        {/* Right Persona Card */}
+        <div className="hidden xl:block absolute right-2 z-20">
+          {_personas[1] && (
+            <HeroPersonaCard
+              persona={_personas[1]}
+              index={1}
+            />
+          )}
         </div>
       </div>
 
-      <div className="mt-2 xl:mt-0 mr-auto xl:ml-auto xl:mr-0 xl:w-fit flex gap-4">
+      {/* Mobile Persona Cards */}
+      <div className="mt-4 flex gap-4 xl:hidden">
         {_personas.map((persona, index) => (
           <HeroPersonaCard
             key={`hero-persona-${persona.persona_id}`}
