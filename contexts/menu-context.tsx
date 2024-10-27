@@ -5,6 +5,7 @@ import React, {
   createContext,
   useContext,
   useState,
+  useEffect,
   ReactNode,
   Dispatch,
   SetStateAction,
@@ -23,7 +24,24 @@ const MenuContext = createContext<MenuContextType | undefined>(undefined);
 export const MenuProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [isMenuExpanded, setIsMenuExpanded] = useState<boolean>(true);
+  const [isMenuExpanded, setIsMenuExpanded] = useState<boolean>(false); // Default to collapsed
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsMenuExpanded(true); // Expand on desktop
+      } else {
+        setIsMenuExpanded(false); // Collapse on mobile
+      }
+    };
+
+    // Set initial state based on current screen size
+    handleResize();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <MenuContext.Provider value={{ isMenuExpanded, setIsMenuExpanded }}>
