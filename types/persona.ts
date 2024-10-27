@@ -123,6 +123,7 @@ export type IPersona = {
   virtuale_hero: boolean;
   virtuale_trythese: boolean;
   virtuale_featured: boolean;
+  verified_agent: boolean;
   likes: number;
   dislikes: number;
 };

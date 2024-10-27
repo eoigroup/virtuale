@@ -51,7 +51,7 @@ const HeroPersonaCard = ({
           variant="xsmall"
           className="text-gray-400 mt-1 block"
         >
-          Great for narrating
+           {persona.category_name}
         </Typography>
       </div>
     </div>

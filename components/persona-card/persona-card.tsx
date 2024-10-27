@@ -2,7 +2,7 @@ import { IPersona } from "@/types/persona";
 import React from "react";
 import { Typography } from "../ui/typography";
 import Link from "next/link";
-import { MessageCircle, AudioLines } from "lucide-react";
+import { MessageCircle, AudioLines, Star, ShieldCheck } from "lucide-react";
 import PersonaImage from "../persona-image/persona-image";
 import AnimatedCard from "../animated-card/animated-card";
 
@@ -25,7 +25,8 @@ const PersonaCard = ({ persona }: { persona: IPersona }) => {
             variant="xsmall"
             className="text-gray-400 mb-2 block"
           >
-            Great for narrating stories
+             {persona.category_name}
+
           </Typography>
 
           <div className="flex items-center gap-4 mb-3">
@@ -34,9 +35,17 @@ const PersonaCard = ({ persona }: { persona: IPersona }) => {
             <Typography variant="xsmall" className="text-gray-400">17.9m</Typography>
             </div>
             <div className="flex items-center gap-1">
-              <MessageCircle size={12} className="text-gray-400" />
+              <Star size={12} className="text-gray-400" />
               <Typography variant="xsmall" className="text-gray-400">4k</Typography>
             </div>
+
+            {persona.verified_agent && (
+            <div className="flex items-center gap-1 text-green-500">
+            <ShieldCheck size={15} /> 
+            </div>
+             )}
+
+
           </div>
 
           <Typography

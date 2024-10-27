@@ -35,7 +35,7 @@ const PromptSuggestionCard = ({ persona }: { persona: IPersona }) => {
             variant="xsmall"
             className="text-gray-400 mb-2 block"
           >
-            Great for suggestions
+             {persona.category_name}
           </Typography>
 
       

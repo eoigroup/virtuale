@@ -28,7 +28,7 @@ const PersonaSecondaryCard = ({ persona }: { persona: IPersona }) => {
       variant="xsmall"
       className="text-gray-400 mb-2 block"
     >
-      Great for narrating stories
+      {persona.category_name}
     </Typography>
     <Typography
       variant="xsmall"
