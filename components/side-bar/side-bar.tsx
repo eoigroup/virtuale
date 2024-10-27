@@ -76,7 +76,7 @@ const Sidebar = () => {
                   <Link
                     href={"/"}
                     className={cn(
-                      "w-full flex items-center gap-4 px-4 py-3 rounded-md text-sm",
+                      "w-full flex items-center gap-4 px-4 py-3 rounded-full text-sm ",
                       "transform duration-200 hover:bg-surface-elevation-2",
                       {
                         "bg-surface-elevation-2 hover:opacity-80":

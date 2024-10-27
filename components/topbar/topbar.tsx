@@ -70,13 +70,22 @@ const Topbar = () => {
   }
 
   return (
-    <div className="flex justify-end md:justify-between py-2">
-      <div className="hidden md:flex items-center gap-3">
-        <UserAvatar className="w-5 min-w-5 h-5" />
+    <div className="flex justify-between py-2 pt-0 md:pt-0 pl-12 lg:pl-0">
+      <div className="">
+        <Typography
+            variant={"h6"}
+            className="font-normal text-muted-foreground pb-1 md:pl-0"
+        >
+        Welcome back,
+        </Typography>
+
+        <div className=" flex justify-start gap-3">
+        <UserAvatar className="w-5 min-w-5 h-5 md:w-7 md:min-w-7 md:h-7" />
         <Typography variant={"h4"}>{user!.username}</Typography>
+        </div>
       </div>
 
-      <div className="flex justify-end ml-6 gap-3">
+      <div className=" justify-end ml-6 gap-3">
         <div ref={searchRef}>
           {/* Backdrop */}
           {dropdownVisible && (
@@ -87,7 +96,7 @@ const Topbar = () => {
           )}
 
           {/* Search input */}
-          <div className="relative z-[49] h-10 w-64 md:w-96">
+          <div className="relative z-[49] h-10 w-56 md:w-96">
             <div className="absolute z-40 flex gap-2 w-full max-w-3xl border-spacing-1 border-divider flex-row self-center items-center rounded-full bg-surface-elevation-1 p-4 placeholder:text-placeholder">
               <Search size={16} />
               <div className="relative flex flex-col w-full">
@@ -96,7 +105,7 @@ const Topbar = () => {
                     <div className="relative flex items-center w-full">
                       <Input
                         type="text"
-                        placeholder="Search for Personas by name"
+                        placeholder="Search Personas by name"
                         className="bg-transparent border-none p-0 outline-none h-auto"
                         value={searchQuery}
                         onChange={handleSearchChange} // Update search query
@@ -138,6 +147,8 @@ const Topbar = () => {
         </div>
       </div>
     </div>
+
+
   );
 };
 
