@@ -36,7 +36,7 @@ const HomePage = async () => {
   return (
     <>
       <LandingHeader />
-      <main className="py-4 pt-[85px] md:pt-[85px] md:py-10 px-3 max-w-7xl mx-auto">
+      <main className=" px-3 max-w-7xl mx-auto">
         <Banner loading={false} personas={personas} />
 
         <PersonaList personas={personas} />

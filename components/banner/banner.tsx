@@ -58,9 +58,10 @@ const Banner = ({
       transition={{ duration: 0.5 }}
       
     >
-      <div className="flex items-center justify-center relative">
+      <div className="flex items-center justify-center relative mb-12">
         {/* Left Persona Card */}
-        <div className="hidden xl:block absolute left-2 z-20">
+        <div className="hidden xl:block absolute left-2 z-20" style={{ bottom: '-1rem' }}>
+
           {_personas[0] && (
             <HeroPersonaCard
               persona={_personas[0]}
@@ -70,10 +71,10 @@ const Banner = ({
         </div>
 
         {/* Center Video Container */}
-        <div className="h-[360px] bg-contain overflow-hidden relative w-[1200px]">
+        <div className="h-[380px] bg-contain overflow-hidden relative w-[1200px]">
           <video
             preload="auto"
-            className="object-cover object-center select-none w-full h-[360px]"
+            className="object-cover object-center select-none w-full h-[380px]"
             id="hero-scenario-video"
             autoPlay
             playsInline
@@ -83,7 +84,7 @@ const Banner = ({
           </video>
 
           <div
-            className="m-h-[360px] h-[360px] absolute z-10 top-0 w-full"
+            className="m-h-[380px] h-[380px] absolute z-10 top-0 w-full"
             style={{
               backgroundImage: `linear-gradient(to right, 
                 var(--background), 
@@ -107,7 +108,7 @@ const Banner = ({
         </div>
 
         {/* Right Persona Card */}
-        <div className="hidden xl:block absolute right-2 z-20">
+        <div className="hidden xl:block absolute right-2 z-20" style={{ bottom: '-1rem' }}>
           {_personas[1] && (
             <HeroPersonaCard
               persona={_personas[1]}

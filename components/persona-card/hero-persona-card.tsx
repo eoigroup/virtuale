@@ -58,7 +58,7 @@ const HeroPersonaCard = ({
 
     {/* Message below */}
     <Typography 
-      className="text-gray-400 line-clamp-3 pt-5 text-left"
+      className=" line-clamp-3 pt-5 text-left"
     >
       {persona.welcome_message}
     </Typography>
