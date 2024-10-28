@@ -8,7 +8,7 @@ const PersonaSecondaryCard = ({ persona }: { persona: IPersona }) => {
   return (
 <Link
   href={`/chat/${persona.persona_id}`}
-  className="flex gap-2 bg-surface-elevation-2 backdrop-blur-lg rounded-3xl py-1 pl-0 pr-4 hover:bg-white/10 transition-all duration-300"
+  className="flex gap-2 bg-surface-elevation-2 backdrop-blur-lg rounded-full py-1 pl-0 pr-4 hover:bg-white/10 transition-all duration-300"
 >
   <div className="pl-2">
     <PersonaImage

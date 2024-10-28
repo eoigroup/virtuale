@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import HeroPersonaCard from "../persona-card/hero-persona-card";
+import TopPicksPersonaCard from "../persona-card/toppicks-persona-card";
 import { Typography } from "../ui/typography";
 import { Skeleton } from "../ui/skeleton";
 import { cn } from "@/lib/utils";
@@ -49,7 +49,7 @@ const FeaturedPersonas = ({
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="md:w-[280px]">
+        <div className="md:w-[450px]">
           <Swiper
             spaceBetween={10}
             slidesPerView={1}
@@ -69,11 +69,11 @@ const FeaturedPersonas = ({
               return (
                 <SwiperSlide key={`featured-box-${index}`}>
                   {persona && (
-                    <HeroPersonaCard
+                    <TopPicksPersonaCard
                       persona={persona}
-                      className="flex-none md:min-w-[280px]"
+                      className="flex-none md:min-w-[450px]"
                     />
-                  )}
+                  )} 
                 </SwiperSlide>
               );
             })}
@@ -81,6 +81,7 @@ const FeaturedPersonas = ({
         </div>
 
         <div className="flex-1 w-full rounded-xl overflow-hidden">
+          
         <BannerSolo /> 
  
         </div>

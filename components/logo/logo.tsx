@@ -6,13 +6,20 @@ import { AudioLines } from "lucide-react";
 
 const Logo = () => {
   return (
-    <Link href={"/"} className="flex-1">
-      <Typography variant={`h4`} className="font-bold" as={"div"}>
-          <div className="flex">
-            <AudioLines size={12} className="text-yellow-400 font-bold mr-2 mt-2 " />  Virtuale.ai
-          </div>
+<Link href={"/"} className="flex-1">
+  <Typography variant={`h3`} className="font-bold" as={"div"}>
+    <div className="flex flex-col"> {/* Change to flex-col for vertical alignment */}
+      <div className="flex items-center"> {/* Align items in the center */}
+        <AudioLines size={12} className="text-yellow-400 font-bold mr-2 mt-2" />
+        Virtuale.ai
+      </div>
+      <Typography variant={`caption`} className="ml-6 -mt-1"> {/* Add tagline */}
+      Conversation &amp; Connection
       </Typography>
-    </Link>
+    </div>
+  </Typography>
+</Link>
+
   );
 };
 

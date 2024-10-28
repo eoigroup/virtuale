@@ -47,7 +47,7 @@ const LandingHeader = () => {
             <Button
               variant={"outline"}
               position={"default"}
-              className="hover:shadow-plus-shadow rounded-full gap-1 border-border-outline"
+              className="shadow-plus-shadow rounded-full gap-1 border-border-outline"
               type="button"
             >
               Sign Up to Chat
