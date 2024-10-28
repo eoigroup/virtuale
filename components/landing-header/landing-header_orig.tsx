@@ -36,26 +36,24 @@ const LandingHeader = () => {
         { "bg-muted": isScrolled }
       )}
     >
-      <div className="max-w-7xl mx-auto w-full flex justify-between items-center">
-        <Logo />
+      <Logo />
 
-        <div className="flex items-center gap-4">
-          <Link
-            href={"/login"}
-            className="hover:text-muted-foreground md:text-sm"
-          >
-            Sign In
-          </Link>
+      <div className="flex items-center gap-4">
+        <Link
+          href={"/login"}
+          className="hover:text-muted-foreground md:text-sm"
+        >
+          Sign In
+        </Link>
 
-          <Link
-            href={"/register"}
-            className="hover:text-muted-foreground md:text-sm"
-          >
-            Sign Up
-          </Link>
+        <Link
+          href={"/register"}
+          className="hover:text-muted-foreground md:text-sm"
+        >
+          Sign Up
+        </Link>
 
-          <ThemeModeButton />
-        </div>
+        <ThemeModeButton />
       </div>
     </header>
   );
