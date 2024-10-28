@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import HeroPersonaCard from "../persona-card/hero-persona-card";
+import HeroPersonaCard_Mobile from "../persona-card/hero-persona-card_mobile";
 import { Typography } from "../ui/typography";
 import { Skeleton } from "../ui/skeleton";
 import { motion } from "framer-motion";
@@ -149,7 +150,7 @@ const Banner = ({
       {/* Mobile Persona Cards */}
       <div className="-mt-3 md:mt-4 flex gap-4 xl:hidden ">
         {_personas.map((persona, index) => (
-          <HeroPersonaCard
+          <HeroPersonaCard_Mobile
             key={`hero-persona-${persona.persona_id}`}
             persona={persona}
             index={index}
