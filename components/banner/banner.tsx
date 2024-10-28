@@ -1,21 +1,24 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import HeroPersonaCard from "../persona-card/hero-persona-card";
 import { Typography } from "../ui/typography";
 import { Skeleton } from "../ui/skeleton";
-import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { IPersona } from "@/types/persona";
 
 const list = [
   {
     title: "Learn Something New Today",
-    videoLink: "https://media.identica.ai/media/virtuale/library.mp4",
+    videoLink: "https://media.identica.ai/media/virtuale/train.mp4",
+  },
+  {
+    title: "Where Conversations Come to Life",
+    videoLink: "https://media.identica.ai/media/virtuale/scfiland.mp4",
   },
   {
     title: "Your World of Personal Conversations",
-    videoLink: "https://media.identica.ai/media/virtuale/lighthouse.mp4",
+    videoLink: "https://media.identica.ai/media/virtuale/girlrock.mp4",
   },
 ];
 
@@ -27,6 +30,8 @@ const Banner = ({
   loading: boolean;
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [videoCurrentTimes, setVideoCurrentTimes] = useState<number[]>(Array(list.length).fill(0));
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>(Array(list.length).fill(null));
   const activeItem = list[activeIndex];
   const itemsPerPage = 2;
   const startIndex = activeIndex * itemsPerPage;
@@ -37,6 +42,7 @@ const Banner = ({
 
   useEffect(() => {
     if (loading) return;
+
     const interval = setInterval(() => {
       const nextIndex = (activeIndex + 1) % list.length;
       setActiveIndex(nextIndex);
@@ -44,6 +50,24 @@ const Banner = ({
 
     return () => clearInterval(interval);
   }, [loading, activeIndex]);
+
+  useEffect(() => {
+    if (videoRefs.current[activeIndex]) {
+      videoRefs.current[activeIndex].currentTime = videoCurrentTimes[activeIndex]; // Set to stored time
+      videoRefs.current[activeIndex].play(); // Ensure the video plays
+    }
+  }, [activeIndex]);
+
+  const handleVideoTimeUpdate = (index: number) => {
+    if (videoRefs.current[index]) {
+      const currentTime = videoRefs.current[index].currentTime; // Get current time
+      setVideoCurrentTimes((prev) => {
+        const newTimes = [...prev];
+        newTimes[index] = currentTime; // Store time for the specific video
+        return newTimes;
+      });
+    }
+  };
 
   if (loading) {
     return <Skeleton className="my-6 w-full h-[300px]" />;
@@ -56,12 +80,10 @@ const Banner = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      
     >
       <div className="flex items-center justify-center relative md:mb-12">
         {/* Left Persona Card */}
         <div className="hidden xl:block absolute left-2 z-20" style={{ bottom: '-1rem' }}>
-
           {_personas[0] && (
             <HeroPersonaCard
               persona={_personas[0]}
@@ -73,11 +95,17 @@ const Banner = ({
         {/* Center Video Container */}
         <div className="h-[380px] bg-contain overflow-hidden relative w-[1200px]">
           <video
+            ref={(el) => {
+              videoRefs.current[activeIndex] = el; // Attach the correct ref
+            }}
             preload="auto"
             className="object-cover object-center select-none w-full h-[380px]"
             id="hero-scenario-video"
             autoPlay
             playsInline
+            muted
+            loop
+            onTimeUpdate={() => handleVideoTimeUpdate(activeIndex)} // Track time updates
             key={`hero-video-${activeIndex}`}
           >
             <source src={activeItem.videoLink} type="video/mp4" />
@@ -92,15 +120,15 @@ const Banner = ({
                 var(--background))`,
             }}
           />
- 
+
           <div className="absolute z-10 p-5 md:p-10 flex flex-col justify-end h-full w-full top-0">
             <div className="w-full text-center">
               <Typography className="text-muted-foreground">
                 Who do you want to talk to?
               </Typography>
               <Typography 
-                    key={`typing-${activeIndex}`} 
-                    variant={"h3"} className="typing-effect">
+                key={`typing-${activeIndex}`} 
+                variant={"h3"} className="typing-effect">
                 {activeItem.title}
               </Typography>
             </div>
