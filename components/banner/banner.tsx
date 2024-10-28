@@ -58,7 +58,7 @@ const Banner = ({
       transition={{ duration: 0.5 }}
       
     >
-      <div className="flex items-center justify-center relative mb-12">
+      <div className="flex items-center justify-center relative md:mb-12">
         {/* Left Persona Card */}
         <div className="hidden xl:block absolute left-2 z-20" style={{ bottom: '-1rem' }}>
 
@@ -84,7 +84,7 @@ const Banner = ({
           </video>
 
           <div
-            className="m-h-[380px] h-[380px] absolute z-10 top-0 w-full"
+            className="m-h-[380px] h-[380px] absolute md:z-10 top-0 w-full"
             style={{
               backgroundImage: `linear-gradient(to right, 
                 var(--background), 
@@ -119,7 +119,7 @@ const Banner = ({
       </div>
 
       {/* Mobile Persona Cards */}
-      <div className="mt-4 flex gap-4 xl:hidden">
+      <div className="-mt-3 md:mt-4 flex gap-4 xl:hidden ">
         {_personas.map((persona, index) => (
           <HeroPersonaCard
             key={`hero-persona-${persona.persona_id}`}

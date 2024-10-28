@@ -25,7 +25,7 @@ const HeroPersonaCard = ({
 >
   <AnimatedCard
     className={cn(
-      "w-full xl:w-[280px] md:h-[280px] h-[200px] rounded-3xl bg-surface-elevation-2 backdrop-blur-lg p-4",
+      "w-full xl:w-[280px] md:h-[280px] h-[250px] rounded-3xl bg-surface-elevation-2 backdrop-blur-lg p-4",
       "overflow-hidden flex flex-col gap-4"
     )}
     visibleCircle
