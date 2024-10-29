@@ -50,7 +50,13 @@ export default async function middleware(req: NextRequest) {
       !token &&
       path !== "/login" &&
       path !== "/register" &&
-      path !== "/login/social"
+      path !== "/login/social" && 
+      path !== "/company" && // Allow access to /faq
+      path !== "/partnerships" && // Allow access to /faq
+      path !== "/tos" && // Allow access to /faq
+      path !== "/privacy" && // Allow access to /faq
+      path !== "/news" && // Allow access to /faq
+      path !== "/faq" // Allow access to /faq
     ) {
       return NextResponse.redirect(new URL("/login", req.url));
     } else if (token && (path === "/login" || path === "/register")) {
