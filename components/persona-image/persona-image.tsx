@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { User } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const PersonaImage = ({
   className = "",
@@ -12,28 +12,42 @@ const PersonaImage = ({
   image?: string;
   defaultSize?: number;
 }) => {
-  if (image) {
+  const [imgSrc, setImgSrc] = useState(image);
+  const [imgError, setImgError] = useState(false);
+
+  useEffect(() => {
+    setImgSrc(image);
+    setImgError(false);
+  }, [image]);
+
+  const handleError = () => {
+    setImgError(true);
+    // Optionally, fetch a new signed URL here if the image fails to load
+  };
+
+  if (imgError) {
     return (
-      <Image
-        src={image}
-        width={0}
-        height={0}
-        sizes="100vw"
-        alt=""
-        className={cn("rounded-full object-cover", className)}
-      />
+      <div
+        className={cn(
+          "flex items-center justify-center rounded-full bg-muted",
+          className
+        )}
+      >
+        <User size={defaultSize} />
+      </div>
     );
   }
 
   return (
-    <div
-      className={cn(
-        "flex items-center justify-center rounded-full bg-muted",
-        className
-      )}
-    >
-      <User size={defaultSize} />
-    </div>
+    <Image
+      src={imgSrc || '/default-image.jpg'} // Fallback to a default image
+      width={0}
+      height={0}
+      sizes="100vw"
+      alt=""
+      className={cn("rounded-full object-cover", className)}
+      onError={handleError}
+    />
   );
 };
 
