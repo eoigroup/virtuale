@@ -42,18 +42,20 @@ const HeroPersonaCard = ({
             className="w-[55px] h-[55px] object-cover"
           />
           <div className="flex-1 flex flex-col items-center justify-center">
-            <Typography 
+          <Typography 
+              variant="xsmall"
+              className="text-gray-400 mb-1 block"
+            >
+               {persona.category_name}
+            </Typography>
+            
+               <Typography 
               variant="small" 
               className="text-lg font-semibold leading-none"
             >
               {persona.name}
             </Typography>
-            <Typography 
-              variant="xsmall"
-              className="text-gray-400 mt-1 block"
-            >
-               {persona.category_name}
-            </Typography>
+          
           </div>
         </div>
 

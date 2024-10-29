@@ -38,10 +38,10 @@ const LandingHeader = () => {
         { "bg-muted": isScrolled }
       )}
     >
-      <div className="max-w-7xl mx-auto w-full flex justify-between items-center">
+      <div className="max-w-7xl mx-auto w-full flex justify-between items-center ">
         <Logo />
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           
               <Link href={"/register"}>
             <Button

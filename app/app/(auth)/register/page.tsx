@@ -59,8 +59,8 @@ const RegisterPage = () => {
       <main className="flex items-center justify-center h-screen">
         <ThemeModeButton className="fixed top-5 right-5" />
 
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-          <div className="max-w-[500px] shadow-lg overflow-hidden bg-surface-elevation-1 rounded-md w-full mx-auto flex-col gap-4 flex p-10">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full p-6">
+          <div className="max-w-[500px] shadow-lg overflow-hidden bg-surface-elevation-1 rounded-lg w-full mx-auto flex-col gap-4 flex p-10">
             <TextField
               label="Name"
               labelClassName="text-primary"
