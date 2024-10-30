@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+import { constructMetadata, constructViewport } from "@/lib/metadata";
+
 import { Inter } from "next/font/google";
 import Providers from "./providers";
 import dynamic from "next/dynamic";
@@ -18,10 +19,19 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-export const metadata: Metadata = {
-  title: "Virtuale",
-  description: "",
-};
+
+// Replaced static metadata with the constructed version
+export const metadata = constructMetadata({
+  isPublicPage: true,
+  path: '/',
+  // You can override any default values here if needed
+  // title: "Virtuale.ai",
+  // description: "Every Conversation, A New Connection",
+});
+
+// Viewport configuration
+export const viewport = constructViewport();
+
 
 export default function RootLayout({
   children,
