@@ -13,6 +13,7 @@ import { IPersona, IUserConvos } from "@/types/persona";
 import CategoryList from "./category-list";
 import FeaturedPersonas from "./featured-personas";
 
+
 const PersonaList = ({
   personas,
   loading = false,
@@ -72,6 +73,7 @@ const PersonaList = ({
         </div>
       )}
 
+
       <div className="mt-10">
         <Typography variant={"h5"} className="mb-4 ml-4">
         Spotlight Conversations
@@ -122,17 +124,23 @@ const PersonaList = ({
         </Swiper>
       </div> 
 
-            <div className="mt-12 mb-10">
+      <div className="flex flex-wrap mt-12 mb-10 text-center">
+
+{/* Suggest Card */}
+<div className="w-full m-12 p-4 shadow-plus-shadow rounded-full gap-1 border-border-outline"> 
+<StaticCard className="bg-transparent" title="Suggest a Persona" desc="Share your ideas to add/enhance our personas! Your feedback helps us improve and innovate." href="/suggest" />
+</div>
+
+</div>
+
+
+            <div className="mt-10 mb-10">
               <Typography variant={"h5"} className="mb-4 ml-4 pt-10 border-t border-gray-800" >   
                 More Info
               </Typography>
 
               <div className="flex flex-wrap">
 
-                   {/* Suggest Card */}
-                   <div className="w-full p-2 pb-4"> 
-                   <StaticCard title="Suggest a Persona" desc="Share your ideas to add/enhance our personas! Your feedback helps us improve and innovate." href="/suggest" />
-                   </div>
 
                 {/* Left Column */}
                 <div className="w-full md:w-1/2 flex flex-col"> 

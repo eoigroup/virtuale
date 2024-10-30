@@ -1,10 +1,19 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import styles from './bannersolo_ca5_component.module.css';
 
 const images = [
   "https://sm-voice-gen.s3.amazonaws.com/images/eoi_brad.jpg",
   "https://sm-voice-gen.s3.amazonaws.com/images/topgai-idea5b.jpg",
+];
+
+const bubbleImages = [
+  "https://sm-voice-gen.s3.amazonaws.com/images/eoi_brad.jpg",
+  "https://sm-voice-gen.s3.amazonaws.com/images/topgai-idea5b.jpg",
+  "https://sm-voice-gen.s3.amazonaws.com/images/IMG_8015.JPG",
+  "https://sm-voice-gen.s3.amazonaws.com/images/emora_ai_v2_logo.jpg",
+  "https://www.virtuale.ai/og-image.png",
+  // Add more images as needed
 ];
 
 const labels = ['connection', 'mentor', 'curious', 'thoughtful', 'bold', 'insightful'];
@@ -23,7 +32,7 @@ export default function CustomComponent() {
 
   return (
     <div className="flex justify-center items-center w-full h-[250px] relative">
-      <div className="relative w-[650px] h-[250px]">
+      <div className="relative w-full md:w-[650px] h-[250px]">
         
         {/* Central Image with smooth transition effect */}
         <div className={`${styles.centralImageContainer}`}>
@@ -38,25 +47,28 @@ export default function CustomComponent() {
         </div>
 
         {/* Floating Bubbles */}
-        {[...Array(15)].map((_, index) => (
-          <div
-            key={index}
-            className={`${styles.bubble}`}
-            style={{
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${5 + Math.random() * 8}s`,
-            }}
-          >
-            <Image
-              alt="bubble-image"
-              width={15}
-              height={15}
-              className="rounded-full"
-              src="https://sm-voice-gen.s3.amazonaws.com/images/eoi_brad.jpg"
-            />
-          </div>
-        ))}
+        {[...Array(15)].map((_, index) => {
+          const randomBubbleImage = bubbleImages[Math.floor(Math.random() * bubbleImages.length)];
+          return (
+            <div
+              key={index}
+              className={`${styles.bubble}`}
+              style={{
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${5 + Math.random() * 8}s`,
+              }}
+            >
+              <Image
+                alt="bubble-image"
+                width={15}
+                height={15}
+                className="rounded-full"
+                src={randomBubbleImage}
+              />
+            </div>
+          );
+        })}
 
         {/* Labels with random positions and staggered fade in/out */}
         {labels.map((label, index) => (

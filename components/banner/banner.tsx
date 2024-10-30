@@ -35,7 +35,6 @@ const titles = [
   "Discover Your Next Great Conversation",
   "Your Trusted Circle of Support",
   "Available Where Understanding Meets You",
-  "JL",
 ];
 
 
@@ -164,9 +163,9 @@ const Banner = ({
               </Typography>
               <Typography 
                 key={`typing-${activeIndex}`} 
-                variant={"h3"} className="typing-effect">
+                variant={"h3"} className="typing-effect px-4 md:px-0">
                 {randomTitles[activeIndex % randomTitles.length]} {/* Display random title */}
-              </Typography>
+              </Typography> 
             </div>
           </div>
         </div>
