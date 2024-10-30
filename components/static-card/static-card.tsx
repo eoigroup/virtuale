@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography } from "../ui/typography";
 import Link from "next/link";
-import { FaInstagram, FaReddit, FaTwitter, FaTiktok } from 'react-icons/fa';
+import { FaInstagram, FaReddit, FaTwitter, FaTiktok, FaDiscord } from 'react-icons/fa';
 import { SiX } from 'react-icons/si'; // Use SiX for the X icon
 
 
@@ -17,7 +17,7 @@ const StaticCard: React.FC<StaticCardProps> = ({ title, desc, href, className })
   const renderContent = () => {
     if (title === "Community") {
       return (
-        <div className="flex flex-col h-full justify-between p-10">
+        <div className="flex flex-col h-full justify-between p-5 md:p-10">
           <div className="flex flex-col items-center mb-4">
             <Typography variant="large" className=" text-center text-lg font-semibold mb-2">
             Unite with a Like-Minded Community
@@ -35,6 +35,9 @@ const StaticCard: React.FC<StaticCardProps> = ({ title, desc, href, className })
                 </a>
                 <a href="https://reddit.com" target="_blank" rel="noopener noreferrer">
                   <FaReddit className="h-10 w-10" />
+                </a>
+                <a href="https://discord.com" target="_blank" rel="noopener noreferrer">
+                  <FaDiscord className="h-10 w-10" />
                 </a>
                 <a href="https://x.com" target="_blank" rel="noopener noreferrer">
                   <SiX className="h-10 w-10" />

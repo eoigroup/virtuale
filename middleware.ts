@@ -15,6 +15,23 @@ export const config = {
   ],
 };
 
+const allowedPaths = [
+  "/login",
+  "/register",
+  "/login/social",
+  "/company",
+  "/safety",
+  "/suggest",
+  "/support",
+  "/partnerships",
+  "/tos",
+  "/privacy",
+  "/careers",
+  "/news",
+  "/faq"
+];
+
+
 export default async function middleware(req: NextRequest) {
   const url = req.nextUrl;
   const jwtCookie = req.cookies.get("jwt");
@@ -52,8 +69,10 @@ export default async function middleware(req: NextRequest) {
       path !== "/register" &&
       path !== "/login/social" && 
       path !== "/company" && // Allow access to /company
-      path !== "/safety" && // Allow access to /suggest
+      path !== "/safety" && // Allow access to /safety
       path !== "/suggest" && // Allow access to /suggest
+      path !== "/support" && // Allow access to /support
+      path !== "/careers" && // Allow access to /support
       path !== "/partnerships" && // Allow access to /partnerships
       path !== "/tos" && // Allow access to /tos
       path !== "/privacy" && // Allow access to /privacy
@@ -65,6 +84,28 @@ export default async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL("/", req.url));
     }
 
+
+     // Check if the path is `/privacy`, and if so, do not rewrite to `/app`
+     if (
+      path === "/privacy" || 
+      path === "/tos" ||
+      path === "/company" || // Allow access to /company
+      path === "/contact" || // Allow access to /contact
+      path === "/support" || // Allow access to /support
+      path === "/careers" || // Allow access to /support
+      path === "/safety" || // Allow access to /safety
+      path === "/suggest" || // Allow access to /suggest
+      path === "/partnerships" || // Allow access to /partnerships
+      path === "/tos" || // Allow access to /tos
+      path === "/privacy" || // Allow access to /privacy
+      path === "/news" || // Allow access to /news
+      path === "/faq" // Allow access to /faq
+    
+    )
+      {
+      return NextResponse.next(); // Allow access to /privacy without rewriting
+    }
+    
     // If authenticated or visiting /register or /login, proceed as normal
     return NextResponse.rewrite(
       new URL(`/app${path === "/" ? "" : path}`, req.url)

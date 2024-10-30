@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Typography } from '../../components/ui/typography'; // Adjust the path as necessary
+import React, { useState } from 'react'; // Make sure to import useState
+import { Typography } from "@/components/ui/typography";
+import Layout from "@/components/static-page-layout/page"; 
 
 const faqs = [
   {
@@ -30,28 +31,30 @@ const FAQPage = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <Typography variant="h1" className="text-2xl font-bold mb-6">
-        Frequently Asked Questions
-      </Typography>
-      <div className="space-y-4">
-        {faqs.map((faq, index) => (
-          <div key={index} className="border rounded-lg p-4 shadow-sm">
-            <div
-              className="cursor-pointer mb-2 text-lg font-medium"
-              onClick={() => toggleAnswer(index)}
-            >
-              {faq.question}
+    <Layout>
+      <div className="container mx-auto flex-grow">
+        <Typography variant="h1" className="text-2xl font-bold mb-6">
+          Frequently Asked Questions
+        </Typography>
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <div key={index} className="border rounded-lg p-4 shadow-sm">
+              <div
+                className="cursor-pointer mb-2 text-lg font-medium"
+                onClick={() => toggleAnswer(index)}
+              >
+                {faq.question}
+              </div>
+              {openIndex === index && (
+                <Typography variant="xsmall" className="text-gray-600">
+                  {faq.answer}
+                </Typography>
+              )}
             </div>
-            {openIndex === index && (
-              <Typography variant="xsmall" className="text-gray-600">
-                {faq.answer}
-              </Typography>
-            )}
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

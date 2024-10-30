@@ -1,5 +1,5 @@
 import { Metadata, Viewport } from "next"; 
-import { AGENT_AUTHOR } from "./config";  // Import AGENT_AUTHOR
+import { AGENT_AUTHOR } from "./config"; // Import AGENT_AUTHOR
 
 type MetadataProps = {
   title?: string;
@@ -12,12 +12,12 @@ type MetadataProps = {
 
 // Separate viewport configuration
 export function constructViewport(): Viewport {
-    return {
-      width: "device-width",
-      initialScale: 1,
-      maximumScale: 5,
-    };
-  }
+  return {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+  };
+}
 
 const defaultMetadata = {
   title: "Virtuale.ai",
@@ -41,9 +41,11 @@ export function constructMetadata({
     "/company",
     "/safety",
     "/suggest",
+    "/support",
     "/partnerships",
     "/tos",
     "/privacy",
+    "/careers",
     "/news",
     "/faq"
   ].includes(path);

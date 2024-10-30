@@ -17,7 +17,7 @@ export const siteMetadata = {
     "artificial intelligence",
     "virtual companions",
   ],
-  // Public paths matching your middleware
+  // Public paths now match middleware
   publicPaths: [
     "/home",
     "/login",
@@ -26,9 +26,11 @@ export const siteMetadata = {
     "/company",
     "/safety",
     "/suggest",
+    "/support",
     "/partnerships",
     "/tos",
     "/privacy",
+    "/careers",
     "/news",
     "/faq"
   ]

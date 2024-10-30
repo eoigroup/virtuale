@@ -1,18 +1,22 @@
 "use client";
 
 import React from 'react';
-import { Typography } from '../../components/ui/typography'; // Adjust the path as necessary
+import { Typography } from "@/components/ui/typography";
+import Layout from "@/components/static-page-layout/page"; 
 
 const CompanyPage = () => {
   return (
-    <div className="container mx-auto p-4">
-      <Typography variant="h1" className="text-2xl font-bold mb-6">
+    <Layout>
+      <div className="container mx-auto  flex-grow">
+        <Typography variant="h1" className="text-2xl font-bold mb-6">
         Company
-      </Typography>
-      <Typography variant="body" className="text-gray-700">
-      desc text
-      </Typography>
-    </div>
+
+        </Typography>
+        <Typography variant="body" className="text-gray-700">
+        coming soon
+        </Typography>
+      </div>
+    </Layout>
   );
 };
 
