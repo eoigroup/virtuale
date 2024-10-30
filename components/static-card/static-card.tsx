@@ -58,14 +58,14 @@ const StaticCard: React.FC<StaticCardProps> = ({ title, desc, href, className })
             </Typography>
           )}
           <ul className="pl-0">
-            <li className="text-gray-500 text-sm mb-1">
-              <Link href="/privacy-policy" className="text-blue-500 hover:underline">Privacy Policy</Link>
+          <li className="text-gray-500 text-sm mb-1">
+              <Link href="/safety" className="text-blue-500 hover:underline">Safety Center</Link>
             </li>
             <li className="text-gray-500 text-sm mb-1">
-              <Link href="/terms-of-service" className="text-blue-500 hover:underline">Terms of Service</Link>
+              <Link href="/privacy" className="text-blue-500 hover:underline">Privacy Policy</Link>
             </li>
             <li className="text-gray-500 text-sm mb-1">
-              <Link href="/cookies" className="text-blue-500 hover:underline">Cookies</Link>
+              <Link href="/tos" className="text-blue-500 hover:underline">Terms of Service</Link>
             </li>
           </ul>
         </div>
@@ -83,13 +83,13 @@ const StaticCard: React.FC<StaticCardProps> = ({ title, desc, href, className })
           )}
           <ul className="pl-0">
             <li className="text-gray-500 text-sm mb-1">
-              <Link href="/about" className="text-blue-500 hover:underline">About</Link>
+              <Link href="/company" className="text-blue-500 hover:underline">About</Link>
             </li>
             <li className="text-gray-500 text-sm mb-1">
               <Link href="/careers" className="text-blue-500 hover:underline">Careers</Link>
             </li>
             <li className="text-gray-500 text-sm mb-1">
-              <Link href="/contact" className="text-blue-500 hover:underline">Contact Us</Link>
+              <Link href="/contact" className="text-blue-500 hover:underline">Contact</Link>
             </li>
           </ul>
         </div>

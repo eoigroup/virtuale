@@ -126,12 +126,19 @@ const PersonaList = ({
               <Typography variant={"h5"} className="mb-4 ml-4 pt-10 border-t border-gray-800" >   
                 More Info
               </Typography>
+
               <div className="flex flex-wrap">
+
+                   {/* Suggest Card */}
+                   <div className="w-full p-2 pb-4"> 
+                   <StaticCard title="Suggest a Persona" desc="Share your ideas to add/enhance our personas! Your feedback helps us improve and innovate." href="/suggest" />
+                   </div>
+
                 {/* Left Column */}
                 <div className="w-full md:w-1/2 flex flex-col"> 
                 <div className="flex w-full items-stretch"> {/* Ensure equal height */}
                     <div className="flex-1 p-2"> {/* Suggest */}
-                      <StaticCard title="Suggest Persona" desc="Share your ideas to add/enhance our personas! Your feedback helps us improve and innovate." href="/faq" />
+                    <StaticCard title="Support" desc="Need assistance? Our support team is here to help with any issues." href="/support" />
                     </div>
                     <div className="flex-1 p-2"> {/* FAQ */}
                       <StaticCard title="FAQ" desc="Have questions? We have the answers!" href="/faq" />
