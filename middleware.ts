@@ -51,11 +51,13 @@ export default async function middleware(req: NextRequest) {
       path !== "/login" &&
       path !== "/register" &&
       path !== "/login/social" && 
-      path !== "/company" && // Allow access to /faq
-      path !== "/partnerships" && // Allow access to /faq
-      path !== "/tos" && // Allow access to /faq
-      path !== "/privacy" && // Allow access to /faq
-      path !== "/news" && // Allow access to /faq
+      path !== "/company" && // Allow access to /company
+      path !== "/safety" && // Allow access to /suggest
+      path !== "/suggest" && // Allow access to /suggest
+      path !== "/partnerships" && // Allow access to /partnerships
+      path !== "/tos" && // Allow access to /tos
+      path !== "/privacy" && // Allow access to /privacy
+      path !== "/news" && // Allow access to /news
       path !== "/faq" // Allow access to /faq
     ) {
       return NextResponse.redirect(new URL("/login", req.url));
