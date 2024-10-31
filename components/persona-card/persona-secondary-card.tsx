@@ -17,24 +17,29 @@ const PersonaSecondaryCard = ({ persona }: { persona: IPersona }) => {
       defaultSize={24}
     />
   </div>
+
+  
   <div className="flex-1 flex flex-col justify-center -ml-1">
-    <Typography 
-      variant="small" 
-      className="text-lg font-semibold mb-1 leading-none"
-    >
-      {persona.name}
-    </Typography>
-    <Typography 
+
+  <Typography 
       variant="xsmall"
-      className="text-gray-400 mb-2 block"
+      className="text-gray-400 mb-1 block"
     >
       {persona.category_name}
     </Typography>
+
+    <Typography 
+      variant="small" 
+      className="text-lg font-semibold mb-2 leading-none"
+    >
+      {persona.name}
+    </Typography>
+  
     <Typography
       variant="xsmall"
       className="text-gray-400 line-clamp-2 text-ellipsis overflow-hidden whitespace-normal break-anywhere"
     >
-      {persona.profile_description}
+      {persona.profile_about}
     </Typography>
   </div>
 </Link>
