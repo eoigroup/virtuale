@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -7,6 +7,8 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { getAvailableSubscriptions } from "@/lib/api/subscription";
 
 interface TryAIModalProps {
   isOpen: boolean;
@@ -22,6 +24,17 @@ const TryAIModal: React.FC<TryAIModalProps> = ({ isOpen, onClose }) => {
     handleClose(false);
   };
 
+  const getSubscriptions = async () => {
+    try {
+      const response = await getAvailableSubscriptions();
+      console.log("response", response);
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
+  useEffect(() => {
+    getSubscriptions();
+  }, []);
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="gap-0" aria-describedby="">

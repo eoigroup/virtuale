@@ -2,7 +2,7 @@ import { AGENT_API_KEY, AGENT_AUTHOR, API_URL } from "@/lib/config";
 import { NextRequest, NextResponse } from "next/server";
 import { jwtDecode } from "jwt-decode";
 import { DecodedJWT } from "@/types/user";
-import { PERSONA_ACTIONS } from "@/lib/actions";
+import { SUBSCRIPTION_ACTIONS } from "@/lib/actions";
 
 export async function POST(req: NextRequest) {
   const jwtToken = req.cookies.get("jwt")?.value;
@@ -31,7 +31,8 @@ export async function POST(req: NextRequest) {
   try {
     const jwt = jwtDecode<DecodedJWT>(jwtToken);
     const body: BodyInit = new FormData();
-    body.append("action", PERSONA_ACTIONS.GET_ALL_VIRTUALE_PERSONAS);
+    body.append("unique_id", jwt.unique_id);
+    body.append("action", SUBSCRIPTION_ACTIONS.GET_SUBSCRIPTIONS);
 
     const requestOptions: RequestInit = {
       method: "POST",
@@ -42,10 +43,13 @@ export async function POST(req: NextRequest) {
         ContentType: "multipart/form-data",
       },
       body: body,
-      redirect: "follow",
     };
 
-    const response = await fetch(`${API_URL}/api/personas`, requestOptions);
+    const response = await fetch(
+      `${API_URL}/api/v2/virtual-pay`,
+      requestOptions
+    );
+
     if (!response.ok) {
       if (response.headers.get("content-type")?.includes("application/json")) {
         const data = await response.json();
@@ -55,8 +59,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    let data = await response.json();
-    data = data.data.filter((el: any) => el.virtuale_ai_enable);
+    const data = await response.json();
     return NextResponse.json({ data }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(

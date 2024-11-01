@@ -17,7 +17,7 @@ const PromptSuggestionCard = ({ persona }: { persona: IPersona }) => {
           <div className="absolute right-0 top-0 w-4 h-full bg-gradient-to-l from-white/5 via-transparent to-transparent z-10" />
           <PersonaImage
             image={persona.profile_image}
-            className="w-[110px] h-[170px] object-cover rounded-l-xl rounded-r-sm"
+            className="w-[110px] h-full object-cover rounded-l-xl rounded-r-sm"
             defaultSize={24}
           />
         </div>

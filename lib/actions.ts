@@ -19,4 +19,9 @@ export const PERSONA_ACTIONS = {
   GET_ALL_CATEGORIES: "get_all_categories",
   GET_KNOWLEDGE_LOGS: "get_knowledge_logs",
   GET_VOICES: "get_voices",
+  GET_ALL_VIRTUALE_PERSONAS: "get_all_virtuale_personas",
+};
+
+export const SUBSCRIPTION_ACTIONS = {
+  GET_SUBSCRIPTIONS: "get_subs",
 };
