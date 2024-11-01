@@ -15,7 +15,7 @@ import BannerSolo from "../banner/bannersolo_ca5";
 
 const list = [
   {
-    id: 13,
+    id: 238,
     image: "9448016.jpg",
   },
   {

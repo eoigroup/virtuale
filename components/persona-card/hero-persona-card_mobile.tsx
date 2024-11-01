@@ -39,7 +39,7 @@ const HeroPersonaCard = ({
         <div className="flex gap-2 items-center">
           <PersonaImage
             image={persona.profile_image}
-            className="w-[55px] h-[55px] object-cover"
+            className="w-[60px] h-[60px] object-cover"
           />
           <div className="flex-1 flex flex-col items-center justify-center">
           <Typography 
@@ -61,7 +61,7 @@ const HeroPersonaCard = ({
 
         {/* Message below */}
         <Typography 
-          className="line-clamp-3 pt-5 text-left"
+          className="line-clamp-4 pt-5 text-left"
         >
           {persona.welcome_message}
         </Typography>
