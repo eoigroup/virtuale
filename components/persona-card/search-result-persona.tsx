@@ -25,7 +25,7 @@ const SearchResultPersonaCard = ({ persona }: { persona: IPersona }) => {
             as={"div"}
             className="text-foreground font-normal line-clamp-1 text-ellipsis overflow-hidden whitespace-normal break-anywhere"
           >
-            {persona.profile_description}
+            {persona.profile_about}
           </Typography>
         </div>
       </div>

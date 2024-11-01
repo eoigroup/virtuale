@@ -128,7 +128,7 @@ const Topbar = () => {
           {/* Dropdown with search results */}
           {dropdownVisible && (
             <div className="flex max-w-3xl justify-end md:justify-center self-center">
-              <div className="absolute z-[100] mt-5 max-h-[calc(100vh-12rem)] max-w-[90dvw] sm:w-96 overflow-y-scroll rounded-3xl bg-surface-elevation-2 p-2 flex flex-col gap-1">
+              <div className="absolute z-[100] mt-5 max-h-[calc(100vh-12rem)] max-w-[80dvw] sm:w-80 overflow-y-scroll rounded-3xl bg-surface-elevation-2 p-2 flex flex-col gap-1">
                 {filteredPersonas.length > 0 ? (
                   filteredPersonas.map((persona) => (
                     <SearchResultPersonaCard
