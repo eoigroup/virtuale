@@ -8,13 +8,12 @@ const LandingHeader = dynamic(
   () => import("@/components/landing-header/landing-header"),
   { ssr: false }
 );
-const Banner = dynamic(
-  () => import("@/components/banner/banner"),
-  { ssr: false }
-);
+const Banner = dynamic(() => import("@/components/banner/banner"), {
+  ssr: false,
+});
 
 const body: BodyInit = new FormData();
-body.append("action", PERSONA_ACTIONS.FETCH_ALL_PERSONAS);
+body.append("action", PERSONA_ACTIONS.GET_ALL_VIRTUALE_PERSONAS);
 
 const HomePage = async () => {
   const requestOptions: RequestInit = {
@@ -28,8 +27,7 @@ const HomePage = async () => {
   };
 
   const response = await fetch(`${API_URL}/api/personas`, requestOptions);
-  console.log('response', response)
-  console.log('requestOptions', requestOptions)
+
   if (!response.ok) {
     return "Something went wrong";
   }
