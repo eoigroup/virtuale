@@ -8,7 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
 import { Typography } from "../ui/typography";
 import PersonaSecondaryCard from "../persona-card/persona-secondary-card";
-import ConversationSparks from "../persona-card/conversation-sparks";
+import PromptSuggestionCard from "../persona-card/prompt-suggestion-card";
 import { IPersona, IUserConvos } from "@/types/persona";
 import CategoryList from "./category-list";
 import FeaturedPersonas from "./featured-personas";
@@ -132,9 +132,29 @@ const PersonaList = ({
 
       <CategoryList personas={personas} />
 
-      <ConversationSparks personas={personas} />
-
-
+      <div className="mt-10">
+        <Typography variant={"h5"} className="mb-4 ml-4">
+          Conversation Sparks
+        </Typography>
+        <Swiper
+          spaceBetween={10}
+          modules={[FreeMode, Navigation]}
+          freeMode
+          navigation
+          breakpoints={{
+            640: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+          className="self-swiper"
+        >
+          {promptSuggestionPersonas.map((persona) => (
+            <SwiperSlide key={`feature-${persona.persona_id}`}>
+              <PromptSuggestionCard persona={persona} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
 
       <div className="flex flex-wrap mt-12 mb-10 text-center">
         <div className="w-full m-12 p-4 shadow-plus-shadow rounded-full gap-1 border-border-outline">

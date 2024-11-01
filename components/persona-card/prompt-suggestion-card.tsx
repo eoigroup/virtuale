@@ -17,26 +17,29 @@ const PromptSuggestionCard = ({ persona }: { persona: IPersona }) => {
           <div className="absolute right-0 top-0 w-4 h-full bg-gradient-to-l from-white/5 via-transparent to-transparent z-10" />
           <PersonaImage
             image={persona.profile_image}
-            className="w-[110px] h-[170px] object-cover rounded-l-xl rounded-r-sm"
+            className="w-[130px] h-[200px] object-cover rounded-l-xl rounded-r-sm"
             defaultSize={24}
           />
         </div>
 
         {/* Right Content Section */}
         <div className="flex-1 flex flex-col">
+         
+        <Typography 
+            variant="xsmall"
+            className="text-gray-400 mb-1 block"
+          >
+             {persona.category_name}
+          </Typography>
+
           <Typography 
             variant="small" 
-            className="text-lg font-semibold mb-1 leading-none"
+            className="text-lg font-semibold mb-4 leading-none"
           >
             {persona.name}
           </Typography>
           
-          <Typography 
-            variant="xsmall"
-            className="text-gray-400 mb-2 block"
-          >
-             {persona.category_name}
-          </Typography>
+       
 
       
 
