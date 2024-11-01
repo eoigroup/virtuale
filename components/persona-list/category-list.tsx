@@ -11,12 +11,17 @@ import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
 import { Typography } from "../ui/typography";
 
-
 const CategoryList = ({ personas }: { personas: IPersona[] }) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [loading, setLoading] = useState(false);
-  const [_personas, setPersonas] = useState<IPersona[]>(personas);
+  const [_personas, setPersonas] = useState<IPersona[]>(getRandomPersonas(personas, 6));
   const [activeCategory, setActiveCategory] = useState<string>("");
+
+  // Function to get random personas
+  function getRandomPersonas(personaArray: IPersona[], count: number) {
+    const shuffled = [...personaArray].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+  }
 
   const getCategories = async () => {
     if (loading) return;
@@ -38,7 +43,7 @@ const CategoryList = ({ personas }: { personas: IPersona[] }) => {
   const handleFilterPersona = (category: string) => {
     if (category === activeCategory) {
       setActiveCategory("");
-      setPersonas(personas);
+      setPersonas(getRandomPersonas(personas, 6)); // Show 6 random personas when deselecting
     } else {
       setActiveCategory(category);
       setPersonas(
@@ -53,15 +58,15 @@ const CategoryList = ({ personas }: { personas: IPersona[] }) => {
 
   return (
     <div className="mt-10">
-       <Typography variant={"h5"} className="mb-4 ml-4">
-         Explore Interests 
+      <Typography variant={"h5"} className="mb-4 ml-4">
+        Explore Interests
       </Typography>
       <div className="flex items-center overflow-auto gap-2 py-1 mb-4">
         {!loading
           ? categories.map((category) => (
               <Button
                 key={`category-${category.id}`}
-                size="lg"
+                size="long"
                 variant={
                   activeCategory === category.category ? "default" : "outline"
                 }

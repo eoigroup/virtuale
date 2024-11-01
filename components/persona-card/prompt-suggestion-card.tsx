@@ -24,19 +24,22 @@ const PromptSuggestionCard = ({ persona }: { persona: IPersona }) => {
 
         {/* Right Content Section */}
         <div className="flex-1 flex flex-col">
+         
+        <Typography 
+            variant="xsmall"
+            className="text-gray-400 mb-1 block"
+          >
+             {persona.category_name}
+          </Typography>
+
           <Typography 
             variant="small" 
-            className="text-lg font-semibold mb-1 leading-none"
+            className="text-lg font-semibold mb-4 leading-none"
           >
             {persona.name}
           </Typography>
           
-          <Typography 
-            variant="xsmall"
-            className="text-gray-400 mb-2 block"
-          >
-             {persona.category_name}
-          </Typography>
+       
 
       
 

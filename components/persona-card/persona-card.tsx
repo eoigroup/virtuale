@@ -14,29 +14,35 @@ const PersonaCard = ({ persona }: { persona: IPersona }) => {
         className="flex gap-4"
       >
         <div className="flex-1 flex flex-col">
-          <Typography 
-            variant="small" 
-            className="text-lg font-semibold mb-1 leading-none"
-          >
-            {persona.name}
-          </Typography>
-          
-          <Typography 
+       
+        <Typography 
             variant="xsmall"
-            className="text-gray-400 mb-2 block"
+            className="text-gray-400 mb-1 block"
           >
              {persona.category_name}
 
           </Typography>
 
+          <Typography 
+            variant="small" 
+            className="text-lg font-semibold mb-3 leading-none"
+          >
+            {persona.name}
+          </Typography>
+          
+       
+
           <div className="flex items-center gap-4 mb-3">
             <div className="flex items-center gap-1">
             <AudioLines size={12} className="text-gray-400" />
-            <Typography variant="xsmall" className="text-gray-400">17.9m</Typography>
+            <Typography 
+            //temp - must change to stats from backend
+            variant="xsmall" className="text-gray-400">{persona.msg_history_count === 3 ? "17m" : `${persona.msg_history_count}m`} 
+            </Typography>
             </div>
             <div className="flex items-center gap-1">
               <Star size={12} className="text-gray-400" />
-              <Typography variant="xsmall" className="text-gray-400">4k</Typography>
+              <Typography variant="xsmall" className="text-gray-400">{persona.likes === 0 ? "4k" : `${persona.likes}k`}</Typography>
             </div>
 
             {persona.verified_agent && (
