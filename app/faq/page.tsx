@@ -202,7 +202,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ faqs, openIndex, setOpenIndex }
           className="cursor-pointer flex justify-between items-center"
           onClick={() => setOpenIndex(openIndex === index ? null : index)}
         >
-          <Typography variant="small" className="font-medium mb-4">
+          <Typography variant="small" className="text-white dark:text-white font-medium mb-4">
             {faq.question}
           </Typography>
           <span className="text-gray-500">
@@ -210,7 +210,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ faqs, openIndex, setOpenIndex }
           </span>
         </div>
         {openIndex === index && (
-          <Typography variant="xsmall" className="text-white-500 mt-6">
+          <Typography variant="xsmall" className="text-white-500 dark:text-white-500 mt-6">
             {faq.answer}
           </Typography>
         )}
