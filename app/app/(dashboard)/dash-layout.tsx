@@ -2,6 +2,7 @@
 import Loader from "@/components/loader/loader";
 import Sidebar from "@/components/side-bar/side-bar";
 import { useMenu } from "@/contexts/menu-context";
+import { usePersona } from "@/contexts/persona-context";
 import { useUser } from "@/contexts/user-context";
 import { cn } from "@/lib/utils";
 import { IPersona } from "@/types/persona";
@@ -16,6 +17,7 @@ const DashboardLayout = ({
 }) => {
   const { loading } = useUser();
   const { isMenuExpanded } = useMenu();
+  const { setPersonas } = usePersona();
 
   useEffect(() => {
     const setViewportHeight = () => {
@@ -28,6 +30,10 @@ const DashboardLayout = ({
 
     return () => window.removeEventListener("resize", setViewportHeight);
   }, []);
+
+  useEffect(() => {
+    setPersonas(personas);
+  }, [personas]);
 
   if (loading) {
     return (

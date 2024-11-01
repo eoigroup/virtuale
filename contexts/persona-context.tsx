@@ -11,7 +11,7 @@ import {
   SetStateAction,
 } from "react";
 import { toast } from "sonner";
-import { getAllPersonas, getUserConvos } from "@/lib/api/persona";
+import { getUserConvos } from "@/lib/api/persona";
 import { IPersona, IUserConvos } from "@/types/persona";
 
 interface PersonaContextProps {
@@ -20,6 +20,7 @@ interface PersonaContextProps {
   loading: boolean;
   updatePersonas: () => Promise<void>;
   setUserConvos: Dispatch<SetStateAction<IUserConvos[]>>;
+  setPersonas: Dispatch<SetStateAction<IPersona[]>>;
 }
 
 const PersonaContext = createContext<PersonaContextProps>({
@@ -28,6 +29,7 @@ const PersonaContext = createContext<PersonaContextProps>({
   loading: false,
   setUserConvos: () => {},
   updatePersonas: async () => {},
+  setPersonas: () => {},
 });
 
 export const PersonaProvider = ({ children }: { children: ReactNode }) => {
@@ -38,11 +40,10 @@ export const PersonaProvider = ({ children }: { children: ReactNode }) => {
   const updatePersonas = async () => {
     setLoading(true);
     try {
-      const response = await Promise.all([getAllPersonas(), getUserConvos()]);
-
-      setPersonas(response[0].data);
+      const response = await Promise.all([getUserConvos()]);
+      // setPersonas(response[0].data);
       setUserConvos(
-        response[1].data.sort((a: IUserConvos, b: IUserConvos) =>
+        response[0].data.sort((a: IUserConvos, b: IUserConvos) =>
           b.timestamp.localeCompare(a.timestamp)
         )
       );
@@ -58,7 +59,14 @@ export const PersonaProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <PersonaContext.Provider
-      value={{ personas, userConvos, updatePersonas, setUserConvos, loading }}
+      value={{
+        personas,
+        userConvos,
+        updatePersonas,
+        setPersonas,
+        setUserConvos,
+        loading,
+      }}
     >
       {children}
     </PersonaContext.Provider>
