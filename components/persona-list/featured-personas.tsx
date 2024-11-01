@@ -11,7 +11,7 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode, Navigation } from "swiper/modules";
 import PersonaCard from "../persona-card/persona-card";
-import BannerSolo from "../banner/bannersolo_ca5";
+import BannerSolo from "../banner/bannersolo_ca6";
 
 const list = [
   {
