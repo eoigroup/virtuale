@@ -76,7 +76,7 @@ const ConcentricCircles = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-[280px]">
+    <div className="flex items-center justify-center w-full h-[300px]">
       <svg 
         viewBox="0 0 300 300" 
         className="w-full h-full"
@@ -98,7 +98,7 @@ const ConcentricCircles = () => {
 
           <pattern 
             id="centerImagePattern" 
-            patternUnits="userSpaceOnUse" 
+            patternUnits="objectBoundingBox" 
             width="40" 
             height="40"
           >
@@ -111,21 +111,21 @@ const ConcentricCircles = () => {
           </pattern>
 
           {Array.from(activeDots).map(dotIndex => (
-  <pattern 
-    key={`pattern-${dotIndex}`}
-    id={`imagePattern-${dotIndex}`} 
-    patternUnits="userSpaceOnUse"
-    width="32"
-    height="32"
-  >
-    <image 
-      href={dotImages[dotIndex]}
-      width="32"
-      height="32"
-      preserveAspectRatio="xMidYMid slice"
-    />
-  </pattern>
-))}
+            <pattern 
+              key={`pattern-${dotIndex}`}
+              id={`imagePattern-${dotIndex}`} 
+              patternUnits="userSpaceOnUse"
+              width="32"
+              height="32"
+            >
+              <image 
+                href={dotImages[dotIndex]}
+                width="32"
+                height="32"
+                preserveAspectRatio="xMidYMid slice"
+              />
+            </pattern>
+          ))}
         </defs>
 
         {dots.map((dot) => {
@@ -138,7 +138,7 @@ const ConcentricCircles = () => {
               key={dot.key}
               cx={dot.x}
               cy={dot.y}
-              r={shouldEnlarge ? dot.size * 4 : dot.size}
+              r={shouldEnlarge ? dot.size * 3 : dot.size}
               fill={hasImage ? `url(#imagePattern-${dot.index})` : "url(#gradientPattern)"}
               className="transition-all duration-3000 ease-in-out"
               style={{

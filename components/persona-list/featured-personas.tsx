@@ -15,11 +15,11 @@ import BannerSolo from "../banner/bannersolo_ca5";
 
 const list = [
   {
-    id: 13,
+    id: 238,
     image: "9448016.jpg",
   },
   {
-    id: 5,
+    id: 138,
     image: "9448031.png",
   },
 ];
@@ -42,6 +42,34 @@ const FeaturedPersonas = ({
       <Typography variant={"h5"} className="mb-4 ml-4">
       Top Picks
       </Typography>
+
+
+      <div className="w-full mb-8">
+        <Swiper
+          spaceBetween={10}
+          modules={[FreeMode, Navigation]}
+          freeMode
+          navigation
+          breakpoints={{
+            640: {
+              slidesPerView: 1,
+            },
+            768: {
+              slidesPerView: 2,
+            },
+            1024: {
+              slidesPerView: 4,
+            },
+          }}
+          className="self-swiper"
+        >
+          {featuredPersonas.map((persona) => (
+            <SwiperSlide key={`feature-${persona.persona_id}`}>
+              <PersonaCard persona={persona} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
 
       <motion.div
         className={cn("flex gap-3 flex-col md:flex-row")}
@@ -87,32 +115,7 @@ const FeaturedPersonas = ({
         </div>
       </motion.div>
 
-      <div className="w-full mt-6">
-        <Swiper
-          spaceBetween={10}
-          modules={[FreeMode, Navigation]}
-          freeMode
-          navigation
-          breakpoints={{
-            640: {
-              slidesPerView: 1,
-            },
-            768: {
-              slidesPerView: 2,
-            },
-            1024: {
-              slidesPerView: 4,
-            },
-          }}
-          className="self-swiper"
-        >
-          {featuredPersonas.map((persona) => (
-            <SwiperSlide key={`feature-${persona.persona_id}`}>
-              <PersonaCard persona={persona} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+
     </div>
   );
 };

@@ -52,7 +52,7 @@ const PersonaCard = ({ persona }: { persona: IPersona }) => {
             variant="xsmall"
             className="text-gray-400 line-clamp-3 text-ellipsis overflow-hidden whitespace-normal break-anywhere"
           >
-            {persona.profile_description}
+            {persona.profile_about || persona.profile_description}
           </Typography>
         </div>
 

@@ -43,7 +43,7 @@ const Logo = () => {
         Virtuale.ai
       </div>
       <Typography variant={`caption`} className="ml-0 md:ml-6 -mt-1"> {/* Add tagline */}
-      Interactive Conversation &amp; Connection
+      Interactive Conversation &amp; Meaningful Connection
       </Typography>
     </div>
   </Typography>

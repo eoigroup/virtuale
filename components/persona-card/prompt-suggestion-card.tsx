@@ -42,7 +42,7 @@ const PromptSuggestionCard = ({ persona }: { persona: IPersona }) => {
 
           {/* Suggestions Section */}
           <div className="flex flex-col gap-2 mt-auto">
-            {suggestions.slice(0, 2).map((suggestion, index) => (
+            {suggestions.slice(0, 3).map((suggestion, index) => (
               <Link
                 href={`/chat/${persona.persona_id}?suggestion=${index}`}
                 key={`suggestion-${persona.persona_id}-${index}`}
