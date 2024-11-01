@@ -6,6 +6,9 @@ import Layout from "@/components/static-page-layout/page";
 import StaticCard from "@/components/static-card/static-card-large";
 import { Shield, Lock, UserCheck, Bell, Brain } from "lucide-react";
 
+/* eslint-disable react/no-unescaped-entities */
+
+
 const SafetyPage = () => {
   return (
     <Layout>
@@ -27,7 +30,7 @@ const SafetyPage = () => {
             <StaticCard 
               variant="large"
               icon={<UserCheck className="w-12 h-12 text-black dark:text-black" />}
-              title="You're in Control"
+              title="You&apos;re in Control"
               desc="Customize your interaction preferences, set boundaries, and manage your experience. You decide how you want to engage with our AI personas."
             />
             
@@ -149,7 +152,7 @@ const SafetyPage = () => {
                   1
                 </div>
                 <Typography variant="body" className="text-gray-600">
-                  Use the "Report" button during any AI interaction
+                  Use the &quot;Report&quot; button during any AI interaction
                 </Typography>
               </div>
 

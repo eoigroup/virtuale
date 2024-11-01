@@ -84,7 +84,7 @@ const faqCategories = {
         answer: "Yes! Users can create multiple personas, each with unique personalities, knowledge bases, and interaction styles."
       },
       {
-        question: "How do I improve my persona's responses?",
+        question: "How do I improve my persona's responses??",
         answer: "Provide detailed background information, example dialogues, and clear personality traits when creating your persona. User feedback helps refine responses over time."
       },
       {
@@ -210,7 +210,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ faqs, openIndex, setOpenIndex }
           </span>
         </div>
         {openIndex === index && (
-          <Typography variant="xsmall" className="text-white-500 dark:text-white-500 mt-6">
+          <Typography variant="xsmall" className="text-white dark:text-white mt-6">
             {faq.answer}
           </Typography>
         )}

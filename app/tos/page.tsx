@@ -5,7 +5,7 @@ import { Typography } from "@/components/ui/typography";
 import Layout from "@/components/static-page-layout/page"; 
 
 const COMPANY_INFO = {
-  name: "EOI 24",
+  name: "EOI 24, Ltd",
   address: "20 Wenlock Road, London, N1 7GU UK",
   email: "virtuale@eoi.group",
   support_url: "https://support.virtuale.ai"

@@ -5,14 +5,61 @@ import { Typography } from "@/components/ui/typography";
 import Layout from "@/components/static-page-layout/page"; 
 import { ChevronDown, ChevronUp, X } from "lucide-react";
 
-const COMPANY_INFO = {
-  name: "EOI 24",
+// Type Definitions
+interface Job {
+  id: string;
+  title: string;
+  department: string;
+  location: string;
+  type: string;
+  experience: string;
+  status: string;
+  showListing: boolean;
+  showMoreInfo: boolean;
+  postedDate: string;
+  overview: string;
+  responsibilities: string[];
+  requirements: string[];
+  benefits: string[];
+}
+
+interface Filters {
+  department: string;
+  location: string;
+  type: string;
+}
+
+interface CompanyInfo {
+  name: string;
+  address: string;
+  email: string;
+  careers_url: string;
+}
+
+interface CareerContent {
+  hero: {
+    title: string;
+    description: string;
+  };
+  noJobsMessage: {
+    title: string;
+    description: string;
+  };
+  values: Array<{
+    title: string;
+    description: string;
+  }>;
+}
+
+// Company Information
+const COMPANY_INFO: CompanyInfo = {
+  name: "EOI 24, Ltd",
   address: "20 Wenlock Road, London, N1 7GU UK",
   email: "careers@eoi.group",
   careers_url: "https://careers.virtuale.ai"
 };
 
-const careersContent = {
+const careersContent: CareerContent = {
   hero: {
     title: "Join Our Mission",
     description: "Help us build the future of artificial intelligence. We're always looking for exceptional talent to join our team."
@@ -41,7 +88,7 @@ const careersContent = {
   ]
 };
 
-const jobListings = [
+const jobListings: Job[] = [
   {
     id: "ai-research-1",
     title: "Senior AI Research Scientist",
@@ -118,12 +165,29 @@ const jobListings = [
   }
 ];
 
-// Helper function to get unique values from job listings
-const getUniqueValues = (jobs, key) => {
-  return [...new Set(jobs.map(job => job[key]))].sort();
+// Helper function with proper typing
+const getUniqueValues = (jobs: Job[], key: keyof Job): string[] => {
+  const valuesMap: { [key: string]: boolean } = {};
+  
+  jobs.forEach(job => {
+    const value = String(job[key]);
+    if (value) {
+      valuesMap[value] = true;
+    }
+  });
+  
+  return Object.keys(valuesMap).sort();
 };
 
-const FilterSection = ({ 
+interface FilterSectionProps {
+  activeJobs: Job[];
+  filters: Filters;
+  setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+  hasActiveFilters: boolean;
+  resetFilters: () => void;
+}
+
+const FilterSection: React.FC<FilterSectionProps> = ({ 
   activeJobs, 
   filters, 
   setFilters, 
@@ -157,7 +221,7 @@ const FilterSection = ({
             Department
           </label>
           <select
-            value={filters.department || ''}
+            value={filters.department}
             onChange={(e) => setFilters(prev => ({ ...prev, department: e.target.value }))}
             className="w-full p-2 border rounded-md bg-white text-black dark:text-black"
           >
@@ -174,7 +238,7 @@ const FilterSection = ({
             Location
           </label>
           <select
-            value={filters.location || ''}
+            value={filters.location}
             onChange={(e) => setFilters(prev => ({ ...prev, location: e.target.value }))}
             className="w-full p-2 border rounded-md bg-white text-black dark:text-black"
           >
@@ -191,7 +255,7 @@ const FilterSection = ({
             Type
           </label>
           <select
-            value={filters.type || ''}
+            value={filters.type}
             onChange={(e) => setFilters(prev => ({ ...prev, type: e.target.value }))}
             className="w-full p-2 border rounded-md bg-white text-black dark:text-black"
           >
@@ -206,7 +270,7 @@ const FilterSection = ({
   );
 };
 
-const ValuesSection = () => (
+const ValuesSection: React.FC = () => (
   <div className="grid md:grid-cols-2 gap-6 my-12">
     {careersContent.values.map((value, index) => (
       <div key={index} className="p-6 border rounded-lg shadow-sm bg-white">
@@ -217,8 +281,12 @@ const ValuesSection = () => (
   </div>
 );
 
-const JobCard = ({ job }) => {
-  const [isOpen, setIsOpen] = useState(false);
+interface JobCardProps {
+  job: Job;
+}
+
+const JobCard: React.FC<JobCardProps> = ({ job }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   if (!job.showListing) return null;
 
@@ -238,7 +306,6 @@ const JobCard = ({ job }) => {
         </div>
       </div>
 
-      {/* Accordion Header */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
         className="w-full p-4 flex justify-between items-center hover:bg-gray-50 transition-colors border-b"
@@ -251,7 +318,6 @@ const JobCard = ({ job }) => {
         )}
       </button>
 
-      {/* Accordion Content */}
       {isOpen && job.showMoreInfo && (
         <div className="p-6">
           <div className="space-y-4">
@@ -303,17 +369,15 @@ const JobCard = ({ job }) => {
   );
 };
 
-const CareersPage = () => {
-  const [filters, setFilters] = useState({
+const CareersPage: React.FC = () => {
+  const [filters, setFilters] = useState<Filters>({
     department: '',
     location: '',
     type: ''
   });
 
-  // Get all active (showListing: true) jobs
   const activeJobs = jobListings.filter(job => job.showListing);
 
-  // Apply filters to active jobs
   const filteredJobs = useMemo(() => {
     return activeJobs.filter(job => {
       const departmentMatch = !filters.department || job.department === filters.department;
@@ -323,10 +387,8 @@ const CareersPage = () => {
     });
   }, [activeJobs, filters]);
 
-  // Check if any filters are active
   const hasActiveFilters = Object.values(filters).some(Boolean);
 
-  // Reset filters function
   const resetFilters = () => {
     setFilters({
       department: '',
@@ -352,7 +414,6 @@ const CareersPage = () => {
         <ValuesSection />
 
         <div className="mt-12">
-          {/* Add FilterSection above job listings */}
           <div className="mb-8">
             <div className="flex justify-between items-center mb-6">
               <Typography variant="h2" className="text-2xl font-bold">
@@ -376,29 +437,29 @@ const CareersPage = () => {
             ))
           ) : (
             <div className="text-black dark:text-black p-6 text-center border rounded-lg shadow-sm bg-white">
-              {hasActiveFilters ? (
-                <>
-                  <h3 className="text-lg font-semibold mb-4">No Matching Positions</h3>
-                  <p className="text-gray-600">Try adjusting your filters to see more opportunities.</p>
-                  <button
-                    onClick={resetFilters}
-                    className="mt-4 text-blue-600 hover:text-blue-800 font-medium"
-                  >
-                    Reset Filters
-                  </button>
-                </>
-              ) : (
-                <>
-                  <h3 className="text-lg font-semibold mb-4">{careersContent.noJobsMessage.title}</h3>
-                  <p className="text-gray-600">{careersContent.noJobsMessage.description}</p>
-                </>
-              )}
-            </div>
-          )}
-        </div>
+            {hasActiveFilters ? (
+              <>
+                <h3 className="text-lg font-semibold mb-4">No Matching Positions</h3>
+                <p className="text-gray-600">Try adjusting your filters to see more opportunities.</p>
+                <button
+                  onClick={resetFilters}
+                  className="mt-4 text-blue-600 hover:text-blue-800 font-medium"
+                >
+                  Reset Filters
+                </button>
+              </>
+            ) : (
+              <>
+                <h3 className="text-lg font-semibold mb-4">{careersContent.noJobsMessage.title}</h3>
+                <p className="text-gray-600">{careersContent.noJobsMessage.description}</p>
+              </>
+            )}
+          </div>
+        )}
       </div>
-    </Layout>
-  );
+    </div>
+  </Layout>
+);
 };
 
 export default CareersPage;
