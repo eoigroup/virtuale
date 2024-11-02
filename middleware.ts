@@ -19,7 +19,8 @@ const allowedPaths = [
   "/login",
   "/register",
   "/login/social",
-  "/company",
+  "/list",
+    "/company",
   "/safety",
   "/suggest",
   "/support",
@@ -68,6 +69,7 @@ export default async function middleware(req: NextRequest) {
       path !== "/login" &&
       path !== "/register" &&
       path !== "/login/social" && 
+      path !== "/list" && // Allow access to /company
       path !== "/company" && // Allow access to /company
       path !== "/safety" && // Allow access to /safety
       path !== "/suggest" && // Allow access to /suggest
@@ -89,6 +91,7 @@ export default async function middleware(req: NextRequest) {
      if (
       path === "/privacy" || 
       path === "/tos" ||
+      path === "/list" || // Allow access to /company
       path === "/company" || // Allow access to /company
       path === "/contact" || // Allow access to /contact
       path === "/support" || // Allow access to /support
