@@ -100,13 +100,13 @@ export default function CustomComponent() {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-[250px] relative">
-      <div className="relative w-full md:w-[650px] h-[250px]">
-        {/* Central Image */}
-        <div className={`${styles.centralImageContainer} md:mt-[-30px] mt-[-65px]`}>
+    <div className="flex flex-col justify-center items-center w-full h-[350px] md:h-[250px] relative">
+      <div className="relative w-full md:w-[650px] h-[350px] md:h-[250px]">
+        {/* Central Image */}  
+        <div className={`${styles.centralImageContainer} md:mt-[-30px] mt-[-45px]`}>
 
           <Image
-            alt="main-image"
+            alt="main-image" 
             src={images[currentImageIndex]}
             priority
             width={100}
@@ -114,27 +114,29 @@ export default function CustomComponent() {
             className={styles.centralImage}
           />
         </div>
-
+ 
         {/* Centered text content */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 text-center w-full top-[110px] md:top-[150px]">
+        <div className="absolute left-1/2 transform -translate-x-1/2 text-center w-full top-[170px] md:top-[150px]">
 
         <p className="font-bold text-md text-white-700 mb-0 leading-none">
-  <span className="block hidden md:inline">
-    Interactive Conversation & Meaningful Connection
-  </span>
-  <span className="block md:hidden">
-    Interactive Conversation & Meaningful <br /> Connection with 100+ curated Personas
-  </span>
-  <span className="hidden md:block">
-    with 100+ curated Personas
-  </span>
-</p>
+          <span className="block hidden md:inline">
+            Interactive Conversation & Meaningful Connection
+          </span>
+          <span className="block md:hidden">
+            Interactive Conversation & Meaningful <br /> Connection with 100+ curated Personas
+          </span>
+          <span className="hidden md:block">
+            with 100+ curated Personas
+          </span>
+        </p>
+
           <p className="font-bold uppercase text-2xl pt-3 leading-none">
           unlimited access<br /> Starts at .  
           </p>
           <p className=" titlecase text-xs mt-0 pt-0">
          cancel at any time
           </p>
+
         </div>
 
         {/* Floating Bubbles */}
