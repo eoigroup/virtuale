@@ -38,8 +38,8 @@ const Logo = () => {
 
 
       <div className="flex items-center"> {/* Align items in the center */}
-        <AudioLines size={12} className="text-yellow-400 font-bold mr-2 mt-0" />
-        Virtuale.ai
+        <AudioLines size={12} className="text-yellow-400 font-bold mr-1 mt-0" />
+        VirtualEra.ai
       </div>
       <Typography variant={`caption`} className="ml-0 md:ml-6 mt-0 leading-none"> {/* Add tagline */}
       Interactive Conversation &amp; Meaningful Connection.  
