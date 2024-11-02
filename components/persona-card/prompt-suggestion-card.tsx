@@ -39,6 +39,19 @@ const PromptSuggestionCard = ({ persona }: { persona: IPersona }) => {
             {persona.name}
           </Typography>
           
+          <Typography 
+            variant="small" 
+            className=" mb-4 line-clamp-4 min-h-[4rem] leading-none"
+          >
+            {persona.welcome_message}
+          </Typography>
+
+          <Typography 
+            variant="small" 
+            className="text-gray-400 mb-4 leading-none"
+          >
+            What would you like to ask me?
+          </Typography>
        
 
       
