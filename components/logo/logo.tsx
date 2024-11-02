@@ -25,7 +25,6 @@ const Logo = () => {
   }, []);
 
 
-
   return (
 <Link href={"/"} className="flex-1">
   <Typography variant={`h3`} className="font-bold" as={"div"}>
@@ -42,8 +41,8 @@ const Logo = () => {
         <AudioLines size={12} className="text-yellow-400 font-bold mr-2 mt-0" />
         Virtuale.ai
       </div>
-      <Typography variant={`caption`} className="ml-0 md:ml-6 -mt-1"> {/* Add tagline */}
-      Interactive Conversation &amp; Meaningful Connection
+      <Typography variant={`caption`} className="ml-0 md:ml-6 mt-0 leading-none"> {/* Add tagline */}
+      Interactive Conversation &amp; Meaningful Connection.  
       </Typography>
     </div>
   </Typography>

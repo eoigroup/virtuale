@@ -26,7 +26,6 @@ const titles = [
   "The Next Level of Interaction",
   "Unlock the Power of Dialogue",
   "Explore Endless Possibilities",
-  "Your Voice, Your Choice",
   "Beyond Chat, Beyond AI - It's Personal",
   "Find Your Perfect Conversation",
   "Personas for Every Purpose",

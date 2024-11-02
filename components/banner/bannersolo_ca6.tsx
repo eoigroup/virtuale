@@ -24,7 +24,79 @@ const bubbleImages = [
   // Add more images as needed
 ];
 
-const labels = ['connection', 'mentor', 'curious', 'thoughtful', 'bold', 'insightful'];
+
+const labels = [
+  'connection',
+  'mentor',
+  'curious',
+  'thoughtful',
+  'bold',
+  'insightful',
+  
+  // Personal Growth
+  'inspiring',
+  'empowering',
+  'transformative',
+  'nurturing',
+  'enlightening',
+  'motivating',
+  
+  // Experience Quality
+  'engaging',
+  'immersive',
+  'authentic',
+  'responsive',
+  'dynamic',
+  'personalized',
+  
+  // Emotional Benefits
+  'supportive',
+  'uplifting',
+  'comforting',
+  'encouraging',
+  'understanding',
+  'accepting',
+  
+  // Intellectual Benefits
+  'educational',
+  'analytical',
+  'strategic',
+  'innovative',
+  'creative',
+  'expert',
+  
+  // Interaction Qualities
+  'playful',
+  'witty',
+  'adventurous',
+  'mysterious',
+  'passionate',
+  'energetic',
+  
+  // Value Propositions
+  'guidance',
+  'discovery',
+  'growth',
+  'learning',
+  'insight',
+  'wisdom',
+  
+  // Unique Features
+  'adaptive',
+  'limitless',
+  'accessible',
+  'reliable',
+  'focused',
+  'purposeful',
+  
+  // Character Traits
+  'genuine',
+  'devoted',
+  'patient',
+  'resourceful',
+  'imaginative',
+  'masterful'
+];
 
 export default function CustomComponent() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
