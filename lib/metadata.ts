@@ -15,9 +15,11 @@ export function constructViewport(): Viewport {
   return {
     width: "device-width",
     initialScale: 1,
-    maximumScale: 5,
+    maximumScale: 1,       // Restrict max zoom to prevent auto-zoom on input focus
+    userScalable: false,    // Disable user scaling entirely
   };
 }
+
 
 const defaultMetadata = {
   title: "Virtuale.ai",
