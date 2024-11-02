@@ -14,6 +14,8 @@ import { useRouter } from "next/navigation";
 import { replaceQuotes } from "@/lib/utils";
 import ForgotPasswordModal from "@/components/modal/forgot-password-modal/forgot-password-modal";
 import LandingHeader from "@/components/landing-header/landing-header";
+import { X } from "lucide-react";
+
 
 type IFormInput = {
   email: string;
@@ -55,23 +57,20 @@ const LoginPage = () => {
     try {
       setGoogleAuthLoading(true);
       const link = await signInWithGoogle();
-      const newWindow = window.open("", "_blank");
-
-      if (newWindow) {
-        newWindow.location = replaceQuotes(link);
-
-        if (
-          !newWindow ||
-          newWindow.closed ||
-          typeof newWindow.closed === "undefined"
-        ) {
-          // Safari popup was blocked, inform the user
-          toast.error(
-            "Please allow popups for this site to continue with Google authentication."
-          );
+      
+      // Direct navigation approach for iOS Safari
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      if (isIOS) {
+        window.location.href = replaceQuotes(link);
+      } else {
+        // Existing popup approach for other browsers
+        const newWindow = window.open(replaceQuotes(link), "_blank");
+        if (!newWindow || newWindow.closed || typeof newWindow.closed === "undefined") {
+          toast.error("Please allow popups for this site to continue with Google authentication.");
         }
       }
     } catch (error) {
+      toast.error("Authentication failed. Please try again.");
     } finally {
       setGoogleAuthLoading(false);
     }
@@ -83,7 +82,10 @@ const LoginPage = () => {
 
       <main className="flex items-center justify-center h-screen">
         <form onSubmit={handleSubmit(onSubmit)} className="w-full p-6">
-          <div className="max-w-[500px] overflow-hidden bg-surface-elevation-1 rounded-lg w-full mx-auto flex-col gap-4 flex p-10">
+          <div className="max-w-[500px] overflow-hidden bg-surface-elevation-1 rounded-lg w-full mx-auto flex-col gap-4 flex p-10 relative">
+            
+          <Link href="/" className="absolute right-2 top-2 text-muted-foreground hover:text-primary transition-colors"><X size={18} /></Link>            
+            
             <TextField
               label="Email"
               type="email"
