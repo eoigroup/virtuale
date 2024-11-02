@@ -59,7 +59,7 @@ const CategoryList = ({ personas }: { personas: IPersona[] }) => {
   return (
     <div className="mt-10">
       <Typography variant={"h5"} className="mb-4 ml-4">
-        Explore Interests
+        Explore 30+ Interests
       </Typography>
       <div className="flex items-center overflow-auto gap-2 py-1 mb-4">
         {!loading
