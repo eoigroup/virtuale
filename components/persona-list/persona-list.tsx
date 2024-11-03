@@ -140,10 +140,23 @@ const PersonaList = ({
 
       <ConversationSparks personas={personas} />
  
+    
+
+      <div className="flex flex-wrap mt-16 mb-10 text-center">
+        <div className="w-full m-12 p-4 shadow-plus-shadow rounded-full gap-1 border-border-outline">
+          <StaticCard 
+            className="bg-transparent" 
+            title="Suggest a Persona" 
+            desc="Share your ideas to add/enhance our personas! Your feedback helps us improve and innovate." 
+            href="/suggest" 
+          />
+        </div>
+      </div>
+
       <PersonaTile
         topLabel="LEARN MORE"
         backImage="https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-thebrainstormer.jpeg"
-        backColour="#E19417"
+        backColour="#95b5b4"
         buttonColour="#5AA3E3"
         personas={personas}
         personaList={[
@@ -155,17 +168,6 @@ const PersonaList = ({
         tile_title="Health Team"
         tile_description="Multiple personalities, one goal: to help you."
       />
-
-      <div className="flex flex-wrap mt-12 mb-10 text-center">
-        <div className="w-full m-12 p-4 shadow-plus-shadow rounded-full gap-1 border-border-outline">
-          <StaticCard 
-            className="bg-transparent" 
-            title="Suggest a Persona" 
-            desc="Share your ideas to add/enhance our personas! Your feedback helps us improve and innovate." 
-            href="/suggest" 
-          />
-        </div>
-      </div>
 
       <Footer />
     </>
