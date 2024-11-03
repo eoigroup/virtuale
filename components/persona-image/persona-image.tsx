@@ -3,26 +3,45 @@ import { User } from "lucide-react";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
+const DEFAULT_IMAGE = 'https://media.identica.ai/media/virtuale/virtualeaiagent-defaultblank.jpg';
+
 const PersonaImage = ({
   className = "",
   image,
-  defaultSize = 16,
+  defaultSize = 20,
 }: {
   className?: string;
   image?: string;
   defaultSize?: number;
 }) => {
-  const [imgSrc, setImgSrc] = useState(image);
+  const [imgSrc, setImgSrc] = useState(image || DEFAULT_IMAGE);
   const [imgError, setImgError] = useState(false);
 
   useEffect(() => {
-    setImgSrc(image);
-    setImgError(false);
+    if (image) {
+      setImgSrc(image);
+      setImgError(false);
+    }
   }, [image]);
 
+  const getBaseUrl = (url: string) => {
+    // Extract base URL before the query parameters
+    return url.split('?')[0];
+  };
+
   const handleError = () => {
-    setImgError(true);
-    // Optionally, fetch a new signed URL here if the image fails to load
+    if (imgSrc && imgSrc !== DEFAULT_IMAGE) {
+      // If signed URL fails, try the base URL
+      const baseUrl = getBaseUrl(imgSrc);
+      if (baseUrl !== imgSrc) {
+        setImgSrc(baseUrl);
+      } else {
+        // If base URL also fails, use default image
+        setImgSrc(DEFAULT_IMAGE);
+      }
+    } else {
+      setImgError(true);
+    }
   };
 
   if (imgError) {
@@ -40,13 +59,15 @@ const PersonaImage = ({
 
   return (
     <Image
-      src={imgSrc || '/default-image.jpg'} // Fallback to a default image
+      src={imgSrc}
       width={0}
       height={0}
       sizes="100vw"
       alt=""
       className={cn("rounded-full object-cover", className)}
       onError={handleError}
+      unoptimized={true}
+      referrerPolicy="no-referrer"
     />
   );
 };

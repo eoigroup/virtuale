@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { Button } from "@/components/ui/button";
 import { IPersona } from "@/types/persona";
 import { Typography } from "../ui/typography";
+import PersonaImage from "../persona-image/persona-image";
+
 
 interface PersonaTileProps {
     topLabel?: string;
@@ -89,13 +91,15 @@ const PersonaTile = ({
                             className="pt-1 mb-2 mx-auto w-[95%] flex gap-2 rounded-full py-1 pl-0 pr-4 bg-[#e4e4e7] dark:bg-[#26272b]"
                         >
                             <div className="w-[90px] pl-2">
-                                <Image
-                                    src={persona.profile_image}
-                                    width={100}
-                                    height={80}
-                                    className="w-[100px] h-[80px] object-cover rounded-full -ml-2"
-                                    alt={persona.name}
-                                />
+                            <PersonaImage
+            image={persona.profile_image}
+            width={100}
+            height={80}
+            className="w-[100px] h-[80px] object-cover rounded-full -ml-2"
+            alt={persona.name}
+          />
+
+                              
                             </div>
 
                             <div className="flex-1 flex flex-col justify-center -ml-1">
