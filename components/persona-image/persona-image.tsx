@@ -5,15 +5,23 @@ import React, { useState, useEffect } from "react";
 
 const DEFAULT_IMAGE = 'https://media.identica.ai/media/virtuale/virtualeaiagent-defaultblank.jpg';
 
+interface PersonaImageProps {
+  className?: string;
+  image?: string;
+  defaultSize?: number;
+  width?: number;
+  height?: number;
+  alt?: string;
+}
+
 const PersonaImage = ({
   className = "",
   image,
   defaultSize = 20,
-}: {
-  className?: string;
-  image?: string;
-  defaultSize?: number;
-}) => {
+  width = 0,
+  height = 0,
+  alt = "",
+}: PersonaImageProps) => {
   const [imgSrc, setImgSrc] = useState(image || DEFAULT_IMAGE);
   const [imgError, setImgError] = useState(false);
 
@@ -60,10 +68,10 @@ const PersonaImage = ({
   return (
     <Image
       src={imgSrc}
-      width={0}
-      height={0}
+      width={width}
+      height={height}
       sizes="100vw"
-      alt=""
+      alt={alt}
       className={cn("rounded-full object-cover", className)}
       onError={handleError}
       unoptimized={true}
