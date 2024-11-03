@@ -13,6 +13,12 @@ class WebSocketManager {
   private mediaRecorder: MediaRecorder | null = null;
   private audioContext: AudioContext | null = null;
   private isProcessingAudio = false;
+  private personaId: string;
+
+  constructor(personaId: string) {
+    this.personaId = personaId;
+    console.log('WebSocketManager initialized with persona_id:', personaId);
+  }
 
   async startMicrophone() {
     try {
@@ -37,32 +43,35 @@ class WebSocketManager {
     }
   }
 
-  private setupAudioRecording() {
+  private async setupAudioRecording() {
     if (!this.mediaStream) return;
 
-    this.mediaRecorder = new MediaRecorder(this.mediaStream, {
-      mimeType: 'audio/webm;codecs=opus'
-    });
-    
-    this.mediaRecorder.ondataavailable = async (event) => {
-      if (event.data.size > 0 && this.ws?.readyState === WebSocket.OPEN) {
-        try {
+    try {
+      this.mediaRecorder = new MediaRecorder(this.mediaStream, {
+        mimeType: 'audio/webm;codecs=opus'
+      });
+
+      this.mediaRecorder.ondataavailable = async (event) => {
+        if (event.data.size > 0 && this.ws?.readyState === WebSocket.OPEN) {
           const base64Audio = await this.blobToBase64(event.data);
+          
           const message = {
-            persona_id: "1",
+            persona_id: this.personaId,
             format: "base64",
             audio: base64Audio,
             metadata: {}
           };
-          this.ws.send(JSON.stringify(message));
-        } catch (error) {
-          console.error('Error sending audio:', error);
-        }
-      }
-    };
 
-    // Start recording in small chunks
-    this.mediaRecorder.start(250); // Adjust chunk size if needed
+          this.ws.send(JSON.stringify(message));
+          console.log('Audio sent to persona:', this.personaId);
+        }
+      };
+
+      // Start recording in small chunks
+      this.mediaRecorder.start(250); // Adjust chunk size if needed
+    } catch (error) {
+      console.error('Error setting up audio:', error);
+    }
   }
 
   private async blobToBase64(blob: Blob): Promise<string> {
@@ -221,14 +230,24 @@ class WebSocketManager {
 }
 
 const WebSocketConnect: React.FC = () => {
-  const [wsManager] = useState<WebSocketManager>(new WebSocketManager());
-  const [isActive, setIsActive] = useState<boolean>(false);
-  const { personas } = usePersona();
   const { id } = useParams();
+  const { personas } = usePersona();
+  const [isActive, setIsActive] = useState<boolean>(false);
   
+  // Get the current persona
   const persona = personas.find(
-    (persona) => Number(persona.persona_id) === Number(id)
+    (p) => Number(p.persona_id) === Number(id)
   );
+
+  // Initialize WebSocketManager with the correct persona_id
+  const [wsManager] = useState<WebSocketManager>(() => {
+    const personaId = persona?.persona_id?.toString();
+    if (!personaId) {
+      console.error('No persona_id found');
+      toast.error('Persona not found');
+    }
+    return new WebSocketManager(personaId || "1");
+  });
 
   const handleVoiceToggle = useCallback(async () => {
     if (!isActive) {
