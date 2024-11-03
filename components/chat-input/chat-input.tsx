@@ -16,7 +16,11 @@ import { cn, validateImageFile } from "@/lib/utils";
 import { toast } from "sonner";
 import { useParams, useSearchParams } from "next/navigation";
 import { usePersona } from "@/contexts/persona-context";
-import WebSocketConnect from "../chat-websocket/websocket-connect";
+import dynamic from "next/dynamic";
+
+const WebSocketConnect = dynamic(() => import('../chat-websocket/websocket-connect'), {
+  ssr: false
+});
 
 const ChatInput = ({
   placeholder,
