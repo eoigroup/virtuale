@@ -16,6 +16,7 @@ import { cn, validateImageFile } from "@/lib/utils";
 import { toast } from "sonner";
 import { useParams, useSearchParams } from "next/navigation";
 import { usePersona } from "@/contexts/persona-context";
+import WebSocketConnect from "../chat-websocket/websocket-connect";
 
 const ChatInput = ({
   placeholder,
@@ -188,6 +189,8 @@ const ChatInput = ({
           </div>
 
           <div className="flex items-center justify-end gap-2 w-full px-10">
+            <WebSocketConnect />
+            
             {chatType === ChatTypes.TEXT ? (
               <Button
                 variant={"link-outlined"}
