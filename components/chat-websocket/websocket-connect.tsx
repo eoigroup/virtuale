@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Mic, MicOff } from "lucide-react";
 import { useState, useCallback } from "react";
 import { toast } from "sonner";
+import VoiceChatOverlay from './voice-chat-overlay';
+import { usePersona } from "@/contexts/persona-context";
+import { useParams } from 'next/navigation';
 
 class WebSocketManager {
   private ws: WebSocket | null = null;
@@ -220,6 +223,12 @@ class WebSocketManager {
 const WebSocketConnect: React.FC = () => {
   const [wsManager] = useState<WebSocketManager>(new WebSocketManager());
   const [isActive, setIsActive] = useState<boolean>(false);
+  const { personas } = usePersona();
+  const { id } = useParams();
+  
+  const persona = personas.find(
+    (persona) => Number(persona.persona_id) === Number(id)
+  );
 
   const handleVoiceToggle = useCallback(async () => {
     if (!isActive) {
@@ -234,16 +243,27 @@ const WebSocketConnect: React.FC = () => {
   }, [wsManager, isActive]);
 
   return (
-    <Button
-      variant="link-outlined"
-      className={`p-0 h-auto transition-colors duration-200 ${
-        isActive ? 'text-green-500 hover:text-green-600' : 'text-red-500 hover:text-red-600'
-      }`}
-      onClick={handleVoiceToggle}
-      title={isActive ? 'Stop Voice Chat' : 'Start Voice Chat'}
-    >
-      {isActive ? <Mic width={16} /> : <MicOff width={16} />}
-    </Button>
+    <>
+      <Button
+        variant="link-outlined"
+        className={`p-0 h-auto transition-colors duration-200 ${
+          isActive ? 'text-green-500 hover:text-green-600' : 'text-red-500 hover:text-red-600'
+        }`}
+        onClick={handleVoiceToggle}
+        title={isActive ? 'Stop Voice Chat' : 'Start Voice Chat'}
+      >
+        {isActive ? <Mic width={16} /> : <MicOff width={16} />}
+      </Button>
+
+      <VoiceChatOverlay
+        isActive={isActive}
+        profileImage={persona?.profile_image || '/default-avatar.png'}
+        onClose={() => {
+          wsManager.disconnect();
+          setIsActive(false);
+        }}
+      />
+    </>
   );
 };
 
