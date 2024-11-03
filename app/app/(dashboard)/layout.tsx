@@ -26,7 +26,7 @@ const DashLayout = async ({ children }: { children: ReactNode }) => {
   const personas = res.data.filter((p: IPersona) => p.virtuale_ai_enable);
 
   return (
-    <Providers>
+    <Providers key="dashboard-providers">
       <DashboardLayout personas={personas}>{children}</DashboardLayout>
     </Providers>
   );

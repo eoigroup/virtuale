@@ -32,8 +32,10 @@ const DashboardLayout = ({
   }, []);
 
   useEffect(() => {
-    setPersonas(personas);
-  }, [personas]);
+    if (personas?.length) {
+      setPersonas(personas);
+    }
+  }, []);
 
   if (loading) {
     return (
