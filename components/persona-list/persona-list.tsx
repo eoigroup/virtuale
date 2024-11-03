@@ -9,8 +9,7 @@ import { FreeMode, Navigation } from "swiper/modules";
 import { Typography } from "../ui/typography";
 import PersonaSecondaryCard from "../persona-card/persona-secondary-card";
 import ConversationSparks from "../persona-card/conversation-sparks";
-import PersonaTile from "../persona-card/persona-tile";
-
+import BannerPersonaTiles from "@/components/PersonaTiles/PersonaTiles";
 import { IPersona, IUserConvos } from "@/types/persona";
 import CategoryList from "./category-list";
 import FeaturedPersonas from "./featured-personas";
@@ -152,22 +151,12 @@ const PersonaList = ({
           />
         </div>
       </div>
+      
+      <BannerPersonaTiles personas={personas} />
 
-      <PersonaTile
-        topLabel="LEARN MORE"
-        backImage="https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-thebrainstormer.jpeg"
-        backColour="#95b5b4"
-        buttonColour="#5AA3E3"
-        personas={personas}
-        personaList={[
-          { id: 229 },
-          { id: 237 },
-          { id: 236 }
-        ]}
-        tile_subtitle="Meet the"
-        tile_title="Health Team"
-        tile_description="Multiple personalities, one goal: to help you."
-      />
+  
+
+       
 
       <Footer />
     </>

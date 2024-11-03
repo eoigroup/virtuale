@@ -29,14 +29,14 @@ const PromptSuggestionCard = ({ persona }: { persona: IPersona }) => {
             variant="xsmall"
             className="text-gray-400 mb-1 block"
           >
-             {persona.category_name}
+             {persona.category_name} <br /> ({persona.persona_id})
           </Typography>
 
           <Typography 
             variant="small" 
             className="text-lg font-semibold mb-4 leading-none"
           >
-            {persona.name}
+            {persona.name} 
           </Typography>
 
           <Typography 

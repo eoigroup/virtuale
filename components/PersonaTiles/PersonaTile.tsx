@@ -35,14 +35,14 @@ const PersonaTile = ({
         .filter((persona): persona is IPersona => persona !== undefined);
 
     return (
-        <div className="md:hidden relative rounded-3xl overflow-hidden w-full max-w-4xl bg-white/10 my-20">
+        <div className=" relative rounded-3xl overflow-hidden w-full max-w-4xl bg-white/10 my-2 ">
             {/* Main Content Area */}
             <div 
                 className="relative w-full aspect-[10/9]" 
                 style={{ background: `linear-gradient(to bottom, ${backColour} 0%, rgba(0, 0, 0, 0.5) 60%)` }}
             >
                 {/* Top Label */}
-                <div className="absolute top-4 left-6 z-20 text-xs bg-white text-black font-semibold px-4 py-2 rounded-full">
+                <div className="uppercase absolute top-4 left-6 z-20 text-xs bg-white text-black font-semibold px-4 py-2 rounded-full">
                     {topLabel}
                 </div>
 
@@ -62,7 +62,7 @@ const PersonaTile = ({
 
                 {/* Content */}
                 <div className="relative z-10 h-full flex flex-col justify-end px-6 pr-14 p-2 pb-2">
-                    <h4 className="text-3xl font-bold text-white mb-0 leading-none drop-shadow-md"
+                    <h4 className="text-2xl font-bold text-white mb-0 leading-none drop-shadow-md"
                      style={{ textShadow: '3px 3px 6px rgba(0, 0, 0, 0.9)' }}>
                         {tile_subtitle}
                     </h4>
@@ -86,7 +86,7 @@ const PersonaTile = ({
                     <div key={persona.persona_id}>
                         <Link
                             href={`/chat/${persona.persona_id}`}
-                            className="pt-2 mb-2 mx-auto w-[95%] flex gap-2 rounded-full py-1 pl-0 pr-4 bg-[#e4e4e7] dark:bg-[#26272b]"
+                            className="pt-1 mb-2 mx-auto w-[95%] flex gap-2 rounded-full py-1 pl-0 pr-4 bg-[#e4e4e7] dark:bg-[#26272b]"
                         >
                             <div className="w-[90px] pl-2">
                                 <Image
@@ -102,7 +102,7 @@ const PersonaTile = ({
                                 <Typography variant="xsmall" className="text-gray-400 mb-1 block">
                                     {persona.category_name}
                                 </Typography>
-                                <Typography variant="small" className="dark:text-white text-black text-lg font-semibold mb-2 leading-none">
+                                <Typography variant="small" className="dark:text-white text-black text-lg font-semibold mb-1 leading-none">
                                     {persona.name}
                                 </Typography>
                                 <Typography variant="xsmall" className="text-gray-400 line-clamp-2 text-ellipsis overflow-hidden whitespace-normal break-anywhere mb-1">
