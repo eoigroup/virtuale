@@ -314,7 +314,7 @@ body {
 
 #PersonaTiles .swiper-slide {
   height: auto;
-  padding: 10px;
+  padding: 0px;
 }
 
 #PersonaTiles .swiper-button-disabled {

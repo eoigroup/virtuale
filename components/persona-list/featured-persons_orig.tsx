@@ -11,7 +11,6 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode, Navigation } from "swiper/modules";
 import PersonaCard from "../persona-card/persona-card";
-import PersonaTile from "@/components/PersonaTiles/HightlightPersonaTile";
 import BannerSolo from "../banner/bannersolo_ca7";
 
 const list = [
@@ -85,7 +84,7 @@ const FeaturedPersonas = ({
             className="self-swiper"
             loop
             autoplay={{
-              delay: 92500,
+              delay: 2500,
               disableOnInteraction: false,
             }}
             modules={[Autoplay]}
@@ -96,27 +95,14 @@ const FeaturedPersonas = ({
               );
 
               return (
-             
-
-        <SwiperSlide key="special-christmas">
-          <PersonaTile
-            topLabel="special"
-            tile_subtitle="get the kids excited"
-            tile_title="for Christmas"
-            tile_description="Step into worlds unknown with unique personas."
-            backImage="https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-santaclaus.jpg"
-            imagePosition="-120px"
-            backColour="#82060d"
-            buttonColour="#5AA3E3"
-            personas={personas}
-            personaList={[
-              { id: 238 }
-            ]}
-         
-          />
-        </SwiperSlide>
-        
-                  
+                <SwiperSlide key={`featured-box-${index}`}>
+                  {persona && (
+                    <TopPicksPersonaCard
+                      persona={persona}
+                      className="flex-none md:min-w-[450px]"
+                    />
+                  )} 
+                </SwiperSlide>
               );
             })}
           </Swiper>

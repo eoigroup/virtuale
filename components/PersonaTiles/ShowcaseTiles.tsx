@@ -15,7 +15,7 @@ interface CharacterPersonaTileProps {
 
 const CharacterPersonaTile = ({ personas }: CharacterPersonaTileProps) => {
   return (
-    <div id="PersonaTiles" className="pt-10">
+    <div id="PersonaTiles" className="pt-2">
       <Swiper
         spaceBetween={24}
         modules={[FreeMode, Navigation, Autoplay]}
@@ -23,7 +23,7 @@ const CharacterPersonaTile = ({ personas }: CharacterPersonaTileProps) => {
         loop={true}
         watchSlidesProgress={true} 
         autoplay={{
-          delay: 4000,
+          delay: 994000,
           disableOnInteraction: false,
           pauseOnMouseEnter: false,
           waitForTransition: true
@@ -53,7 +53,8 @@ const CharacterPersonaTile = ({ personas }: CharacterPersonaTileProps) => {
         }}
         className="persona-tiles-swiper"
       >
-        <SwiperSlide>
+        
+        <SwiperSlide key="showcase-characters">
           <PersonaTile
             topLabel="characters"
             tile_subtitle="Immerse yourself with"
@@ -66,34 +67,70 @@ const CharacterPersonaTile = ({ personas }: CharacterPersonaTileProps) => {
             personas={personas}
             personaList={[
               { id: 130 },
-              { id: 149 },
-              { id: 136 }
+              { id: 149 }
             ]}
          
           />
         </SwiperSlide>
 
-        <SwiperSlide>
+        <SwiperSlide key="showcase-creative">
           <PersonaTile
             topLabel="creative"
-            tile_subtitle="Expand Imagination"
+            tile_subtitle="Expand you Imagination"
             tile_title="Story Telling"
             tile_description="Step into worlds unknown with unique personas."
-            backImage="https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-themastermind.jpg"
+            backImage="https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-thecrossovercreator.jpg"
             imagePosition="-20px"
             backColour="#1c1d1b"
             buttonColour="#5AA3E3"
             personas={personas}
             personaList={[
               { id: 166 },
-              { id: 175 },
-              { id: 166 }
+              { id: 175 }
             ]}
          
           />
         </SwiperSlide>
 
-        <SwiperSlide>
+        <SwiperSlide key="showcase-alien">
+          <PersonaTile
+            topLabel="productivity"
+            tile_subtitle="Lets go"
+            tile_title="Out of this world"
+            tile_description="Chat with experts who help you stay on track."
+            backImage="https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-zyx-427.jpg"
+            imagePosition="-100px"
+            backColour="#95b5b4"
+            buttonColour="#5AA3E3"
+            personas={personas}
+            personaList={[
+              { id: 136 },
+              { id: 133 }
+            ]}
+          />
+        </SwiperSlide>
+        
+           
+        <SwiperSlide key="showcase-mystical">
+          <PersonaTile
+            topLabel="spiritual"
+            tile_subtitle="Power of the universe"
+            tile_title="Mystical"
+            tile_description="Chat with experts who help you stay on track."
+            backImage="https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-sage.jpg"
+            imagePosition="-50px"
+            backColour="#f8c969"
+            buttonColour="#5AA3E3"
+            personas={personas}
+            personaList={[
+              { id: 144 },
+              { id: 168 }
+            ]}
+          />
+        </SwiperSlide>
+        
+        
+              <SwiperSlide key="showcase-productivity">
           <PersonaTile
             topLabel="productivity"
             tile_subtitle="Be more"
@@ -106,14 +143,12 @@ const CharacterPersonaTile = ({ personas }: CharacterPersonaTileProps) => {
             personas={personas}
             personaList={[
               { id: 235 },
-              { id: 151 },
-              { id: 181 },
-              { id: 136 }
+              { id: 151 }
             ]}
           />
         </SwiperSlide>
 
-        <SwiperSlide>
+        <SwiperSlide key="showcase-health">
           <PersonaTile
             topLabel="health"
             tile_subtitle="Look after your"
@@ -125,15 +160,32 @@ const CharacterPersonaTile = ({ personas }: CharacterPersonaTileProps) => {
             buttonColour="#5AA3E3"
             personas={personas}
             personaList={[
-              { id: 154 },
-              { id: 171 },
-              { id: 139 },
-              { id: 140 }
+              { id: 140 },
+              { id: 154 }
             ]}
           />
         </SwiperSlide>
 
-        <SwiperSlide>
+        <SwiperSlide key="showcase-parents">
+          <PersonaTile
+            topLabel="Parents"
+            tile_subtitle="Feel supported"
+            tile_title="Parenting"
+            tile_description="Friendly guidance to support your overall well-being."
+            backImage="https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-parentingexpert.jpg"
+            imagePosition="-80px"
+            backColour="#7a9593"
+            buttonColour="#5AA3E3"
+            personas={personas}
+            personaList={[
+              { id: 207 },
+              { id: 171 }
+            ]}
+          />
+        </SwiperSlide>        
+
+       
+        <SwiperSlide key="showcase-companions">
           <PersonaTile
             topLabel="Companions"
             tile_subtitle="Have fun wth"
@@ -145,14 +197,14 @@ const CharacterPersonaTile = ({ personas }: CharacterPersonaTileProps) => {
             buttonColour="#5AA3E3"
             personas={personas}
             personaList={[
-              { id: 171 },
-              { id: 139 },
-              { id: 140 }
+              { id: 5 },
+              { id: 184 }
             ]}
           />
         </SwiperSlide>
 
-        <SwiperSlide>
+     
+        <SwiperSlide key="showcase-support">
           <PersonaTile
             topLabel="Support"
             tile_subtitle="Get help with"
@@ -170,19 +222,20 @@ const CharacterPersonaTile = ({ personas }: CharacterPersonaTileProps) => {
           />
         </SwiperSlide>
 
-        <SwiperSlide>
+        <SwiperSlide key="showcase-adult">
           <PersonaTile
             topLabel="Adult"
             tile_subtitle="Over 18"
             tile_title="After Hours"
             tile_description="Get your heart racing with personas that push your buttons"
-            backImage="https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-therapist.jpeg"
+            backImage="https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-lady-pixelbrook.png"
+            imagePosition="-50px"
             backColour="#950000"
             buttonColour="#5AA3E3"
             personas={personas}
             personaList={[
-              { id: 201 },
-              { id: 216 }
+              { id: 5 },
+              { id: 5 }
             ]}
           />
         </SwiperSlide>

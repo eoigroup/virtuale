@@ -9,7 +9,7 @@ import { FreeMode, Navigation } from "swiper/modules";
 import { Typography } from "../ui/typography";
 import PersonaSecondaryCard from "../persona-card/persona-secondary-card";
 import ConversationSparks from "../persona-card/conversation-sparks";
-import BannerPersonaTiles from "@/components/PersonaTiles/PersonaTiles";
+import ShowcaseTiles from "@/components/PersonaTiles/ShowcaseTiles";
 import { IPersona, IUserConvos } from "@/types/persona";
 import CategoryList from "./category-list";
 import FeaturedPersonas from "./featured-personas";
@@ -135,9 +135,21 @@ const PersonaList = ({
 
       <FeaturedPersonas personas={personas} featuredPersonas={featuredPersonas} />
 
-      <CategoryList personas={personas} />
-
       <ConversationSparks personas={personas} />
+
+      <div className="mt-10">
+      <Typography variant={"h5"} className="mb-0 ml-4">
+        Explore 30+ Interests 
+      </Typography>
+      <ShowcaseTiles personas={personas} />
+      </div>
+ 
+      <CategoryList personas={personas} />
+      
+       
+      
+
+   
  
     
 
@@ -152,7 +164,7 @@ const PersonaList = ({
         </div>
       </div>
       
-      <BannerPersonaTiles personas={personas} />
+     
 
   
 

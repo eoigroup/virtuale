@@ -100,8 +100,8 @@ export default function CustomComponent() {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-[350px] md:h-[250px] relative">
-      <div className="relative w-full md:w-[650px] h-[350px] md:h-[250px]">
+    <div className="flex flex-col justify-center items-center w-full h-[350px] md:h-[400px] relative">
+      <div className="relative w-full md:w-[650px] h-[350px] md:h-[400px]">
         {/* Central Image */}  
         <div className={`${styles.centralImageContainer} md:mt-[-30px] mt-[-45px]`}>
 
@@ -116,7 +116,7 @@ export default function CustomComponent() {
         </div>
  
         {/* Centered text content */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 text-center w-full top-[170px] md:top-[150px]">
+        <div className="absolute left-1/2 transform -translate-x-1/2 text-center w-full top-[170px] md:top-[210px]">
 
         <p className="font-bold text-md text-white-700 mb-0 leading-none">
           <span className="block hidden md:inline">

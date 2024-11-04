@@ -8,7 +8,6 @@ import { IPersona } from "@/types/persona";
 import { Typography } from "../ui/typography";
 import PersonaImage from "../persona-image/persona-image";
 
-
 interface PersonaTileProps {
     topLabel?: string;
     backImage: string;
@@ -77,9 +76,12 @@ const PersonaTile = ({
                      style={{ textShadow: '3px 3px 6px rgba(0, 0, 0, 0.9)' }}>
                         {tile_title}
                     </h2>
-                    <p className="text-xl text-white/90 mb-3 drop-shadow-md"
+               
+                   
+
+                    <p className="text-sm text-white/90 mb-3 drop-shadow-md"
                      style={{ textShadow: '3px 3px 6px rgba(0, 0, 0, 0.9)' }} >
-                        {tile_description} 
+                        {selectedPersonas[0]?.profile_about}
                     </p>
                 </div>
             </div>
@@ -89,22 +91,20 @@ const PersonaTile = ({
                 className="pt-1 pb-1" 
                 style={{ backgroundColor: backColour }}
             >
-                {selectedPersonas.map((persona, index) => (
+                {selectedPersonas.map((persona) => (
                     <div key={persona.persona_id}>
                         <Link
                             href={`/chat/${persona.persona_id}`}
                             className="pt-1 mb-2 mx-auto w-[95%] flex gap-2 rounded-full py-1 pl-0 pr-4 bg-[#e4e4e7] dark:bg-[#26272b]"
                         >
                             <div className="w-[90px] pl-2">
-                            <PersonaImage
-            image={persona.profile_image}
-            width={100}
-            height={80}
-            className="w-[100px] h-[80px] object-cover rounded-full -ml-2"
-            alt={persona.name}
-          />
-
-                              
+                                <PersonaImage
+                                    image={persona.profile_image}
+                                    width={100}
+                                    height={80}
+                                    className="w-[100px] h-[80px] object-cover rounded-full -ml-2"
+                                    alt={persona.name}
+                                />
                             </div>
 
                             <div className="flex-1 flex flex-col justify-center -ml-1">
@@ -112,7 +112,7 @@ const PersonaTile = ({
                                     {persona.category_name}
                                 </Typography>
                                 <Typography variant="small" className="dark:text-white text-black text-lg font-semibold mb-1 leading-none">
-                                    {persona.name}
+                                Speak to Santa—he loves to chat! Ho, ho, ho!
                                 </Typography>
                                 <Typography variant="xsmall" className="text-gray-400 line-clamp-2 text-ellipsis overflow-hidden whitespace-normal break-anywhere mb-1">
                                     {persona.profile_about}
