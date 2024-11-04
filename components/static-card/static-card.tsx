@@ -30,19 +30,19 @@ const StaticCard: React.FC<StaticCardProps> = ({ title, desc, href, className })
           </div>
           <div className="flex flex-wrap justify-center gap-4 items-center flex-1">
           <div className="flex justify-center gap-6">
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://instagram.com/virtualeraAI" target="_blank" rel="noopener noreferrer">
                   <FaInstagram className="h-10 w-10" />
                 </a>
-                <a href="https://reddit.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://reddit.com/r/virtualeraAI" target="_blank" rel="noopener noreferrer">
                   <FaReddit className="h-10 w-10" />
                 </a>
-                <a href="https://discord.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://discord.com/invite/82uzJT4X" target="_blank" rel="noopener noreferrer">
                   <FaDiscord className="h-10 w-10" />
                 </a>
-                <a href="https://x.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://x.com/virtualeraAI" target="_blank" rel="noopener noreferrer">
                   <SiX className="h-10 w-10" />
                 </a>
-                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://tiktok.com/virtualeraAI" target="_blank" rel="noopener noreferrer">
                   <FaTiktok className="h-10 w-10" />
                 </a>
             </div>
