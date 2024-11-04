@@ -26,18 +26,18 @@ const SafetyPage = () => {
           </div>
 
           {/* Main Feature Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-6 mb-16">
             <StaticCard 
               variant="large"
               icon={<UserCheck className="w-12 h-12 text-black dark:text-black" />}
               title="You&apos;re in Control"
               desc="Customize your interaction preferences, set boundaries, and manage your experience. You decide how you want to engage with our AI personas."
             />
-            
+             
             <StaticCard 
               variant="large"
               icon={<Lock className="w-12 h-12 text-black dark:text-black" />}
-              title="Private and Secure"
+              title="Private &amp; Secure"
               desc="Your conversations and data are encrypted end-to-end. We use industry-leading security measures to protect your privacy and personal information."
             />
           </div>
@@ -88,7 +88,7 @@ const SafetyPage = () => {
                   Clear Boundaries
                 </Typography>
                 <Typography variant="body" className="text-gray-600">
-                  Our AI personas have built-in safeguards and will not engage in harmful, 
+                  Our AI personas have built-in safe guard-rails and will not engage in harmful, 
                   illegal, or inappropriate content or behavior.
                 </Typography>
               </div>

@@ -271,7 +271,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
 };
 
 const ValuesSection: React.FC = () => (
-  <div className="grid md:grid-cols-2 gap-6 my-12">
+  <div className="grid grid-cols-2 gap-6 my-12">
     {careersContent.values.map((value, index) => (
       <div key={index} className="p-6 border rounded-lg shadow-sm bg-white">
         <h3 className="text-black dark:text-black text-lg font-semibold mb-2">{value.title}</h3>
