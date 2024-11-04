@@ -266,3 +266,58 @@ body {
 .chat-right-panel {
   animation-name: slideInFromRight !important;
 }
+
+/* Add this section for PersonaTiles Swiper */
+#PersonaTiles .swiper-button-prev {
+  top: 0;
+  width: 64px;
+  height: -webkit-fill-available;
+  position: absolute;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.3s;
+  left: 0;
+  background-image: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M15%204L7%2012L15%2020%22%20stroke%3D%22%23a2a2ac%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E),
+    linear-gradient(to right, var(--background) 0, var(--scrim-0) 100%);
+}
+
+#PersonaTiles .swiper-button-prev:hover {
+  opacity: 1;
+}
+
+#PersonaTiles .swiper-button-prev::after {
+  content: none;
+}
+
+#PersonaTiles .swiper-button-next {
+  top: 0;
+  width: 64px;
+  height: -webkit-fill-available;
+  position: absolute;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.3s;
+  right: 0;
+  background-image: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M9%204L17%2012L9%2020%22%20stroke%3D%22%23a2a2ac%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E),
+    linear-gradient(to left, var(--background) 0, var(--scrim-0) 100%);
+}
+
+#PersonaTiles .swiper-button-next:hover {
+  opacity: 1;
+}
+
+#PersonaTiles .swiper-button-next::after {
+  content: none;
+}
+
+#PersonaTiles .swiper-slide {
+  height: auto;
+  padding: 10px;
+}
+
+#PersonaTiles .swiper-button-disabled {
+  opacity: 0 !important;
+  cursor: not-allowed;
+}

@@ -19,6 +19,7 @@ interface PersonaTileProps {
     tile_subtitle?: string;
     tile_title?: string;
     tile_description?: string;
+    imagePosition?: string;
 }
 
 const PersonaTile = ({
@@ -31,28 +32,32 @@ const PersonaTile = ({
     tile_subtitle,
     tile_title,
     tile_description,
+    imagePosition = "top",
 }: PersonaTileProps) => {
     const selectedPersonas = personaList
         .map((item) => personas.find((p) => String(p.persona_id) === String(item.id)))
         .filter((persona): persona is IPersona => persona !== undefined);
 
     return (
-        <div className=" relative rounded-3xl overflow-hidden w-full max-w-4xl bg-white/10 my-2 ">
+        <div className="relative rounded-3xl overflow-hidden w-full max-w-4xl bg-white/10 my-2">
             {/* Main Content Area */}
             <div 
-                className="relative w-full aspect-[10/9]" 
+                className="relative w-full h-[300px]"
                 style={{ background: `linear-gradient(to bottom, ${backColour} 0%, rgba(0, 0, 0, 0.5) 60%)` }}
             >
+                {/* Background Image */}
+                <div 
+                    className="absolute inset-0 bg-cover bg-top"
+                    style={{ 
+                        backgroundImage: `url(${backImage})`,
+                        top: imagePosition
+                    }}
+                />
+
                 {/* Top Label */}
                 <div className="uppercase absolute top-4 left-6 z-20 text-xs bg-white text-black font-semibold px-4 py-2 rounded-full">
                     {topLabel}
                 </div>
-
-                {/* Background Image */}
-                <div 
-                    className="absolute inset-0 bg-cover bg-center opacity-90"
-                    style={{ backgroundImage: `url(${backImage})` }}
-                />
 
                 {/* Fade Overlay */}
                 <div 
@@ -63,7 +68,7 @@ const PersonaTile = ({
                 />
 
                 {/* Content */}
-                <div className="relative z-10 h-full flex flex-col justify-end px-6 pr-14 p-2 pb-2">
+                <div className="absolute bottom-0 left-0 right-0 z-10 px-6 pr-14 p-2 pb-2">
                     <h4 className="text-2xl font-bold text-white mb-0 leading-none drop-shadow-md"
                      style={{ textShadow: '3px 3px 6px rgba(0, 0, 0, 0.9)' }}>
                         {tile_subtitle}
@@ -81,7 +86,7 @@ const PersonaTile = ({
 
             {/* Bottom Section */}
             <div
-                className="pt-2 pb-2" 
+                className="pt-1 pb-1" 
                 style={{ backgroundColor: backColour }}
             >
                 {selectedPersonas.map((persona, index) => (
