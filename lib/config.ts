@@ -5,11 +5,11 @@ export const AGENT_API_KEY = process.env.AGENT_API_KEY || "";
 
 // Add site metadata configuration
 export const siteMetadata = {
-  name: "Virtuale.ai",
+  name: "VirtualEra.ai",
   description: "Chat with unique AI personas in real-time conversations",
   url: process.env.NEXT_PUBLIC_APP_URL || `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`,
   ogImage: "/og-image.png",
-  author: AGENT_AUTHOR || "Virtuale.ai",
+  author: AGENT_AUTHOR || "VirtualEra.ai",
   keywords: [
     "AI chat",
     "AI personas",

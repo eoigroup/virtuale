@@ -8,7 +8,7 @@ const COMPANY_INFO = {
   name: "EOI 24, Ltd",
   address: "20 Wenlock Road, London, N1 7GU UK",
   email: "virtuale@eoi.group",
-  support_url: "https://support.virtuale.ai"
+  support_url: "https://support.virtualera.ai"
 };
 
 const privacyData = {
@@ -17,7 +17,7 @@ const privacyData = {
   sections: [
     {
       title: "Our Commitment to Your Privacy",
-      content: `At Virtuale.AI, we believe in complete transparency about how we handle your information. This Privacy Policy explains our practices for collecting, using, and protecting your data when you use our artificial intelligence services, applications, and websites (collectively referred to as "Services").
+      content: `At VirtualEra.AI, we believe in complete transparency about how we handle your information. This Privacy Policy explains our practices for collecting, using, and protecting your data when you use our artificial intelligence services, applications, and websites (collectively referred to as "Services").
 
 This document is a binding agreement between you and ${COMPANY_INFO.name}. By accessing our Services, you acknowledge and agree to the practices described here. If these terms don't align with your preferences, please discontinue use of our Services.`
     },

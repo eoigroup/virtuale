@@ -12,7 +12,7 @@ const bubbleImages = [
   "https://sm-voice-gen.s3.amazonaws.com/images/topgai-idea5b.jpg",
   "https://sm-voice-gen.s3.amazonaws.com/images/IMG_8015.JPG",
   "https://sm-voice-gen.s3.amazonaws.com/images/emora_ai_v2_logo.jpg",
-  "https://www.virtuale.ai/og-image.png",
+  "https://www.virtualera.ai/og-image.png",
   // Add more images as needed
 ];
 

@@ -22,7 +22,7 @@ export function constructViewport(): Viewport {
 
 
 const defaultMetadata = {
-  title: "Virtuale.ai",
+  title: "VirtualEra.ai",
   description: "Every Conversation, A New Connection",
   image: "/og-image.png",
 } as const;
@@ -53,10 +53,10 @@ export function constructMetadata({
   ].includes(path);
 
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://virtuale.ai'),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://virtualEra.ai'),
     title: {
       default: title,
-      template: `%s | Virtuale.ai`,
+      template: `%s | VirtualEra.ai`,
     },
     description,
     keywords: [
@@ -66,7 +66,7 @@ export function constructMetadata({
       "artificial intelligence",
       "virtual companions",
     ],
-    authors: [{ name: "Virtuale.ai" }],
+    authors: [{ name: "VirtualEra.ai" }],
     
     robots: {
       index: shouldIndex && !noIndex,
@@ -86,7 +86,7 @@ export function constructMetadata({
       url: `${process.env.NEXT_PUBLIC_APP_URL}${path}`,
       title,
       description,
-      siteName: "Virtuale.ai",
+      siteName: "VirtualEra.ai",
       images: [{
         url: image,
         width: 1200,

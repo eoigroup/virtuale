@@ -8,7 +8,7 @@ const COMPANY_INFO = {
   name: "EOI 24, Ltd",
   address: "20 Wenlock Road, London, N1 7GU UK",
   email: "virtuale@eoi.group",
-  support_url: "https://support.virtuale.ai"
+  support_url: "https://support.virtualera.ai"
 };
 
 const tosData = {
@@ -16,8 +16,8 @@ const tosData = {
   companyInfo: COMPANY_INFO,
   sections: [
     {
-      title: "Welcome to Virtuale.AI",
-      content: `These Terms of Service ("Terms") constitute a legally binding agreement between you and ${COMPANY_INFO.name} (trading as "Virtuale.AI," "we," "our," or "us"). They govern your access to and use of our artificial intelligence services, including our website at Virtuale.AI (the "Website"), mobile applications (the "App"), AI models, and related services (collectively, the "Services").`
+      title: "Welcome to VirtualEra.AI",
+      content: `These Terms of Service ("Terms") constitute a legally binding agreement between you and ${COMPANY_INFO.name} (trading as "VirtualEra.AI," "we," "our," or "us"). They govern your access to and use of our artificial intelligence services, including our website at VirtualEra.AI (the "Website"), mobile applications (the "App"), AI models, and related services (collectively, the "Services").`
     },
     {
       title: "Key Points Summary",

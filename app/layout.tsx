@@ -25,7 +25,7 @@ export const metadata = constructMetadata({
   isPublicPage: true,
   path: '/',
   // You can override any default values here if needed
-  // title: "Virtuale.ai",
+  // title: "Virtualera.ai",
   // description: "Every Conversation, A New Connection",
 });
 

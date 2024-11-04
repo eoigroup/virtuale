@@ -10,11 +10,11 @@ const faqCategories = {
     title: "General",
     faqs: [
       {
-        question: "What is Virtuale.ai?",
-        answer: "Virtuale.ai is powered by advanced deep learning models, including large language models, built and trained specifically for natural conversation. Our platform enables users to interact with a diverse range of AI personas across various interests and topics."
+        question: "What is VirtualEra.ai?",
+        answer: "VirtualEra.ai is powered by advanced deep learning models, including large language models, built and trained specifically for natural conversation. Our platform enables users to interact with a diverse range of AI personas across various interests and topics."
       },
       {
-        question: "How does Virtuale.ai work?",
+        question: "How does VirtualEra.ai work?",
         answer: "Our platform utilizes neural language models trained on vast amounts of text data. These models learn to generate contextually appropriate responses based on the conversation flow and the specific persona they're embodying."
       },
       {
@@ -22,7 +22,7 @@ const faqCategories = {
         answer: "AI personas may sometimes generate fictional information or creative responses. While they can be highly entertaining and useful for many purposes, they might occasionally reference non-existent content or create imaginative examples. Always verify any factual claims independently."
       },
       {
-        question: "What content is allowed on Virtuale.ai?",
+        question: "What content is allowed on VirtualEra.ai?",
         answer: "We support a wide range of creative and educational content while maintaining appropriate boundaries. Our platform prohibits explicit adult content, hate speech, and harmful material. Full guidelines are available in our Terms of Service."
       },
       {
@@ -47,7 +47,7 @@ const faqCategories = {
     title: "Privacy & Security",
     faqs: [
       {
-        question: "Why does Virtuale.ai ask for my name and birthday?",
+        question: "Why does VirtualEra.ai ask for my name and birthday?",
         answer: "We ask for your name to create a personalized experience and maintain a respectful community environment. Regarding age verification, we require users to be over a minimum age to engage with personas, and help meet our legal obligations. While we will not display your age or birthday publicly, we may also use this information for the purposes stated in our Privacy Policy, including to personalize your experience, help keep our Services safe, learn more about how our Services are used, and improve our Services."
       },
       {
@@ -88,7 +88,7 @@ const faqCategories = {
         answer: "Provide detailed background information, example dialogues, and clear personality traits when creating your persona. User feedback helps refine responses over time."
       },
       {
-        question: "Are there educational uses for Virtuale.ai?",
+        question: "Are there educational uses for VirtualEra.ai?",
         answer: "Yes! Many educators use our platform for language practice, roleplay scenarios, and interactive learning experiences."
       },
       {
@@ -155,7 +155,7 @@ const faqCategories = {
       },
       {
         question: "What happens if the website is down?",
-        answer: "Check our status page at status.virtuale.ai or follow our social media channels for updates about any service interruptions or maintenance."
+        answer: "Check our status page at status.virtualEra.ai or follow our social media channels for updates about any service interruptions or maintenance."
       },
       {
         question: "Why do personas sometimes forget previous conversations?",

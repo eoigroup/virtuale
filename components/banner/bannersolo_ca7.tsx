@@ -13,7 +13,7 @@ const bubbleImages = [
   "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-the-global-explorer.jpg",
   "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-thebrainstormer.jpeg",
   "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-therapist.jpeg",
-  "https://www.virtuale.ai/og-image.png",
+  "https://www.virtualera.ai/og-image.png",
   "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-nurse2.jpg",
   "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-olivia.jpg",
   "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-theriddler.jpg",

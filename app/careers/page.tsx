@@ -56,7 +56,7 @@ const COMPANY_INFO: CompanyInfo = {
   name: "EOI 24, Ltd",
   address: "20 Wenlock Road, London, N1 7GU UK",
   email: "careers@eoi.group",
-  careers_url: "https://careers.virtuale.ai"
+  careers_url: "https://careers.virtualera.ai"
 };
 
 const careersContent: CareerContent = {
