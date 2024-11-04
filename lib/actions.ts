@@ -25,3 +25,9 @@ export const PERSONA_ACTIONS = {
 export const SUBSCRIPTION_ACTIONS = {
   GET_SUBSCRIPTIONS: "get_subs",
 };
+
+export const STATS_ACTIONS = {
+  GET_PERSONA_STATS: "get_persona_stats",
+  GET_ALL_STATS: "get_all_stats",
+  GET_USER_STATS: "get_user_stats",
+} as const;

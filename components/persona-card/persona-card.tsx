@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MessageCircle, AudioLines, Star, ShieldCheck } from "lucide-react";
 import PersonaImage from "../persona-image/persona-image";
 import AnimatedCard from "../animated-card/animated-card";
+import MessageCount from "@/components/stats/message-count";
 
 const PersonaCard = ({ persona }: { persona: IPersona }) => {
   return (
@@ -33,13 +34,7 @@ const PersonaCard = ({ persona }: { persona: IPersona }) => {
        
 
           <div className="flex items-center gap-4 mb-3">
-            <div className="flex items-center gap-1">
-            <AudioLines size={12} className="text-gray-400" />
-            <Typography 
-            //temp - must change to stats from backend
-            variant="xsmall" className="text-gray-400">{persona.msg_history_count === 3 ? "17m" : `${persona.msg_history_count}m`} 
-            </Typography>
-            </div>
+            <MessageCount personaId={persona.persona_id} />
             <div className="flex items-center gap-1">
               <Star size={12} className="text-gray-400" />
               <Typography variant="xsmall" className="text-gray-400">{persona.likes === 0 ? "4k" : `${persona.likes}k`}</Typography>
