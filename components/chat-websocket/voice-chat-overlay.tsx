@@ -6,12 +6,14 @@ interface VoiceChatOverlayProps {
   isActive: boolean;
   profileImage: string;
   onClose: () => void;
+  interimText: string;
 }
 
 const VoiceChatOverlay: React.FC<VoiceChatOverlayProps> = ({ 
   isActive, 
   profileImage,
-  onClose 
+  onClose,
+  interimText 
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -103,7 +105,7 @@ const VoiceChatOverlay: React.FC<VoiceChatOverlayProps> = ({
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="relative mb-8"
+              className="relative mb-4"
             >
               <div className="w-32 h-32 rounded-full overflow-hidden ring-4 ring-indigo-500 shadow-lg">
                 <Image
@@ -113,6 +115,18 @@ const VoiceChatOverlay: React.FC<VoiceChatOverlayProps> = ({
                   height={128}
                   className="object-cover"
                 />
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-8 text-center"
+            >
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 max-w-lg mx-auto">
+                <p className="text-white/90 text-lg">
+                  {interimText || "Listening..."}
+                </p>
               </div>
             </motion.div>
 
