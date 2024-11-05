@@ -110,6 +110,24 @@ const CharacterPersonaTile = ({ personas }: CharacterPersonaTileProps) => {
           />
         </SwiperSlide>
         
+        <SwiperSlide key="showcase-professioanl">
+          <PersonaTile
+            topLabel="Business"
+            tile_subtitle="Get more done"
+            tile_title="Professional Assist"
+            tile_description="Legal or Strategy , we got you coverered"
+            backImage="https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-legaleagle.jpg"
+            imagePosition="-50px"
+            backColour="#950000"
+            buttonColour="#5AA3E3"
+            personas={personas}
+            personaList={[
+              { id: 167 },
+              { id: 225 }
+            ]}
+          />
+        </SwiperSlide>
+        
            
         <SwiperSlide key="showcase-mystical">
           <PersonaTile
@@ -222,7 +240,9 @@ const CharacterPersonaTile = ({ personas }: CharacterPersonaTileProps) => {
           />
         </SwiperSlide>
 
-        <SwiperSlide key="showcase-adult">
+      
+        
+            <SwiperSlide key="showcase-adult">
           <PersonaTile
             topLabel="Adult"
             tile_subtitle="Over 18"
