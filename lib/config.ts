@@ -23,6 +23,7 @@ export const siteMetadata = {
     "/login",
     "/register",
     "/login/social",
+    "/contact",
     "/company",
     "/safety",
     "/suggest",
