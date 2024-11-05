@@ -1,4 +1,3 @@
-import PersonaList from "@/components/persona-list/persona-list";
 import { PERSONA_ACTIONS } from "@/lib/actions";
 import { AGENT_API_KEY, AGENT_AUTHOR, API_URL } from "@/lib/config";
 import { IPersona } from "@/types/persona";
@@ -9,6 +8,9 @@ const LandingHeader = dynamic(
   { ssr: false }
 );
 const Banner = dynamic(() => import("@/components/banner/banner"), {
+  ssr: false,
+});
+const PersonaList = dynamic(() => import("@/components/persona-list/persona-list"), {
   ssr: false,
 });
 
