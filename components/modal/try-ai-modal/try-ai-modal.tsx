@@ -160,7 +160,7 @@ const TryAIModal: React.FC<TryAIModalProps> = ({ isOpen, onClose }) => {
               ))}
 
               {/* Pricing Section */}
-              <div className="mt-6 mx-auto w-[95%] flex justify-center gap-4 rounded-full py-4 px-6 bg-[#e4e4e7] dark:bg-[#26272b]">
+              <div className="mt-6 mx-auto w-[95%] flex flex-col md:flex-row justify-center gap-4 rounded-lg md:rounded-full py-4 px-6 bg-[#e4e4e7] dark:bg-[#26272b]">
                 {subscriptions.map((sub) => (
                   <Button
                     key={sub.sub_id}
@@ -172,9 +172,9 @@ const TryAIModal: React.FC<TryAIModalProps> = ({ isOpen, onClose }) => {
                     {subscribing ? (
                       "Processing..."
                     ) : (
-                      <>
-                        Subscribe for {sub.price} {sub.currency.toUpperCase()}/{sub.interval}
-                      </>
+                      <div className="text-sm">
+                        Subscribe for <br /> {sub.price} {sub.currency.toUpperCase()}/{sub.interval}
+                      </div>
                     )}
                   </Button>
                 ))}
