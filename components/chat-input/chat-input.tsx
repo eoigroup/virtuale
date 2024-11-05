@@ -154,7 +154,7 @@ const ChatInput = ({
           <div className="w-full flex justify-center items-center pr-4">
             <div
               className={cn(
-                "relative flex grow items-center p-1 rounded-3xl placeholder:text-placeholder bg-surface-elevation-1 mx-4 mt-6 mb-1 border-solid border border-border-outline",
+                "relative flex grow items-center p-1 rounded-3xl placeholder:text-placeholder bg-surface-elevation-1 mx-4 mr-1 mt-6 mb-1 border-solid border border-border-outline",
                 { "shadow-plus-shadow": isDragging }
               )}
             >
@@ -190,11 +190,10 @@ const ChatInput = ({
                 />
               )}
             </div>
+            <WebSocketConnect />
           </div>
 
-          <div className="flex items-center justify-end gap-2 w-full px-10">
-            <WebSocketConnect />
-            
+          <div className="flex items-center justify-end gap-2 w-full px-10 pr-[5rem]">
             {chatType === ChatTypes.TEXT ? (
               <Button
                 variant={"link-outlined"}
