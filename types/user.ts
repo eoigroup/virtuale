@@ -39,6 +39,7 @@ export type IUser = {
   username: string;
   self_describe: string
   creator_balance: number
+  virtuale_member_type: string
 };
 
 export type DecodedJWT = {

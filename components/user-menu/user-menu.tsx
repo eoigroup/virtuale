@@ -1,8 +1,15 @@
 import React, { memo, useState } from "react";
 import { useUser } from "@/contexts/user-context";
 import { Typography } from "../ui/typography";
-import { cn } from "@/lib/utils";
-import { ChevronDown, LogOut, Moon, Settings, Sun, AudioLines } from "lucide-react";
+import { cn, isPremiumUser } from "@/lib/utils";
+import {
+  ChevronDown,
+  LogOut,
+  Moon,
+  Settings,
+  Sun,
+  AudioLines,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,21 +45,24 @@ const UserMenu = () => {
 
   return (
     <div className="flex flex-col justify-end pb-2 px-5">
-
       <div className="flex flex-col gap-3 pb-3">
-
-        <Button
+        {!isPremiumUser(user!) && (
+          <Button
             variant={"outline"}
             position={"left"}
             className="hover:shadow-plus-shadow rounded-full gap-1 border-border-outline"
             type="button"
             onClick={handleOpenTryModal}
-            >
+          >
             <div className="flex items-center justify-center font-medium rounded-spacing-xs p-0 text-light bg-transparent">
-              <AudioLines size={12} className="text-yellow-400 font-bold mr-6 mb-1 " />
+              <AudioLines
+                size={12}
+                className="text-yellow-400 font-bold mr-6 mb-1 "
+              />
             </div>
             Go Premium
-        </Button>
+          </Button>
+        )}
 
         <Button
           variant={"outline"}
@@ -60,11 +70,13 @@ const UserMenu = () => {
           className="hover:shadow-plus-shadow rounded-full gap-1 border-border-outline"
           type="button"
           onClick={handleOpenTryModal}
-          >
-            <AudioLines size={12} className="text-yellow-400 font-bold mr-6 mb-1" />
-            Suggest a Persona
+        >
+          <AudioLines
+            size={12}
+            className="text-yellow-400 font-bold mr-6 mb-1"
+          />
+          Suggest a Persona
         </Button>
-
       </div>
 
       <DropdownMenu>
@@ -74,7 +86,7 @@ const UserMenu = () => {
               "flex items-center justify-between gap-2",
               "p-1 pr-3 rounded duration-300 transition-all cursor-pointer hover:shadow-plus-shadow rounded-full gap-1 border-border-outline border border-border-outline text-primary bg-background hover:bg-surface-elevation-1"
             )}
-            >
+          >
             <UserAvatar className="w-9 h-9" />
             <Typography
               variant={"small"}
@@ -85,8 +97,6 @@ const UserMenu = () => {
             </Typography>
             <ChevronDown size={16} />
           </div>
-
-          
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56 mr-2" sideOffset={0}>
           <DropdownMenuItem
@@ -129,7 +139,7 @@ const UserMenu = () => {
           target="_blank"
           className="flex items-center hover:text-foreground"
           href="/privacy"
-          >
+        >
           Privacy Policy
         </Link>
         <span className="text-muted-foreground px-2">•</span>
@@ -137,13 +147,11 @@ const UserMenu = () => {
           target="_blank"
           className="flex items-center hover:text-foreground"
           href="/tos"
-          >
+        >
           Terms of Service
         </Link>
       </div>
-
     </div>
-    
   );
 };
 

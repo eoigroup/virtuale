@@ -1,7 +1,7 @@
 import { ChatSenderTypes, ChatTypes } from "@/lib/chat";
 import { ChatMessage } from "@/types/chat";
 import { IPersona } from "@/types/persona";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect, Ref, MutableRefObject } from "react";
 import PersonaImage from "../persona-image/persona-image";
 import UserAvatar from "../user-avatar/user-avatar";
 import { cn } from "@/lib/utils";
@@ -11,18 +11,25 @@ import { Play } from "lucide-react";
 import AudioPlayerVisualizer from "../audio-player-visualizer/audio-player-visualizer";
 import Image from "next/image";
 
+const TYPING_INTERVAL = 10; // Typing speed in ms per character
+
 const Message = ({
   message,
   persona,
+  isAnimating, // New prop to determine if this is the latest message
+  scrollContainerRef,
 }: {
   message: ChatMessage;
   persona: IPersona;
+  isAnimating: boolean;
+  scrollContainerRef: MutableRefObject<HTMLDivElement | null>;
 }) => {
   const { sender } = message;
   const isUser = sender === ChatSenderTypes.USER;
   const { user } = useUser();
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [displayedText, setDisplayedText] = useState<string>(""); // State to hold displayed text for animation
 
   const showAudio = () => {
     if (message.file_link) {
@@ -38,8 +45,9 @@ const Message = ({
     if (isUser && [ChatTypes.PHOTO].includes(message.msg_format)) {
       return false;
     }
-
-    return [ChatTypes.TEXT, ChatTypes.AUDIO, ChatTypes.VOICE].includes(message.msg_format)
+    return [ChatTypes.TEXT, ChatTypes.AUDIO, ChatTypes.VOICE].includes(
+      message.msg_format
+    );
   };
 
   const handleAudioPlayToggle = () => {
@@ -48,7 +56,6 @@ const Message = ({
       setIsPlaying(false);
       return;
     }
-
     audioRef.current?.play();
     setIsPlaying(true);
   };
@@ -56,6 +63,29 @@ const Message = ({
   const handleAudioEnded = () => {
     setIsPlaying(false);
   };
+
+  const scrollToBottom = () => {
+    if (scrollContainerRef?.current) {
+      scrollContainerRef.current.scrollTop =
+        scrollContainerRef.current.scrollHeight;
+    }
+  };
+
+  // Typing animation for AI response, only if it's the latest message
+  useEffect(() => {
+    if (isAnimating && !isUser && showTextMessage()) {
+      let index = 0;
+      const interval = setInterval(() => {
+        setDisplayedText((prev) => prev + message.message[index]);
+        index++;
+        scrollToBottom();
+        if (index === message.message.length) clearInterval(interval);
+      }, TYPING_INTERVAL);
+      return () => clearInterval(interval);
+    } else {
+      setDisplayedText(message.message); // Set full text immediately for other messages
+    }
+  }, [message.message, isUser, isAnimating]);
 
   return (
     <div
@@ -107,7 +137,9 @@ const Message = ({
           )}
         >
           {showTextMessage() && (
-            <p className="break-words whitespace-pre-line">{message.message}</p>
+            <p className="break-words whitespace-pre-line">
+              {isUser ? message.message : displayedText}
+            </p>
           )}
 
           {showPhoto() && (

@@ -46,6 +46,7 @@ const ChatPage = () => {
   const [isScrolledUp, setIsScrolledUp] = useState<boolean>(false); // State for tracking if scrolled up
   const [isOpenChatRightPanel, setIsOpenChatRightPanel] =
     useState<boolean>(false);
+  const [lastMessageIndex, setLastMessageIndex] = useState<number | null>(null); // Track last AI message ID
 
   const welcomeMessages = () => {
     const messages = [];
@@ -188,12 +189,13 @@ const ChatPage = () => {
         };
 
         setChatMessages((prev) => [...prev, replyMessage]);
+        setLastMessageIndex(chatMessages.length + 1);
       } catch (error: any) {
         toast.error(error.message);
       }
       setProcessing(false);
     },
-    [id, persona, user, userConvos, addPersonaToChatList]
+    [id, persona, user, chatMessages, userConvos, addPersonaToChatList]
   );
 
   const handleAudioSend = useCallback(
@@ -269,6 +271,8 @@ const ChatPage = () => {
             messages={chatMessages}
             persona={persona}
             processing={processing}
+            lastMessageIndex={lastMessageIndex}
+            scrollContainerRef={scrollContainerRef}
           />
           <ScrollToBottom
             isScrolledUp={isScrolledUp}

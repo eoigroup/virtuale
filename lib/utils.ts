@@ -1,3 +1,4 @@
+import { IUser } from "@/types/user";
 import { clsx, type ClassValue } from "clsx";
 import { FieldValues, UseFormGetValues } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
@@ -58,4 +59,8 @@ export const replaceQuotes = (url: string) => {
 // Validation function to check if file is an image
 export const validateImageFile = (file: File) => {
   return file.type.startsWith("image/");
+};
+
+export const isPremiumUser = (user: IUser) => {
+  return user.virtuale_member_type === "premium";
 };

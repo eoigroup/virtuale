@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { MutableRefObject } from "react";
 import ChatMessagesLoading from "./chat-messages-loading";
 import { ChatMessage } from "@/types/chat";
 import Message from "./message";
@@ -12,11 +12,15 @@ const ChatMessages = ({
   messages,
   persona,
   processing,
+  lastMessageIndex,
+  scrollContainerRef,
 }: {
   initialLoading: boolean;
   processing: boolean;
   messages: ChatMessage[];
   persona: IPersona;
+  lastMessageIndex?: number | null;
+  scrollContainerRef: MutableRefObject<HTMLDivElement | null>;
 }) => {
   if (initialLoading) {
     return <ChatMessagesLoading />;
@@ -25,7 +29,13 @@ const ChatMessages = ({
   return (
     <div className="max-w-3xl mx-auto">
       {messages.map((message, index) => (
-        <Message persona={persona} key={`message-${index}`} message={message} />
+        <Message
+          persona={persona}
+          key={`message-${index}`}
+          message={message}
+          isAnimating={lastMessageIndex === index} // Check if message is the last AI message
+          scrollContainerRef={scrollContainerRef}
+        />
       ))}
 
       {processing && (
