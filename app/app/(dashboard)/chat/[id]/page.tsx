@@ -6,6 +6,7 @@ import ChatHeader from "@/components/chat/chat-header/chat-header";
 import PersonaDetailCenter from "@/components/chat/persona-detail/persona-detail-center";
 import ScrollToBottom from "@/components/chat/scroll-to-bottom/scroll-to-bottom";
 import ChatPageLoading from "@/components/loading/chat-page-loading/chat-page-loading";
+import { useMenu } from "@/contexts/menu-context";
 import { usePersona } from "@/contexts/persona-context";
 import { useUser } from "@/contexts/user-context";
 import {
@@ -14,7 +15,7 @@ import {
 } from "@/lib/api/chat";
 import { getUserConvos } from "@/lib/api/persona";
 import { ChatEncoding, ChatSenderTypes, ChatTypes } from "@/lib/chat";
-import { convertBlobToBase64 } from "@/lib/utils";
+import { convertBlobToBase64, isPremiumUser } from "@/lib/utils";
 import { ChatMessage } from "@/types/chat";
 import { IUserConvos } from "@/types/persona";
 import dynamic from "next/dynamic";
@@ -47,6 +48,7 @@ const ChatPage = () => {
   const [isOpenChatRightPanel, setIsOpenChatRightPanel] =
     useState<boolean>(false);
   const [lastMessageIndex, setLastMessageIndex] = useState<number | null>(null); // Track last AI message ID
+  const { setIsOpenPremiumModal } = useMenu();
 
   const welcomeMessages = () => {
     const messages = [];
@@ -112,6 +114,11 @@ const ChatPage = () => {
 
   const handleOnGenerate = useCallback(
     async (text: string, type: Partial<ChatTypes>, blog?: Blob) => {
+      if (!isPremiumUser(user!)) {
+        setIsOpenPremiumModal(true);
+        return;
+      }
+
       if (!persona) return;
       const isPersonaExistOnChatList = userConvos.some(
         (persona) => String(persona.persona_id) === String(id)

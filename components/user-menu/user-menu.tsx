@@ -23,14 +23,15 @@ import UserAvatar from "../user-avatar/user-avatar";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import TryAIModal from "../modal/try-ai-modal/try-ai-modal";
+import { useMenu } from "@/contexts/menu-context";
 
 const UserMenu = () => {
   const { user } = useUser();
+  const { isOpenPremiumModal, setIsOpenPremiumModal } = useMenu();
   const { setTheme, theme } = useTheme();
   const router = useRouter();
   const [isOpenSettingsModal, setIsOpenSettingsModal] =
     useState<boolean>(false);
-  const [isOpenTryModalModal, setIsOpenTryModal] = useState<boolean>(false);
   const handleChangeMode = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
@@ -40,7 +41,7 @@ const UserMenu = () => {
   };
 
   const handleOpenTryModal = () => {
-    setIsOpenTryModal(true);
+    setIsOpenPremiumModal(true);
   };
 
   return (
@@ -126,7 +127,7 @@ const UserMenu = () => {
         onClose={setIsOpenSettingsModal}
       />
 
-      <TryAIModal isOpen={isOpenTryModalModal} onClose={setIsOpenTryModal} />
+      <TryAIModal isOpen={isOpenPremiumModal} onClose={setIsOpenPremiumModal} />
 
       <div
         data-orientation="horizontal"

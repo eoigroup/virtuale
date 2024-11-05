@@ -14,7 +14,9 @@ import React, {
 // Define the shape of the context state
 interface MenuContextType {
   isMenuExpanded: boolean;
+  isOpenPremiumModal: boolean;
   setIsMenuExpanded: Dispatch<SetStateAction<boolean>>;
+  setIsOpenPremiumModal: Dispatch<SetStateAction<boolean>>;
 }
 
 // Create the context with a default value
@@ -25,6 +27,7 @@ export const MenuProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [isMenuExpanded, setIsMenuExpanded] = useState<boolean>(false); // Default to collapsed
+  const [isOpenPremiumModal, setIsOpenPremiumModal] = useState<boolean>(false); // Default to collapsed
 
   useEffect(() => {
     const handleResize = () => {
@@ -44,7 +47,14 @@ export const MenuProvider: React.FC<{ children: ReactNode }> = ({
   }, []);
 
   return (
-    <MenuContext.Provider value={{ isMenuExpanded, setIsMenuExpanded }}>
+    <MenuContext.Provider
+      value={{
+        isMenuExpanded,
+        isOpenPremiumModal,
+        setIsOpenPremiumModal,
+        setIsMenuExpanded,
+      }}
+    >
       {children}
     </MenuContext.Provider>
   );

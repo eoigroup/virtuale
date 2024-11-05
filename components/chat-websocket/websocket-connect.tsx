@@ -6,6 +6,9 @@ import { toast } from "sonner";
 import VoiceChatOverlay from "./voice-chat-overlay";
 import { usePersona } from "@/contexts/persona-context";
 import { useParams } from "next/navigation";
+import { isPremiumUser } from "@/lib/utils";
+import { useUser } from "@/contexts/user-context";
+import { useMenu } from "@/contexts/menu-context";
 
 class WebSocketManager {
   private ws: WebSocket | null = null;
@@ -158,7 +161,8 @@ const WebSocketConnect: React.FC = () => {
   const { personas } = usePersona();
   const [isActive, setIsActive] = useState<boolean>(false);
   const [interimText, setInterimText] = useState<string>("");
-
+  const { user } = useUser();
+  const { setIsOpenPremiumModal } = useMenu();
   // Get the current persona
   const persona = personas.find((p) => Number(p.persona_id) === Number(id));
 
@@ -173,6 +177,11 @@ const WebSocketConnect: React.FC = () => {
   });
 
   const handleVoiceToggle = useCallback(async () => {
+    if (!isPremiumUser(user!)) {
+      setIsOpenPremiumModal(true);
+      return;
+    }
+
     if (!isActive) {
       const connected = await wsManager.connect();
       if (connected) {
