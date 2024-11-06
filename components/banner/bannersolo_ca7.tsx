@@ -19,12 +19,12 @@ interface Label {
 // Constants
 //const LOGO_IMAGE = "https://www.virtualera.ai/og-image.png";
 const LOGO_IMAGE = "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-nurse2.jpg";
-const INTERVAL_TIME = 10000;
+const INTERVAL_TIME = 2000;
 const LABEL_UPDATE_TIME = 3000;
-const INITIAL_LABEL_COUNT = 4;
+const INITIAL_LABEL_COUNT = 0;
 const BUBBLE_COUNT = 50;
 const MAIN_IMAGE_COUNT = 5;
-
+ 
 const labels = [
   "AI Powered", "Interactive", "Engaging", "Educational",
   "Mentor", "Connection", "Thoughtful", "Insightful", "Inspiring",
@@ -98,6 +98,12 @@ export default function CustomComponent({ personas = [] }: BannerProps) {
   }, [personas]);
 
   useEffect(() => {
+    // If INITIAL_LABEL_COUNT is 0, don't set up any labels or intervals
+    if (INITIAL_LABEL_COUNT === 0) {
+      setVisibleLabels([]);
+      return;
+    }
+
     const createLabel = () => {
       // Define strict safe zones
       const zones = [
@@ -181,8 +187,9 @@ export default function CustomComponent({ personas = [] }: BannerProps) {
         {/* Always visible content */}
         <div className="absolute left-1/2 transform -translate-x-1/2 text-center w-full top-[175px] md:top-[210px]">
           <p className="font-bold titlecase text-lg pt-3 leading-none">
-            Interactive Conversation &amp; Meaningful Connection<br />
-            with 100+ curated Personas
+            Interactive Conversation & Meaningful Connection
+            <span className="hidden md:inline"><br /></span>
+            {" "}with 100+ curated Personas
           </p>
         </div>
 

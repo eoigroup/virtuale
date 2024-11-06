@@ -157,6 +157,9 @@ const Banner = ({
 
           <div className="absolute z-10 p-5 md:p-10 flex flex-col justify-end h-full w-full top-0">
             <div className="w-full text-center">
+            <Typography className="text-muted-foreground">
+            100+ curated Personas
+              </Typography>
               <Typography className="text-muted-foreground">
                 Who do you want to talk to?
               </Typography>
