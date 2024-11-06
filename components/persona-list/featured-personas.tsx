@@ -124,7 +124,7 @@ const FeaturedPersonas = ({
 
         <div className="flex-1 w-full rounded-xl overflow-hidden mt-10 mb-6 md:mt-0 md:mb-0">
           
-        <BannerSolo /> 
+        <BannerSolo personas={personas}/> 
  
         </div>
       </motion.div>

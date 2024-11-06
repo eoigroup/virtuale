@@ -68,7 +68,7 @@ export default function CustomComponent({ personas = [] }: BannerProps) {
 
     return bubbleImages.map((persona, index) => (
       <div
-        key={`bubble-${index}`}
+        key={`bubble-${index}-${persona?.id || 'default'}`}
         className={styles.bubble}
         style={{
           left: `${Math.random() * 100}%`,
