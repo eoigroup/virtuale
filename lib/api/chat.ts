@@ -45,3 +45,26 @@ export const generateResponseFromUserMessage = async (
     throw new Error(error.message || "Something went wrong");
   }
 };
+
+export const generateAIResponse = async (
+  payload: { text?: string; format: string },
+  personaId: string
+) => {
+  try {
+    const res = await fetch("/api/ws", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...payload, persona_id: personaId }),
+    });
+
+    // Check if the response is not OK
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.error);
+    }
+
+    return await res.json();
+  } catch (error: any) {
+    throw new Error(error.message || "Something went wrong");
+  }
+};

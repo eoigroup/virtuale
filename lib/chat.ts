@@ -19,3 +19,11 @@ export enum ChatSenderTypes {
   USER = "user",
   ASSISTANT = "assistant",
 }
+
+export interface VoiceChatMessage {
+  persona_id: string;
+  format: "text" | "audio" | "base64";
+  text?: string;
+  audio?: string;
+  metadata: Record<string, any>;
+}
