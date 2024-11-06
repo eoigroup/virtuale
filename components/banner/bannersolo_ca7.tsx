@@ -6,6 +6,7 @@ import { useUser } from "@/contexts/user-context";
 import PersonaImage from "../persona-image/persona-image";
 import { IPersona } from "@/types/persona";
 import { UserProviderBoundary } from '../error-boundary/user-provider-boundary';
+import Link from "next/link";
 
 // Add Label interface
 interface Label {
@@ -196,7 +197,8 @@ export default function CustomComponent({ personas = [] }: BannerProps) {
         {/* Conditional content based on user state */}
         <UserProviderBoundary
           fallback={
-            <div className="absolute left-1/2 transform -translate-x-1/2 text-center w-full top-[230px] md:top-[260px]">
+            <Link href={"/register"}>
+              <div className="absolute left-1/2 transform -translate-x-1/2 text-center w-full top-[230px] md:top-[260px]">
               <p className="font-bold uppercase text-2xl pt-3 leading-none">
                 for only $9.99 <br />
                 <span className="text-xs">*special launch limited time offer*</span>
@@ -205,6 +207,7 @@ export default function CustomComponent({ personas = [] }: BannerProps) {
                 cancel at any time
               </p>
             </div>
+          </Link>
           }
         >
           {(userState) => (

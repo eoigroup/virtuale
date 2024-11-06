@@ -65,6 +65,7 @@ const UserMenu = () => {
           </Button>
         )}
 
+        {/*
         <Button
           variant={"outline"}
           position={"left"}
@@ -78,6 +79,8 @@ const UserMenu = () => {
           />
           Suggest a Persona
         </Button>
+              */}
+
       </div>
 
       <DropdownMenu>
