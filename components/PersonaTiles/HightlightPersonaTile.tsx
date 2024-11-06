@@ -38,7 +38,10 @@ const PersonaTile = ({
         .filter((persona): persona is IPersona => persona !== undefined);
 
     return (
-        <div className="relative rounded-3xl overflow-hidden w-full max-w-4xl bg-white/10 my-2">
+        <Link
+            href={`/chat/${selectedPersonas[0]?.persona_id}`}
+            className="block relative rounded-3xl overflow-hidden w-full max-w-4xl bg-white/10 my-2 transition-transform hover:scale-[1.01]"
+        >
             {/* Main Content Area */}
             <div 
                 className="relative w-full h-[300px]"
@@ -92,37 +95,35 @@ const PersonaTile = ({
                 style={{ backgroundColor: backColour }}
             >
                 {selectedPersonas.map((persona) => (
-                    <div key={persona.persona_id}>
-                        <Link
-                            href={`/chat/${persona.persona_id}`}
-                            className="pt-1 mb-2 mx-auto w-[95%] flex gap-2 rounded-full py-1 pl-0 pr-4 bg-[#e4e4e7] dark:bg-[#26272b]"
-                        >
-                            <div className="w-[90px] pl-2">
-                                <PersonaImage
-                                    image={persona.profile_image}
-                                    width={100}
-                                    height={80}
-                                    className="w-[100px] h-[80px] object-cover rounded-full -ml-2"
-                                    alt={persona.name}
-                                />
-                            </div>
+                    <div 
+                        key={persona.persona_id}
+                        className="pt-1 mb-2 mx-auto w-[95%] flex gap-2 rounded-full py-1 pl-0 pr-4 bg-[#e4e4e7] dark:bg-[#26272b]"
+                    >
+                        <div className="w-[90px] pl-2">
+                            <PersonaImage
+                                image={persona.profile_image}
+                                width={100}
+                                height={80}
+                                className="w-[100px] h-[80px] object-cover rounded-full -ml-2"
+                                alt={persona.name}
+                            />
+                        </div>
 
-                            <div className="flex-1 flex flex-col justify-center -ml-1">
-                                <Typography variant="xsmall" className="text-gray-400 mb-1 block">
-                                    {persona.category_name}
-                                </Typography>
-                                <Typography variant="small" className="dark:text-white text-black text-lg font-semibold mb-1 leading-none">
+                        <div className="flex-1 flex flex-col justify-center -ml-1">
+                            <Typography variant="xsmall" className="text-gray-400 mb-1 block">
+                                {persona.category_name}
+                            </Typography>
+                            <Typography variant="small" className="dark:text-white text-black text-lg font-semibold mb-1 leading-none">
                                 Speak to Santa—he loves to chat! Ho, ho, ho!
-                                </Typography>
-                                <Typography variant="xsmall" className="text-gray-400 line-clamp-2 text-ellipsis overflow-hidden whitespace-normal break-anywhere mb-1">
-                                    {persona.profile_about}
-                                </Typography>
-                            </div>
-                        </Link>
+                            </Typography>
+                            <Typography variant="xsmall" className="text-gray-400 line-clamp-2 text-ellipsis overflow-hidden whitespace-normal break-anywhere mb-1">
+                                {persona.profile_about}
+                            </Typography>
+                        </div>
                     </div>
                 ))}
             </div>
-        </div>
+        </Link>
     );
 };
 

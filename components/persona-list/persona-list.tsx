@@ -15,6 +15,11 @@ import CategoryList from "./category-list";
 import FeaturedPersonas from "./featured-personas";
 import Footer from "@/components/footer/page";
 
+const INTRO_MESSAGES = [
+  "Discover a World of 30+ Categories, Each Filled with Unique Personas Ready to Connect, Share, and Inspire You.",
+  "Explore Over 30+ Vibrant Categories, Each with Carefully Curated Personas Designed to Match Your Interests and Spark Meaningful Conversations."
+];
+
 const PersonaList = ({
   personas,
   loading = false,
@@ -94,6 +99,8 @@ const PersonaList = ({
     return <PersonaLoading />;
   }
 
+  const randomMessage = INTRO_MESSAGES[Math.floor(Math.random() * INTRO_MESSAGES.length)];
+
   return (
     <>
       {forYouPersonas.length > 0 && (
@@ -138,8 +145,11 @@ const PersonaList = ({
       <ConversationSparks personas={personas} />
 
       <div className="mt-10">
-      <Typography variant={"h5"} className="mb-0 ml-4">
-        Explore 30+ Interests 
+      <Typography 
+        variant={"h5"} 
+        className="mb-0 w-full text-center px-4"  // Full width, centered text, with padding
+      >
+        {randomMessage}
       </Typography>
       <ShowcaseTiles personas={personas} />
       </div>
@@ -147,7 +157,7 @@ const PersonaList = ({
       <CategoryList personas={personas} />
       
        
-      
+        
 
    
  
@@ -158,7 +168,7 @@ const PersonaList = ({
           <StaticCard 
             className="bg-transparent" 
             title="Suggest a Persona" 
-            desc="Share your ideas to add/enhance our personas! Your feedback helps us improve and innovate." 
+            desc="Share your ideas to add new personas! Your feedback helps us enhance, improve and innovate." 
             href="/suggest" 
           />
         </div>

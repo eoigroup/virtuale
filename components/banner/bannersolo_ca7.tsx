@@ -1,169 +1,222 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import styles from './bannersolo_ca7_component.module.css';
+import { isPremiumUser } from "@/lib/utils";
+import { useUser } from "@/contexts/user-context";
+import PersonaImage from "../persona-image/persona-image";
+import { IPersona } from "@/types/persona";
+import { UserProviderBoundary } from '../error-boundary/user-provider-boundary';
 
-const images = [
-  "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-olivia.jpg",
-  "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-therapist.jpeg",
-  "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-zyx-427.jpg",
-
-];
-
-const bubbleImages = [
-  "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-the-global-explorer.jpg",
-  "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-thebrainstormer.jpeg",
-  "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-therapist.jpeg",
-  "https://www.virtualera.ai/og-image.png",
-  "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-nurse2.jpg",
-  "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-olivia.jpg",
-  "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-theriddler.jpg",
-  "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-parentingexpert.jpg",
-  "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-zyx-427.jpg",
-  "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-publicspeakingcoach.jpg",
-  "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-lunatheastrologer.jpg",
-  // Add more images as needed
-];
-
-const labels = [
-  'connection', 'mentor', 'curious', 'thoughtful', 'bold', 'insightful',
-  'inspiring', 'empowering', 'transformative', 'nurturing', 'enlightening',
-  'motivating', 'engaging', 'immersive', 'authentic', 'responsive', 'dynamic',
-  'personalized', 'supportive', 'uplifting', 'comforting', 'encouraging',
-  'understanding', 'accepting', 'educational', 'analytical', 'strategic',
-  'innovative', 'creative', 'expert', 'playful', 'witty', 'adventurous',
-  'mysterious', 'passionate', 'energetic', 'guidance', 'discovery', 'growth',
-  'learning', 'insight', 'wisdom', 'adaptive', 'limitless', 'accessible',
-  'reliable', 'focused', 'purposeful', 'genuine', 'devoted', 'patient'
-];
-
-const LABEL_COUNT = 4; // Reduced from 10 to 7 labels
-type Label = {
+// Add Label interface
+interface Label {
   id: number;
+  text: string;
   left: number;
   top: number;
   delay: number;
-  text: string;
-};
+}
 
-export default function CustomComponent() {
+// Constants
+//const LOGO_IMAGE = "https://www.virtualera.ai/og-image.png";
+const LOGO_IMAGE = "https://sm-voice-gen.s3.amazonaws.com/images/virtualeaiagent-nurse2.jpg";
+const INTERVAL_TIME = 10000;
+const LABEL_UPDATE_TIME = 3000;
+const INITIAL_LABEL_COUNT = 4;
+const BUBBLE_COUNT = 50;
+const MAIN_IMAGE_COUNT = 5;
+
+const labels = [
+  "AI Powered", "Interactive", "Engaging", "Educational",
+  "Mentor", "Connection", "Thoughtful", "Insightful", "Inspiring",
+  "Fun", "Innovative", "Smart", "Responsive", "Discovery",
+  "Curious", "Empowering", "Immersive", "Nurturing", "Motivating",
+  "Personalized", "Supportive", "Comforting", "Encouraging",
+  "Understanding", "Accepting", "Analytical", "Strategic",
+  "Creative", "Expert", "Playful", "Witty", "Adventurous",
+  "Mysterious", "Passionate", "Energetic", "Guidance", "Growth",
+  "Learning", "Insight", "Wisdom", "Adaptive", "Limitless",
+  "Accessible", "Reliable", "Focused", "Purposeful", "Genuine",
+  "Devoted", "Patient"
+];
+
+interface BannerProps {
+  personas?: IPersona[];
+}
+
+// Add these interfaces at the top with your other interfaces
+interface MainImageLogo {
+  type: 'logo';
+  src: string;
+}
+
+interface MainImagePersona {
+  type: 'persona';
+  persona: IPersona;
+}
+
+type MainImage = MainImageLogo | MainImagePersona;
+
+export default function CustomComponent({ personas = [] }: BannerProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [visibleLabels, setVisibleLabels] = useState<Label[]>([]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 60000);
-    return () => clearInterval(interval);
-  }, []);
+  // Generate bubble elements with persona images
+  const bubbleElements = useMemo(() => {
+    const bubbleImages = personas?.length 
+      ? [...personas].sort(() => 0.5 - Math.random()).slice(0, BUBBLE_COUNT) 
+      : Array(BUBBLE_COUNT).fill(null);
+
+    return bubbleImages.map((persona, index) => (
+      <div
+        key={`bubble-${index}`}
+        className={styles.bubble}
+        style={{
+          left: `${Math.random() * 100}%`,
+          animationDelay: `${Math.random() * 5}s`,
+          animationDuration: `${5 + Math.random() * 8}s`,
+        }}
+      >
+        {persona ? (
+          <PersonaImage
+            image={persona.profile_image}
+            width={15}
+            height={10}
+            className="rounded-full"
+            alt={persona.name}
+          />
+        ) : (
+          <Image
+            src={LOGO_IMAGE}
+            alt="bubble"
+            width={15}
+            height={15}
+            className="rounded-full"
+          />
+        )}
+      </div>
+    ));
+  }, [personas]);
 
   useEffect(() => {
-    const getRandomPosition = () => {
-      // Determine if label should be on left or right side
-      const side = Math.random() < 0.5;
+    const createLabel = () => {
+      // Define strict safe zones
+      const zones = [
+        { min: 0, max: 140 },      // Top zone (above text)
+        { min: 320, max: 400 }     // Bottom zone (below text)
+      ];
       
-      // Far left (0-15%) or far right (85-100%)
-      const left = side ? Math.random() * 15 : 85 + Math.random() * 15;
+      // Randomly select a zone
+      const selectedZone = zones[Math.floor(Math.random() * zones.length)];
       
-      // Avoid middle area completely
-      const topArea = Math.random() < 0.5;
-      const top = topArea ? 
-        20 + Math.random() * 60 : // 20-80px from top
-        200 + Math.random() * 30; // 200-230px from top
+      // Generate position within the selected zone
+      const top = Math.random() * (selectedZone.max - selectedZone.min) + selectedZone.min;
       
       return {
-        left,
+        id: Date.now() + Math.random(),
+        text: labels[Math.floor(Math.random() * labels.length)],
+        left: Math.random() * 80 + 10,
         top,
-        delay: Math.random() * 15,
+        delay: Math.random() * 2
       };
     };
 
-    const createNewLabel = () => ({
-      text: labels[Math.floor(Math.random() * labels.length)],
-      ...getRandomPosition(),
-      id: Date.now() + Math.random(),
-    });
+    setVisibleLabels(Array.from({ length: INITIAL_LABEL_COUNT }, createLabel));
 
-    // Initialize labels
-    setVisibleLabels(Array.from({ length: LABEL_COUNT }, createNewLabel));
-
-    // Update one random label every 3 seconds
     const interval = setInterval(() => {
-      setVisibleLabels(currentLabels => {
-        const newLabels = [...currentLabels];
-        const replaceIndex = Math.floor(Math.random() * LABEL_COUNT);
-        newLabels[replaceIndex] = createNewLabel();
+      setVisibleLabels(prev => {
+        const newLabels = [...prev];
+        const replaceIndex = Math.floor(Math.random() * INITIAL_LABEL_COUNT);
+        newLabels[replaceIndex] = createLabel();
         return newLabels;
       });
-    }, 3000);
+    }, LABEL_UPDATE_TIME);
 
     return () => clearInterval(interval);
   }, []);
+
+  // Get main rotating images including logo and random personas
+  const mainImages = useMemo((): MainImage[] => {
+    if (!personas?.length) return [{ type: 'logo', src: LOGO_IMAGE }];
+    
+    const randomPersonas = [...personas]
+      .sort(() => 0.5 - Math.random())
+      .slice(0, MAIN_IMAGE_COUNT)
+      .map(p => ({ type: 'persona' as const, persona: p }));
+    
+    return [{ type: 'logo', src: LOGO_IMAGE }, ...randomPersonas];
+  }, [personas]);
+
+  // Image rotation effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex(prev => (prev + 1) % mainImages.length);
+    }, INTERVAL_TIME);
+    return () => clearInterval(interval);
+  }, [mainImages.length]);
 
   return (
     <div className="flex flex-col justify-center items-center w-full h-[350px] md:h-[400px] relative">
       <div className="relative w-full md:w-[650px] h-[350px] md:h-[400px]">
-        {/* Central Image */}  
         <div className={`${styles.centralImageContainer} md:mt-[-30px] mt-[-45px]`}>
-
-          <Image
-            alt="main-image" 
-            src={images[currentImageIndex]}
-            priority
-            width={100}
-            height={100}
-            className={styles.centralImage}
-          />
+          {mainImages[currentImageIndex]?.type === 'persona' ? (
+            <PersonaImage
+              image={mainImages[currentImageIndex].persona.profile_image}
+              width={100}
+              height={100}
+              className={styles.centralImage}
+              alt={mainImages[currentImageIndex].persona.name}
+            />
+          ) : (
+            <Image
+              alt="main-image" 
+              src={LOGO_IMAGE}
+              priority
+              width={100}
+              height={100}
+              className={styles.centralImage}
+            />
+          )}
         </div>
- 
-        {/* Centered text content */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 text-center w-full top-[170px] md:top-[210px]">
 
-        <p className="font-bold text-md text-white-700 mb-0 leading-none">
-          <span className="block hidden md:inline">
-            Interactive Conversation & Meaningful Connection
-          </span>
-          <span className="block md:hidden">
-            Interactive Conversation & Meaningful <br /> Connection with 100+ curated Personas
-          </span>
-          <span className="hidden md:block">
+        {/* Always visible content */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 text-center w-full top-[175px] md:top-[210px]">
+          <p className="font-bold titlecase text-lg pt-3 leading-none">
+            Interactive Conversation &amp; Meaningful Connection<br />
             with 100+ curated Personas
-          </span>
-        </p>
-
-          <p className="font-bold uppercase text-2xl pt-3 leading-none">
-          unlimited access<br /> Starts at .  
           </p>
-          <p className=" titlecase text-xs mt-0 pt-0">
-         cancel at any time
-          </p>
-
         </div>
 
-        {/* Floating Bubbles */}
-        {[...Array(60)].map((_, index) => {
-          const randomBubbleImage = bubbleImages[Math.floor(Math.random() * bubbleImages.length)];
-          return (
-            <div
-              key={index}
-              className={styles.bubble}
-              style={{
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${5 + Math.random() * 8}s`,
-              }}
-            >
-              <Image
-                alt="bubble-image"
-                width={15}
-                height={15}
-                className="rounded-full"
-                src={randomBubbleImage}
-              />
+        {/* Conditional content based on user state */}
+        <UserProviderBoundary
+          fallback={
+            <div className="absolute left-1/2 transform -translate-x-1/2 text-center w-full top-[230px] md:top-[260px]">
+              <p className="font-bold uppercase text-2xl pt-3 leading-none">
+                for only $9.99 <br />
+                <span className="text-xs">*special launch limited time offer*</span>
+              </p>
+              <p className="titlecase text-xs mt-0 pt-0">
+                cancel at any time
+              </p>
             </div>
-          );
-        })}
+          }
+        >
+          {(userState) => (
+            (!userState.user || !isPremiumUser(userState.user)) && (
+              <div className="absolute left-1/2 transform -translate-x-1/2 text-center w-full top-[230px] md:top-[260px]">
+                <p className="font-bold uppercase text-2xl pt-3 leading-none">
+                  for only $9.99 <br />
+                  <span className="text-xs">*special launch limited time offer*</span>
+                </p>
+                <p className="titlecase text-xs mt-0 pt-0">
+                  cancel at any time
+                </p>
+              </div>
+            )
+          )}
+        </UserProviderBoundary>
 
-        {/* Labels */}
+        {bubbleElements}
+
         {visibleLabels.map((label) => (
           <div
             key={label.id}
