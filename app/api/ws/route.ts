@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  return new Promise((resolve) => {
+  return new Promise<any>((resolve) => {
     const ws = new WebSocket(
       `wss://smartminds.eoi.group/ws/chat/realtime/?token=${jwtToken}`
     );
