@@ -71,20 +71,37 @@ const Message = ({
     }
   };
 
-  // Typing animation for AI response, only if it's the latest message
+   // Typing animation for AI response, only if it's the latest message
+   // JL- updated this section as animation was missing letters in words often and including "undefined" at the end of every message 
+
+
   useEffect(() => {
-    if (isAnimating && !isUser && showTextMessage()) {
-      let index = 0;
-      const interval = setInterval(() => {
-        setDisplayedText((prev) => prev + message.message[index]);
+    // If not animating or is user message, show full text immediately
+    if (!isAnimating || isUser || !showTextMessage()) {
+      setDisplayedText(message.message || '');
+      return;
+    }
+
+    // Start typing animation
+    const text = message.message || '';
+    let index = 0;
+    setDisplayedText('');
+
+    const interval = setInterval(() => {
+      if (index <= text.length) {
+        setDisplayedText(text.slice(0, index));
         index++;
         scrollToBottom();
-        if (index === message.message.length) clearInterval(interval);
-      }, TYPING_INTERVAL);
-      return () => clearInterval(interval);
-    } else {
-      setDisplayedText(message.message); // Set full text immediately for other messages
-    }
+      } else {
+        clearInterval(interval);
+      }
+    }, TYPING_INTERVAL);
+
+    // Cleanup
+    return () => {
+      clearInterval(interval);
+      setDisplayedText(text);
+    };
   }, [message.message, isUser, isAnimating]);
 
   return (
