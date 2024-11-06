@@ -18,8 +18,8 @@ import { useParams, useSearchParams } from "next/navigation";
 import { usePersona } from "@/contexts/persona-context";
 import dynamic from "next/dynamic";
 
-const WebSocketConnect = dynamic(() => import('../chat-websocket/websocket-connect'), {
-  ssr: false
+const VoiceChat = dynamic(() => import("../chat-websocket/voice-chat"), {
+  ssr: false,
 });
 
 const ChatInput = ({
@@ -190,7 +190,7 @@ const ChatInput = ({
                 />
               )}
             </div>
-            <WebSocketConnect />
+            <VoiceChat />
           </div>
 
           <div className="flex items-center justify-end gap-2 w-full px-10 pr-[5rem]">
