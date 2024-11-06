@@ -89,7 +89,7 @@ const SafetyPage = () => {
                 </Typography>
                 <Typography variant="body" className="text-gray-600">
                   Our AI personas have built-in safe guard-rails and will not engage in harmful, 
-                  illegal, or inappropriate content or behavior.
+                  illegal, or inappropriate responses, content or behavior.
                 </Typography>
               </div>
             </div>
