@@ -40,7 +40,7 @@ export default function MagicLinkModal({ isOpen, onClose, defaultEmail = "" }: M
     try {
       const formData = new FormData();
       formData.append("email", values.email);
-      formData.append("client_host", "virtuale.ai");
+      formData.append("client_host", "virtualera.ai");
       
       const data = await sendMagicLink(formData);
       
@@ -51,13 +51,8 @@ export default function MagicLinkModal({ isOpen, onClose, defaultEmail = "" }: M
         throw new Error(data.error || "Failed to send magic link");
       }
     } catch (error: any) {
-      if (error.message === "User is not active") {
-        toast.error("This email is not activated. Please check your email for activation link.");
-      } else if (error.message === "unauthorised origin") {
-        toast.error("Invalid client host");
-      } else {
-        toast.error(error.message || "Failed to send magic link");
-      }
+      console.error('Magic link error:', error);
+      toast.error(error.message || "Failed to send magic link");
     } finally {
       setLoading(false);
     }
