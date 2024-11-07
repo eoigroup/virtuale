@@ -255,23 +255,21 @@ export const sendMagicLink = async (formData: FormData) => {
   try {
     const response = await fetch("https://smartminds.eoi.group/auth/send-magic-link/", {
       method: "POST",
-      body: formData,
       headers: {
         'Accept': 'application/json',
       },
-      credentials: 'include',
+      body: formData,
     });
 
+    const data = await response.json();
+    
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || 'Failed to send magic link');
+      throw new Error(data.error || 'Failed to send magic link');
     }
 
-    return await response.json();
-  } catch (error) {
-    if (error instanceof TypeError && error.message === 'Failed to fetch') {
-      throw new Error('Network error - please check your connection');
-    }
+    return data;
+  } catch (error: any) {
+    console.error('Magic link error:', error);
     throw error;
   }
 };
