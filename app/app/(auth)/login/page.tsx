@@ -15,7 +15,9 @@ import { replaceQuotes } from "@/lib/utils";
 import ForgotPasswordModal from "@/components/modal/forgot-password-modal/forgot-password-modal";
 import LandingHeader from "@/components/landing-header/landing-header";
 import { X } from "lucide-react";
-
+import MagicLinkModal from "@/components/modal/magic-link-modal/magic-link-modal";
+import { Mail } from "lucide-react";
+ 
 
 type IFormInput = {
   email: string;
@@ -39,6 +41,7 @@ const LoginPage = () => {
   const [googleAuthLoading, setGoogleAuthLoading] = useState(false);
   const [isOpenResetPasswordModal, setIsOpenResetPasswordModal] =
     useState(false);
+  const [isMagicLinkModalOpen, setIsMagicLinkModalOpen] = useState(false);
   const values = getValues();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
@@ -122,6 +125,16 @@ const LoginPage = () => {
             </Typography>
 
             <Button
+              type="button"
+              variant="outline"
+              className="w-full gap-2"
+              onClick={() => setIsMagicLinkModalOpen(true)}
+            >
+              <Mail className="h-4 w-4" />
+              Sign in via Email Link
+            </Button>
+
+            <Button
               variant={"secondary"}
               loading={googleAuthLoading}
               disabled={googleAuthLoading}
@@ -158,6 +171,12 @@ const LoginPage = () => {
             </Typography>
           </div>
         </form>
+
+        <MagicLinkModal
+          isOpen={isMagicLinkModalOpen}
+          onClose={() => setIsMagicLinkModalOpen(false)}
+          defaultEmail={values.email}
+        />
 
         <ForgotPasswordModal
           isOpen={isOpenResetPasswordModal}

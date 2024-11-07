@@ -250,3 +250,19 @@ export const checkAuthToken = async (payload: { token: string }) => {
     throw new Error(error.message || "Something went wrong");
   }
 };
+
+export const sendMagicLink = async (formData: FormData) => {
+  const response = await fetch("https://smartminds.eoi.group/auth/send-magic-link/", {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await response.json();
+  
+  if (!response.ok) {
+    throw new Error(data.error || "Failed to send magic link");
+  }
+
+  return data;
+};
+ 
