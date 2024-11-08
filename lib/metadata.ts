@@ -20,11 +20,21 @@ export function constructViewport(): Viewport {
   };
 }
 
+// Helper function to ensure HTTPS
+function ensureHttps(url: string): string {
+  if (url.startsWith('http://')) {
+    return url.replace('http://', 'https://');
+  }
+  if (!url.startsWith('https://')) {
+    return `https://${url}`;
+  }
+  return url;
+}
 
 const defaultMetadata = {
   title: "VirtualEra.ai",
   description: "Every Conversation, A New Connection",
-  image: "/og-image.png",
+  image: `${ensureHttps(process.env.NEXT_PUBLIC_APP_URL || '')}/logo.png`,
 } as const;
 
 export function constructMetadata({
@@ -35,6 +45,8 @@ export function constructMetadata({
   isPublicPage = false,
   path = '/'
 }: MetadataProps = {}): Metadata {
+  const baseUrl = ensureHttps(process.env.NEXT_PUBLIC_APP_URL || 'virtualera.ai');
+
   const shouldIndex = isPublicPage || [
     "/home",
     "/login",
@@ -53,7 +65,7 @@ export function constructMetadata({
   ].includes(path);
 
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://virtualEra.ai'),
+    metadataBase: new URL(baseUrl),
     title: {
       default: title,
       template: `%s | VirtualEra.ai`,
@@ -83,15 +95,16 @@ export function constructMetadata({
     openGraph: {
       type: "website",
       locale: "en_US",
-      url: `${process.env.NEXT_PUBLIC_APP_URL}${path}`,
+      url: `${baseUrl}${path}`,
       title,
       description,
       siteName: "VirtualEra.ai",
       images: [{
-        url: image,
+        url: image.startsWith('http') ? ensureHttps(image) : `${baseUrl}${image}`,
         width: 1200,
         height: 630,
         alt: title,
+        type: 'image/png',
       }],
     },
     
@@ -99,13 +112,13 @@ export function constructMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [image],
+      images: [image.startsWith('http') ? ensureHttps(image) : `${baseUrl}${image}`],
     },
     
     icons: {
-      icon: "/favicon.ico",
-      shortcut: "/favicon.ico",
-      apple: "/favicon.ico",
+      icon: `${baseUrl}/favicon.ico`,
+      shortcut: `${baseUrl}/favicon.ico`,
+      apple: `${baseUrl}/favicon.ico`,
     },
   };
-}
+} 
