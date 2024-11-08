@@ -3,7 +3,7 @@ import { Typography } from "../ui/typography";
 import Link from "next/link";
 import { AudioLines } from "lucide-react";
 import { cn } from "@/lib/utils";
-import VELogo from "@/components/ui/logo";
+import VELogo from "@/components/logo/virtualera-logo-animate";
 
 const Logo = () => {
   const [isScrolled, setIsScrolled] = useState(false);
