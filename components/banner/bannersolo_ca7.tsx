@@ -7,6 +7,8 @@ import PersonaImage from "../persona-image/persona-image";
 import { IPersona } from "@/types/persona";
 import { UserProviderBoundary } from '../error-boundary/user-provider-boundary';
 import Link from "next/link";
+//import Geolocation from '../geolocation/geolocation';
+import Pricing from '../pricing/pricing';
 
 // Add Label interface
 interface Label {
@@ -199,26 +201,30 @@ export default function CustomComponent({ personas = [] }: BannerProps) {
           fallback={
             <Link href={"/register"}>
               <div className="absolute left-1/2 transform -translate-x-1/2 text-center w-full top-[230px] md:top-[260px]">
-              <p className="font-bold uppercase text-2xl pt-3 leading-none">
-                for only $9.99 <br />
-                <span className="text-xs">*special launch limited time offer*</span>
-              </p>
-              <p className="titlecase text-xs mt-0 pt-0">
-                cancel at any time
-              </p>
-            </div>
-          </Link>
+                <p className="font-bold uppercase text-2xl pt-3 leading-none">
+                 
+                  <span className="text-sm">*special launch limited time offer*</span>
+                  <br />  for only <Pricing /> 
+                
+                </p>
+                <p className="titlecase text-xs mt-1 pt-0">
+                  cancel at any time / billed in $USD
+                </p>
+              </div>
+            </Link>
           }
         >
           {(userState) => (
             (!userState.user || !isPremiumUser(userState.user)) && (
               <div className="absolute left-1/2 transform -translate-x-1/2 text-center w-full top-[230px] md:top-[260px]">
                 <p className="font-bold uppercase text-2xl pt-3 leading-none">
-                  for only $9.99 <br />
-                  <span className="text-xs">*special launch limited time offer*</span>
+                
+                  <span className="text-sm">*special launch limited time offer*</span>
+                  <br /> for only <Pricing />
+               
                 </p>
-                <p className="titlecase text-xs mt-0 pt-0">
-                  cancel at any time
+                <p className="titlecase text-xs mt-1 pt-0">
+                  cancel at any time / billed in $USD
                 </p>
               </div>
             )
